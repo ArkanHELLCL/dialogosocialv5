@@ -1,0 +1,72 @@
+/*Menu perfil general*/
+.content-perfil{
+	display: none;
+	right: 50px;
+}
+.imgPerfil{
+	width:30px;
+	height:30px;
+	border-radius:16px;	
+}
+.perfil{
+	padding: .75rem 0rem;
+	position: relative;
+	color:#5e5e5e;
+}
+.perfil span.user{
+	padding-right: 10px;
+	font-size: 14px;
+	cursor: pointer;	
+}
+.perfil span.user:hover{
+	text-decoration: underline;
+}
+/*Menu perfil dark mode*/
+.bootstrap-dark ul.menuperfil, .bootstrap-dark ul.menusistema, .bootstrap-dark ul.menumantenedores, .bootstrap-dark ul.acciones, .bootstrap-dark ul.informes{
+	border: 1px solid #aed0ea;
+	background: rgba(92,92,92,0.9);
+	color: #eeeeee;		
+}
+.bootstrap-dark ul.menuperfil li:hover, .bootstrap-dark ul.menusistema li:hover, .bootstrap-dark ul.menumantenedores li:hover, .bootstrap-dark ul.acciones li:hover, .bootstrap-dark ul.informes li:hover{
+	cursor: pointer;
+	background: rgba(0,0,0,0.5);
+	border-radius: 10px;
+}
+/*Menu perfil dark mode*/
+/*Menu perfil ligth mode*/
+.bootstrap .perfil span.user{
+	color: #2779aa;
+}
+.bootstrap ul.menuperfil, .bootstrap ul.menusistema, .bootstrap ul.menumantenedores, .bootstrap ul.acciones, .bootstrap ul.informes{
+	background: rgba(242,245,247,0.9);
+	color: #2779aa;
+	border: 1px solid #aed0ea;
+}
+.bootstrap ul.menuperfil li:hover, .bootstrap ul.menusistema li:hover, .bootstrap ul.menumantenedores li:hover, .bootstrap ul.acciones li:hover, .bootstrap ul.informes li:hover{
+	background: rgba(128,191,236,0.5);	
+}
+/*Menu perfil ligth mode*/
+.content-perfil{
+	font-size: 13px;
+	list-style: none;
+	padding-top: 10px;
+	position: absolute;
+	z-index: 3003;
+	min-width: 220px;		
+	/*display: none;*/		
+}
+ul.menuperfil{
+	font-size: 13px;
+	text-align: left;
+	list-style: none;
+	padding: 0px;
+	border-radius: 10px;
+	margin-bottom: 0;	
+}
+ul.menuperfil li{
+	padding: 5px 15px;
+}
+ul.menuperfil li:hover{
+	cursor: pointer;	
+	border-radius: 10px;
+}
