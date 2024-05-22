@@ -77,8 +77,15 @@
 		if not rs.eof then			
 			VER_Descripcion	= rs("VER_Descripcion")	
 			VER_NumeroInforme = rs("VER_NumeroInforme")
+			VER_Estado = rs("VER_EStado")
 		end if		
 		rs.Close		
+	end if
+
+	if(VER_Estado=1) then
+		Estado="checked"
+	else
+		Estado=""		
 	end if
 	
 	response.write("200\\")%>
@@ -173,6 +180,14 @@
 										</div>
 									</div>
 								</div>																
+							</div>
+							<div class="row">
+								<div class="col-sm-12 col-md-12 col-lg-2">
+									<div class="switch">
+										<input type="checkbox" id="VER_Estado" class="switch__input" <%=Estado%>>
+										<label for="VER_Estado" class="switch__label">Activado</label>
+									</div>
+								</div>
 							</div><%
 							if(mode="mod") then%>
 								<input type="hidden" id="VER_Corr" name="VER_Corr" value="<%=VER_Corr%>">
@@ -253,11 +268,16 @@
 				}				
 			}
 			formValidate("#frmdocumentos");			
-			if($("#frmdocumentos").valid()){				
+			if($("#frmdocumentos").valid()){
+				if($("#VER_Estado").is(":checked")){
+					var VER_Estado = 1
+				}else{
+					var VER_Estado = 0
+				}
 				$.ajax({
 					type: 'POST',
 					url: $("#frmdocumentos").attr("action"),
-					data: $("#frmdocumentos").serialize(),
+					data: $("#frmdocumentos").serialize() + "&VER_Estado=" + VER_Estado,
 					dataType: "json",
 					success: function(data) {						
 						if(data.state=="200"){

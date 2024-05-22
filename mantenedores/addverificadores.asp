@@ -10,8 +10,9 @@
 	LIN_Id				= Request("LIN_Id")	
 	VER_Descripcion 	= LimpiarUrl(Request("VER_Descripcion"))
 	VER_NumeroInforme 	= Request("VER_NumeroInforme")
+	VER_Estado			= Request("VER_Estado")
  
-	datos = LIN_Id & ",'" & VER_Descripcion & "'," & VER_NumeroInforme & "," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'"		
+	datos = LIN_Id & ",'" & VER_Descripcion & "'," & VER_NumeroInforme & "," & VER_Estado & "," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'"		
 
 	set cnn = Server.CreateObject("ADODB.Connection")
 	on error resume next	

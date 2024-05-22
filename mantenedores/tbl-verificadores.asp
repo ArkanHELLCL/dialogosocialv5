@@ -42,7 +42,8 @@
 						Informe="Inicio"
 					else
 						if(rsx("VER_NumeroInforme")=2) then
-							Informe="Parcial"
+							'Informe="Parcial"
+							Informe="Desarrollo"
 						else
 							if(rsx("VER_NumeroInforme")=3) then
 								Informe="Final"
@@ -87,7 +88,27 @@
 							end if
 						end if
 					else
-						Informe="Linea no definida"
+						if(rs("LFO_Id")=13) then
+							if(rsx("VER_NumeroInforme")=0) then
+								Informe="Todos"
+							else
+								if(rsx("VER_NumeroInforme")=1) then
+									Informe="Inicio"
+								else
+									if(rsx("VER_NumeroInforme")=2) then
+										Informe="Desarrollo"
+									else
+										if(rsx("VER_NumeroInforme")=3) then
+											Informe="Final"
+										else
+											Informe="No definido"
+										end if
+									end if
+								end if
+							end if
+						else
+							Informe="Linea no definida"
+						end if
 					end if
 				end if
 			end if

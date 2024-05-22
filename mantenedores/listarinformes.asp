@@ -4,7 +4,7 @@
 	LFO_Id 				= request("LFO_Id")
 	VER_NumeroInforme 	= request("VER_NumeroInforme")
 	
-	Dim Informe(3,4)
+	Dim Informe(4,4)
 	Informe(1,0) = ""
 	Informe(1,1) = ""
 	Informe(1,2) = ""
@@ -13,7 +13,8 @@
 	'LFO_Id=10'
 	Informe(1,0) = "Todos"
 	Informe(1,1) = "Inicio"
-	Informe(1,2) = "Parcial"
+	'Informe(1,2) = "Parcial"
+	Informe(1,2) = "Desarrollo"
 	Informe(1,3) = "Final"
 	
 	'LFO_Id=11'
@@ -27,6 +28,12 @@
 	Informe(3,1) = "Inicio"	
 	Informe(3,2) = "Final"
 	Informe(3,3) = ""
+
+	'LFO_Id=13'
+	Informe(4,0) = "Todos"
+	Informe(4,1) = "Inicio"	
+	Informe(4,2) = "Desarrollo"
+	Informe(4,3) = "Final"
 	
 	strInforme = "No Definido"
 	if(VER_NumeroInforme="" or IsNull(VER_NumeroInforme<>"")) then
@@ -45,9 +52,13 @@
 				if(LFO_Id=12) then
 					LFO=3
 				else
-					'strInforme="Linea no definida"
-					response.write("1//Linea Formativa no definida")
-					response.end()
+					if(LFO_Id=13) then
+						LFO=4
+					else
+						'strInforme="Linea no definida"
+						response.write("1//Linea Formativa no definida")
+						response.end()
+					end if
 				end if
 			end if
 		end if

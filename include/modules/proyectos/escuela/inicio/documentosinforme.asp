@@ -172,9 +172,11 @@
 	end if
 	
 	xpath="D:\DocumentosSistema\dialogosocial\" & carpetapry & "\" & carpeta_informe & "\documentos\tpo-"
-	x=0				
+	x=0
+	corr=0
 	dataDocumentos = "{""data"":["
-	do While Not rs.EOF				
+	do While Not rs.EOF
+		corr = corr + 1
 		if x=1 then
 			dataDocumentos = dataDocumentos & ","
 		end if
@@ -320,7 +322,7 @@
 		barradeprogreso="<div class='progress-bar'><div class='progress'></div></div>"
 		acciones=acciones & barradeprogreso	
 		
-		dataDocumentos = dataDocumentos & "[""" & rs("VER_Corr") & """,""" & rs("VER_Descripcion") & """,""" & subido & """,""" & rs("VPR_FechaSubido") & """,""" & rs("VPR_UsuarioSubido")	& """,""" & revisado & """,""" & rs("VPR_FechaRevisado") & """,""" & rs("VPR_UsuarioRevisado") & """,""" & aprobado & """,""" & rs("VPR_FechaAprobado") & """,""" & rs("VPR_UsuarioAprobado") & """,""" & rechazo & """,""" & rs("VPR_FechaRechazado") & """,""" & rs("VPR_UsuarioRechazado") & """,""" & eliminado & """,""" & rs("VPR_FechaEliminado") & """,""" & rs("VPR_UsuarioEliminado")	& """,""" & acciones & """]"			
+		dataDocumentos = dataDocumentos & "[""" & corr & """,""" & rs("VER_Descripcion") & """,""" & subido & """,""" & rs("VPR_FechaSubido") & """,""" & rs("VPR_UsuarioSubido")	& """,""" & revisado & """,""" & rs("VPR_FechaRevisado") & """,""" & rs("VPR_UsuarioRevisado") & """,""" & aprobado & """,""" & rs("VPR_FechaAprobado") & """,""" & rs("VPR_UsuarioAprobado") & """,""" & rechazo & """,""" & rs("VPR_FechaRechazado") & """,""" & rs("VPR_UsuarioRechazado") & """,""" & eliminado & """,""" & rs("VPR_FechaEliminado") & """,""" & rs("VPR_UsuarioEliminado")	& """,""" & acciones & """]"			
 	
 		rs.movenext		
 	loop	
