@@ -30,7 +30,7 @@
 		calendario=""		
 	end if
 	
-	if(session("ds5_usrperfil")=2 or session("ds5_usrperfil")=4 or session("ds5_usrperfil")=5) then
+	if(session("ds5_usrperfil")=4 or session("ds5_usrperfil")=5) then
 		mode="vis"
 		modo=4
 		disabled="readonly disabled"		

@@ -498,9 +498,9 @@
 													<th>Inicio</th>
 													<th>A</th>
 													<th>Informe Inicio Fecha Aceptado</th>
-													<th>Desarrollo</th>
+													<th>Avances</th>
 													<th>A</th>
-													<th>Informe Desarrollo Fecha Aceptado</th>													
+													<th>Informe Avances Fecha Aceptado</th>													
 													<th>Final</th>
 													<th>A</th>
 													<th>Informe Final Fecha Aceptado</th>	

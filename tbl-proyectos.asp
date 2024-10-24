@@ -262,7 +262,7 @@
 				diferenciaTercerInforme=rs("PRY_InformeFinalFechaDiferencia")
 				estadoTercer=PRY_InformeFinalEstado
 			else
-				if(LFO_Id=11) then
+				if(LFO_Id=11 or LFO_Id=13) then
 					if rs("PRY_CreacionProyectoEstado") then
 						if rs("PRY_InformeInicialAceptado") then
 							if rs("PRY_InformeConsensosAceptado") then

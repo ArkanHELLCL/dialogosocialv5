@@ -2,7 +2,7 @@
 <!-- #INCLUDE file="session.min.inc" -->
 <!-- #INCLUDE file="functions.inc" -->
 <%	
-	if(session("ds5_usrperfil")=2 or session("ds5_usrperfil")=4 or session("ds5_usrperfil")=5) then
+	if(session("ds5_usrperfil")=4 or session("ds5_usrperfil")=5) then
 		response.Write("403\\Perfil no autorizado")
 		response.End() 			   
 	end if	
