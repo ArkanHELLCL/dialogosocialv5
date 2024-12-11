@@ -582,7 +582,7 @@ sqlsrv_close( $conn);
 
 
 
-$INF_Path='d:/DocumentosSistema/dialogosocial/'.$PRY_Carpeta.'/informes/informeavances/';
+$INF_Path='d:/DocumentosSistema/dialogosocial/'.$PRY_Carpeta.'/informes/informedesarrollo/';
 if (!is_dir($INF_Path)) {
     mkdir($INF_Path, 0777, true);
 }

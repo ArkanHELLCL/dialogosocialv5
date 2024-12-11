@@ -894,7 +894,7 @@
 		hitoslen=ubound(hitos)
 		informesnombre=array("informecreacioneficacia.pdf","informeinicialeficacia.pdf","informeavanceseficacia.pdf","informedesarrolloeficacia.pdf","informefinaleficacia.pdf")
 		informessubdir=array("informecreacion","informeinicial","informeavances","informedesarrollo","informefinal")
-		prtinformes=array("/prt-informecreacioneficacia","/prt-informeinicialeficacia","/prt-informeavanceseficacia","/prt-informedesarrollo","/prt-informefinaleficacia")
+		prtinformes=array("/prt-informecreacioneficacia","/prt-informeinicialeficacia","/prt-informeavanceseficacia","/prt-informedesarrolloeficacia","/prt-informefinaleficacia")
 		dir="d:\DocumentosSistema\dialogosocial\" & replace(replace(PRY_Carpeta,"{",""),"}","") & "\informes\"
 		dim fs
 		informesexiste = array(false,false,false,false,false)
