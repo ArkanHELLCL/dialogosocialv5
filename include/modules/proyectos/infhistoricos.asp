@@ -130,6 +130,42 @@
 			end if
 		end if
 	end if
+
+	if LFO_Id=14 then
+		if PRY_Hito=0 then
+			informe="Creación"
+			carpeta="informecreacion"
+			titulo="Informe de Creación"
+		else
+			if PRY_Hito=1 then
+				informe="Inicial"
+				carpeta="informeinicial"
+				titulo="Informe Inicio"
+			else
+				if PRY_Hito=2 then
+					informe="Avances"
+					carpeta="informeavances"
+					titulo="Informe Avances"
+				else
+					if PRY_Hito=3 then
+						informe="Desarrollo"
+						carpeta="informedesarrollo"
+						titulo="Informe Desarrollo"
+					else
+						if PRY_Hito=4 then
+							informe="Final"
+							carpeta="informefinal"
+							titulo="Informe Final"
+						else
+							informe="desconocido"
+							carpeta=""
+							titulo="desconocido"
+						end if
+					end If
+				end if
+			end if
+		end if
+	end if
 		
 	cnn.close
 	set cnn = nothing		

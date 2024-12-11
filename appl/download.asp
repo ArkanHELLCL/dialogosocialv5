@@ -331,7 +331,6 @@ if LFO_Id = 11 or LFO_Id = 13 then
 		end if
 	end if
 end if
-
 if LFO_Id=12 then
 	if PRY_Hito=0 then
 		carpeta_informe="informecreacion"
@@ -442,6 +441,128 @@ if LFO_Id=12 then
 						end if
 					end if
 				end if				
+			end if
+		end if
+	end if
+end if
+if LFO_Id=14 then
+	if PRY_Hito=0 then
+		carpeta_informe="informecreacion"
+	else
+		if PRY_Hito=1 then
+			carpeta_informe="informeinicial"
+		else			
+			if PRY_Hito=2 then
+				carpeta_informe="informeavances"
+			else
+				if PRY_Hito=3 then
+					carpeta_informe="informedesarrollo"
+				else
+					if PRY_Hito=4 then
+						carpeta_informe="informefinal"
+					else
+						if PRY_Hito=94 then
+							carpeta_informe="verificadores"
+						else
+							if PRY_Hito=95 then
+								carpeta_informe="evidencias"
+							else					
+								if PRY_Hito=96 then
+									carpeta_informe="adecuaciones"
+								else
+									if PRY_Hito=97 then
+										carpeta_informe="justificaciones"
+									else
+										if PRY_Hito=98 then
+											carpeta_informe="fichasalumnos"
+										else
+											if PRY_Hito=100 then
+												carpeta_informe="contratos"
+											else
+												if PRY_Hito=101 then
+													carpeta_informe="presupuestos"
+												else
+													if PRY_Hito=105 then
+														carpeta_informe="verificadoresproyecto"
+													else
+														if PRY_Hito=106 then
+															carpeta_informe="verificadoresmarketing"
+														else												
+															if PRY_Hito=107 then
+																carpeta_informe="incumplimientos"
+															else															
+																if PRY_Hito=108 then
+																	carpeta_informe="incumplimientos"
+																else															
+																	if PRY_Hito=109 then
+																		carpeta_informe="coordinador"
+																	else															
+																		if PRY_Hito=110 then
+																			carpeta_informe="encargado"
+																		else															
+																			if PRY_Hito=111 then
+																				carpeta_informe="relatores"
+																			else
+																				if PRY_Hito=112 then
+																					carpeta_informe="verificadorsindicato\s-"
+																				else
+																					if PRY_Hito=113 then
+																						carpeta_informe="verificadorempresa\e-"
+																					else
+																						if PRY_Hito=114 then
+																							carpeta_informe="verificadorcivil\c-"
+																						else
+																							'if PRY_Hito=115 then
+																							'	carpeta_informe="verificadorgobierno\g-"
+																							'else
+																							if PRY_Hito=115 then
+																								carpeta_informe= "verificadorconvocatoria\c-"			
+																							else
+																								'if PRY_Hito=116 then
+																								'	carpeta_informe= "\verificadorenfoques\e-"						
+																								'else
+																									if PRY_Hito=117 then
+																										carpeta_informe= "\verificadoresplancomunicacional\p-"
+																									else
+																										if PRY_Hito=118 then
+																											carpeta_informe= "\verificadoresplancontingencia\p-"
+																										else
+																											if PRY_Hito=999 then
+																												carpeta_informe="verificadoresmesas"
+																											else
+																												if PRY_Hito=124 then
+																													carpeta_informe="responsable1"
+																												else
+																													if PRY_Hito=125 then
+																														carpeta_informe="responsable2"
+																													else
+																														carpeta_informe="informes"
+																													end if
+																												end if
+																											end if
+																										end if
+																									end if
+																								'end if
+																							end if
+																						end if
+																					end if
+																				end if
+																			end if
+																		end if	
+																	end if
+																end if
+															end if
+														end if
+													end if
+												end if
+											end if
+										end if
+									end if
+								end if
+							end if
+						end if
+					end if
+				end if
 			end if
 		end if
 	end if
