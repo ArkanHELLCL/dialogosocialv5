@@ -110,7 +110,7 @@ HostName = "https://" & Request.ServerVariables("SERVER_NAME")
 <!-- Text Editor -->
 
 <!--Custom Site Style-->
-<link href="<%=HostName%>/css/escritorio.css?v37.9" rel="stylesheet">
+<link href="<%=HostName%>/css/escritorio.css?v38.0" rel="stylesheet">
 <link href="<%=HostName%>/css/breadcrumb.css?v3.1" rel="stylesheet">
 <link href="<%=HostName%>/css/descargas.css?v2.2" rel="stylesheet">
 <link href="<%=HostName%>/css/perfil.css?v3.1" rel="stylesheet">

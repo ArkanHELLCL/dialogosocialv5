@@ -4,7 +4,7 @@
 	LFO_Id 				= request("LFO_Id")
 	VER_NumeroInforme 	= request("VER_NumeroInforme")
 	
-	Dim Informe(4,4)
+	Dim Informe(5,5)
 	Informe(1,0) = ""
 	Informe(1,1) = ""
 	Informe(1,2) = ""
@@ -34,6 +34,13 @@
 	Informe(4,1) = "Inicio"	
 	Informe(4,2) = "Desarrollo"
 	Informe(4,3) = "Final"
+
+	'LFO_Id=14'
+	Informe(5,0) = "Todos"
+	Informe(5,1) = "Inicio"	
+	Informe(5,2) = "Avances"	
+	Informe(5,3) = "Desarrollo"
+	Informe(5,4) = "Final"
 	
 	strInforme = "No Definido"
 	if(VER_NumeroInforme="" or IsNull(VER_NumeroInforme<>"")) then
@@ -55,9 +62,13 @@
 					if(LFO_Id=13) then
 						LFO=4
 					else
-						'strInforme="Linea no definida"
-						response.write("1//Linea Formativa no definida")
-						response.end()
+						if(LFO_Id=14) then
+							LFO=5
+						else
+							'strInforme="Linea no definida"
+							response.write("1//Linea Formativa no definida")
+							response.end()
+						end if
 					end if
 				end if
 			end if
@@ -69,7 +80,7 @@
 		if(VER_NumeroInforme=99) then%>
 			<option value="" disabled selected></option><%
 		end if
-		for j=0 to 3
+		for j=0 to 4
 			if(Informe(LFO,j)<>"") then
 				if(CInt(VER_NumeroInforme)=j) then%>
 					<option value="<%=j%>" selected><%=Informe(LFO,j)%></option><%

@@ -453,7 +453,7 @@
 				end if
 			next
 			if existe or session("ds5_usrperfil")<>3 then%>
-				<!--tab12-->
+				<!--tab13-->
 				<div id="tab13" data-lin="13">
 
 					<!--wrapper-editor-->
@@ -558,7 +558,129 @@
 					</div>
 					<!--wrapper-editor-->
 				</div>
-				<!--tab12--><%
+				<!--tab13--><%
+			end if
+
+			existe=false
+			for each x in lineas
+				if x=14 then
+					existe=true
+					cont=cont+1
+				end if
+			next
+			if existe or session("ds5_usrperfil")<>3 then%>
+				<!--tab12-->
+				<div id="tab14" data-lin="14">
+
+					<!--wrapper-editor-->
+					<div class="wrapper-editor">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">						
+							<!-- Table with panel -->					
+							<div class="card card-cascade narrower">
+								<!--Card image-->
+								<div class="view view-cascade gradient-card-header <%=gradiente%> narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center">
+									<div><%
+										if session("ds5_usrperfil")=1 or (session("ds5_usrperfil")=2 and tpo<>1) then%>
+											<button class="btn btn-success btn-rounded btn-sm waves-effect buttonAdd" title="Crear un nuevo proyecto" type="button" data-url="" data-toggle="tooltip" data-id="14">Agregar<i class="fas fa-plus ml-1"></i></button><%
+										end if%>										
+									</div>
+									<a href="" class="white-text mx-3"><i class="fas fa-book"></i> <%=titulo%></a>
+									<div><%
+										if session("ds5_usrperfil")=1 then%>
+											<button class="btn btn-danger btn-rounded buttonArchive btn-sm waves-effect" data-toggle="tooltip" title="Archivar proyecto">Archivar<i class="fas fa-archive ml-1"></i></button><%
+										end if%>
+										<button class="btn btn-secondary btn-rounded buttonExport btn-sm waves-effect" data-toggle="tooltip" title="Exportar datos de la tabla" data-id="eficacia">Exportar<i class="fas fa-download ml-1"></i></button>
+									</div>
+								</div>
+								<!--/Card image-->
+								<div class="px-4">
+									<div class="table-wrapper col-sm-12 mCustomScrollbar" id="container-table-1">
+										<!--Table-->
+										<table id="tbl-eficacia" class="ts table table-striped table-bordered dataTable table-sm" cellspacing="0" width="100%" data-id="eficacia">
+											<thead>
+												<tr>								
+													<th>#</th>
+													<th>Empresa Ejecutora</th>
+													<th>P.M.</th>
+													<th>P.A.</th>
+													<th>#</th>
+													<th>L.Formativa</th>
+													
+													<th>#</th>
+													<th>Línea</th>
+													<th>L.M.</th>
+													<th>Reg.</th> 
+													<th>Año</th>
+													<th>Inicio</th>
+													<th>A</th>
+													<th>Informe Inicio Fecha Aceptado</th>
+													<th>Avances</th>
+													<th>A</th>
+													<th>Informe Avances Fecha Aceptado</th>
+
+													<th>Desarrollo</th>
+													<th>A</th>
+													<th>Informe desarrollo Fecha Aceptado</th>
+
+
+													<th>Final</th>
+													<th>A</th>
+													<th>Informe Final Fecha Aceptado</th>	
+													<th>Hito</th>
+													<th>Estado</th>
+													<th>Región</th>
+													<th>Comuna</th>							
+													<th>Nombre Revisor</th>
+													<th>Apellido Revisor</th>
+													<th>Mail Revisor</th>
+													<th>Telefono Revisor</th>
+													<th>Direccion Revisor</th>							
+													<th>Nombre Ejecutor</th>
+													<th>Apellido Ejecutor</th>
+													<th>Mail Ejecutor</th>
+													<th>Telefono Ejecutor</th>
+													<th>Direccion Ejecutor</th>
+													<th>Nombre Institucion Ejecutor</th>
+													<th>Sexo Ejecutor</th>
+													
+													<th>Encargado Proyecto</th>
+													<th>Encargado Proyecto Mail</th>
+													<th>Encargado Proyecto Celular</th>
+													<th>Sexo Encargado Proyecto</th>
+													<th>Encargado Actividades</th>
+													<th>Encargado Actividades Mail</th>
+													<th>Encargado Actividades Celular</th>
+													<th>Sexo Encargado Actividades</th>
+													<th>Informe Inicio FechaEnvio</th>				
+													<th>Informe Final Fecha Envio</th>
+													<th>Creacion Proyecto Fecha Envio</th>	
+													<th>Informe Inicio Aceptado</th>			
+													<th>Informe Desarrollo Aceptado</th>	
+													<th>Informe Final Aceptado</th>	
+													<th>Direccion de Lanzamiento</th>			
+													<th>Fecha de Lanzamiento</th>	
+													<th>Hora de Lanzamiento</th>			
+													<th>Direccion de Cierre</th>			
+													<th>Fecha de Cierre</th>	
+													<th>Hora de Cierre</th>
+													
+													<th>Dias para vencimiento Inf.Inicial</th>
+													<th>Dias para vencimiento Inf.Desarrollo</th>
+													<th>Dias para vencimiento Inf.Final</th>			
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<!-- Table with panel -->		
+						</div>	  
+					</div>
+					<!--wrapper-editor-->
+				</div>
+				<!--tab14--><%
 			end if
 			
 			if cont=0 and session("ds5_usrperfil")=3 then%>
@@ -695,6 +817,37 @@
 	</div>
 </div>
 <!-- Formulario para crear un nuevo proyecto mesas-->
+
+<!-- Formulario para crear un nuevo proyecto eficacia-->
+<div class="modal fade in modalAdd" id="modalAdd-14" tabindex="-1" role="dialog" aria-labelledby="modalAdd-14Label" aria-hidden="true" data-id="14">
+	<div class="modal-dialog cascading-modal narrower modal-lg" role="document">  		
+    	<div class="modal-content">		
+      		<div class="modal-header view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-center align-items-center" style="height: 3rem;">
+        		<div class="text-left" style="font-size:1.25rem;"><i class="fas fa-edit"></i> Ingresa una linea para recuperación</div>				
+      		</div>
+			<form role="form" action="" method="POST" name="frmseleclinea-14" id="frmseleclinea-14" class="needs-validation">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<div class="md-form input-with-post-icon">
+								<div class="error-message">									
+									<div class="select" id="creaLinea-14">
+										
+									</div>
+								</div>
+							</div>
+						</div>								
+					</div>
+				</div>				
+		  		<div class="modal-footer">
+					<button type="button" class="btn btn-secondary btn-md waves-effect" data-dismiss="modal"><i class="fas fa-times"></i> Cerrar</button>
+					<button type="button" class="btn btn-primary btn-md waves-effect" id="btn_crealinea-14" name="btn_crealinea-14"><i class="fas fa-plus"></i> Crear</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- Formulario para crear un nuevo proyecto eficacia-->
 <%End if%>
 
 <script>
@@ -750,6 +903,13 @@
 					recuperacionTable.ajax.reload();
 				}
 			}
+			if(LIN_Id==14){
+				if ( ! $.fn.DataTable.isDataTable( '#tbl-eficacia' ) ) {				 	
+					tableEficacia(LIN_Id)
+				}else{
+					recuperacionTable.ajax.reload();
+				}
+			}
 		});		
 		$(".buttonAdd").click(function(){
 			LFO_Id=$(this).data("id");
@@ -792,7 +952,7 @@
 				
 		//Escuela
 		var escuelaTable;
-		function tableEscuelas(LIN_Id){			
+		function tableEscuelas(LIN_Id){
 			var tables = $.fn.dataTable.fnTables(true);			
 			$(tables).each(function () {
 				$(this).dataTable().fnDestroy();
@@ -921,7 +1081,7 @@
 		
 		//Mesas
 		var mesasTable;
-		function tableMesas(LIN_Id){			
+		function tableMesas(LIN_Id){
 			var tables = $.fn.dataTable.fnTables(true);			
 			$(tables).each(function () {
 				$(this).dataTable().fnDestroy();
@@ -1050,7 +1210,7 @@
 		
 		//Cursos
 		var cursosTable;
-		function tableCursos(LIN_Id){			
+		function tableCursos(LIN_Id){
 			var tables = $.fn.dataTable.fnTables(true);			
 			$(tables).each(function () {
 				$(this).dataTable().fnDestroy();
@@ -1161,7 +1321,7 @@
 		
 		//Recuperacion
 		var recuperacionTable;
-		function tableRecuperacion(LIN_Id){			
+		function tableRecuperacion(LIN_Id){
 			var tables = $.fn.dataTable.fnTables(true);			
 			$(tables).each(function () {
 				$(this).dataTable().fnDestroy();
@@ -1247,6 +1407,155 @@
 						}
 					}else{					
 						$(nRow).find("td").eq(11).css("background", "rgba(91, 192, 222, .3)");
+					}
+										
+					$(nRow).click(function(e){
+						e.preventDefault();
+						e.stopImmediatePropagation();
+						e.stopPropagation();
+
+						var PRY_Id=$(this).find("td")[0].innerText;
+						var LIN_Id=$(this).find("td")[4].innerText;
+						$.ajax( {
+							type:'POST',					
+							url: '/bandeja-de-entrada/modificar',
+							data: {key2:PRY_Id,key1:LIN_Id},
+							success: function ( data ) {
+								param = data.split(sas)
+								if(param[0]==200){						
+									$("#contenbody").html(param[1]);
+									var href = window.location.href;
+									var newhref = href.substr(href.indexOf("/home")+6,href.length);
+									var href_split = newhref.split("/")
+
+									href_split[1]="modificar";
+									href_split[2]=LIN_Id;
+									href_split[3]=PRY_Id;
+									var newurl="/home"
+									$.each(href_split, function(i,e){
+										newurl=newurl + "/" + e
+									});
+									window.history.replaceState(null, "", newurl);
+									cargabreadcrumb("/breadcrumbs","");
+								}
+							},
+							error: function(XMLHttpRequest, textStatus, errorThrown){
+
+							}
+						});	
+					});
+				}
+			});
+		}
+
+		//Eficacia
+		var eficaciaTable;
+		function tableEficacia(LIN_Id){
+			var tables = $.fn.dataTable.fnTables(true);			
+			$(tables).each(function () {
+				$(this).dataTable().fnDestroy();
+			});			
+			eficaciaTable = $('#tbl-eficacia').DataTable({
+				lengthMenu: [ 10,15,20 ],
+				ajax:{
+					url:"<%=url%>",					
+					type:"POST",
+					dataSrc:function(json){					
+						return json.data;					
+					},
+					data:{tpo:<%=tpo%>,LFO_Id:LIN_Id}					
+				},	
+				columnDefs: [{
+					"targets": [ 4,5,8,10,13,16,19,22,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61 ],
+					"visible": false,
+					"searchable": false
+					},{
+					"targets": [0,2,3,6,9,12,15,18],"width":"20px"
+					}
+				],
+				autoWidth: false,				
+				order:[0,"desc"],
+				fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {					
+					var estIni = $(aData)[50];
+					var estPar = $(aData)[51];
+					var estCon = $(aData)[52];
+					var estFin = $(aData)[53];					
+					
+					var dvIni = parseInt($(aData)[61]);
+					var dvPar = parseInt($(aData)[61]);
+					var dvCon = parseInt($(aData)[62]);
+					var dvFin = parseInt($(aData)[63]);					
+					
+					if(estIni=="No Aceptado" || estIni=="En Curso"){
+						if(dvIni>5){
+							$(nRow).find("td").eq(7).css("background", "rgba(217, 83, 79, .3)");
+						}else{
+							if(dvIni<=5 && dvIni>=0){
+								if($(nRow).find("td").eq(7).html()!=""){
+									$(nRow).find("td").eq(7).css("background", "rgba(240, 173, 78, .3)");
+								}
+							}else{
+								if(dvIni<0){
+									$(nRow).find("td").eq(7).css("background", "rgba(92, 184, 92, .3)");									
+								}
+							}
+						}
+					}else{					
+						$(nRow).find("td").eq(7).css("background", "rgba(91, 192, 222, .3)");
+					}
+					
+					if(estPar=="No Aceptado" || estPar=="En Curso"){
+						if(dvPar>5){
+							$(nRow).find("td").eq(9).css("background", "rgba(217, 83, 79, .3)");
+						}else{
+							if(dvPar<=5 && dvPar>=0){
+								if($(nRow).find("td").eq(9).html()!=""){
+									$(nRow).find("td").eq(9).css("background", "rgba(240, 173, 78, .3)");
+								}
+							}else{
+								if(dvPar<0){
+									$(nRow).find("td").eq(9).css("background", "rgba(92, 184, 92, .3)");									
+								}
+							}
+						}
+					}else{					
+						$(nRow).find("td").eq(9).css("background", "rgba(91, 192, 222, .3)");
+					}
+					
+					if(estCon=="No Aceptado" || estCon=="En Curso"){
+						if(dvCon>5){
+							$(nRow).find("td").eq(11).css("background", "rgba(217, 83, 79, .3)");
+						}else{
+							if(dvCon<=5 && dvCon>=0){
+								if($(nRow).find("td").eq(11).html()!=""){
+									$(nRow).find("td").eq(11).css("background", "rgba(240, 173, 78, .3)");
+								}
+							}else{
+								if(dvCon<0){
+									$(nRow).find("td").eq(11).css("background", "rgba(92, 184, 92, .3)");									
+								}
+							}
+						}
+					}else{					
+						$(nRow).find("td").eq(11).css("background", "rgba(91, 192, 222, .3)");
+					}
+
+					if(estFin=="No Aceptado" || estFin=="En Curso"){
+						if(dvFin>5){
+							$(nRow).find("td").eq(13).css("background", "rgba(217, 83, 79, .3)");
+						}else{
+							if(dvFin<=5 && dvFin>=0){
+								if($(nRow).find("td").eq(13).html()!=""){
+									$(nRow).find("td").eq(13).css("background", "rgba(240, 173, 78, .3)");
+								}
+							}else{
+								if(dvFin<0){
+									$(nRow).find("td").eq(13).css("background", "rgba(92, 184, 92, .3)");									
+								}
+							}
+						}
+					}else{					
+						$(nRow).find("td").eq(13).css("background", "rgba(91, 192, 222, .3)");
 					}
 										
 					$(nRow).click(function(e){

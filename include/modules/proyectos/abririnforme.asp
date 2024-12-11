@@ -140,6 +140,33 @@
 		end if
 	end if
 
+	if LFO_Id=14 then
+		if INF_NumeroInformeTecnico=0 then
+			TIP_Id							 = 	71	
+			MEN_Texto						 = "Apertura manual del informe CREACIÓN por el " & tipo & " : " & session("ds5_usrnom") & " (Recuperación) - OBS: " & trim(MEN_Observaciones)
+		else
+			if INF_NumeroInformeTecnico=1 then
+				TIP_Id							 = 9		
+				MEN_Texto						 = "Apertura manual del informe INICIAL por el " & tipo & " : " & session("ds5_usrnom") & " (Recuperación) - OBS: " & trim(MEN_Observaciones)
+			else
+				if INF_NumeroInformeTecnico=2 then
+					TIP_Id							 = 10
+					MEN_Texto						 = "Apertura manual del informe AVANCES por el " & tipo & " : " & session("ds5_usrnom") & " (Recuperación) - OBS: " & trim(MEN_Observaciones)
+				else
+					if INF_NumeroInformeTecnico=3 then
+						TIP_Id							 = 6
+						MEN_Texto						 = "Apertura manual del informe DESARROLLO por el " & tipo & " : " & session("ds5_usrnom") & " (Eficacia) - OBS: " & trim(MEN_Observaciones)
+					else
+						if INF_NumeroInformeTecnico=4 then
+							TIP_Id							 = 11
+							MEN_Texto						 = "Apertura manual del informe FINAL por el " & tipo & " : " & session("ds5_usrnom") & " (Recuperación) - OBS: " & trim(MEN_Observaciones)
+						end if
+					end if
+				end if
+			end if
+		end if
+	end if
+
 	sql = "exec spMensaje_Agregar " & TIP_Id & ",'" & MEN_Texto & "','" & MEN_Archivo & "'," & PRY_Id &  ",'" & PRY_Identificador & "'," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'"
 	on error resume next	
 	cnn.execute sql	

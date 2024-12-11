@@ -54,7 +54,7 @@
 		response.end
 	End If		
 	
-	dataEscuela = "{""data"":["
+	dataProyectos = "{""data"":["
 	do While (Not rs.EOF)		
 		if rs("PRY_CodigoAsociado")>0 then
 			PMixto = "<i class='fas fa-thumbs-up text-success'></i><span style='display:none'>SI</span></td>"			
@@ -65,7 +65,9 @@
 			LMixta = "<i class='fas fa-thumbs-up text-success'></i><span style='display:none'>SI</span></td>"
 		else
 			LMixta = "<i class='fas fa-thumbs-down text-danger'></i><span style='display:none'>NO</span></td>"
-		end if						
+		end if
+
+
 		if rs("PRY_InformeInicioAceptado") then
 			PRY_InformeInicioAceptado = "<i class='fas fa-thumbs-up text-success'></i><span style='display:none'>SI</span></td>"
 		else
@@ -280,11 +282,35 @@
 					else
 						estado="Creación"
 					end if
+				Else
+					if(LFO_Id=14) then
+						if rs("PRY_CreacionProyectoEstado") then
+							if rs("PRY_InformeInicialAceptado") then
+								if rs("PRY_InformeConsensosAceptado") then
+									if rs("PRY_InformeParcialAceptado") then										
+										if rs("PRY_InformeSistematizacionAceptado") then								
+											estado="Finalizado"
+										else
+											estado="Final"
+										end if	
+									else
+										estado="Desarrollo"						
+									end if
+								else
+									estado="Avances"
+								end if
+							else
+								estado="Inicial"
+							end if
+						else
+							estado="Creación"
+						end if
+					end if
 				end if
 				fechaCreacionInforme=""
 				estadoCreacionInforme=PRY_CreacionProyectoEstado
 				fechaAceptadoCreacionInforme=""
-				diferenciaCreacionInforme=""
+				diferenciaCreacionInforme=""				
 				estadoCreacion=""
 
 				fechaPrimerInforme=rs("PRY_InformeInicialFecha")
@@ -298,6 +324,12 @@
 				fechaAceptadoSegundoInforme=rs("PRY_InformeConsensosFechaAceptado")
 				diferenciaSegundoInforme=rs("PRY_InformeConsensosFechaDiferencia")
 				estadoSegundo=PRY_InformeConsensosEstado
+
+				fechaCuartoInforme=rs("PRY_InformeParcialFecha")
+				estadoCuartoInforme=PRY_InformeParcialAceptado
+				fechaAceptadoCuartoInforme=rs("PRY_InformeParcialFechaAceptado")
+				diferenciaCuartoInforme=rs("PRY_InformeParcialFechaDiferencia")
+				estadoCuarto=PRY_InformeParcialEstado
 
 				fechaTercerInforme=rs("PRY_InformeSistematizacionFecha")
 				estadoTercerInforme=PRY_InformeSistematizacionAceptado
@@ -327,17 +359,21 @@
 		else
 			SEX_IdEncargadoActividades = "Masculino"
 		end if						
-				
-		dataEscuela = dataEscuela & "[""" & rs("PRY_Id") & """,""" & rs("PRY_EmpresaEjecutora") & """,""" & PMixto & """,""" & rs("PRY_CodigoAsociado") & """,""" & rs("LFO_Id") & """,""" & rs("LFO_Nombre") & """,""" & rs("LIN_Id") & """,""" & rs("LIN_Nombre") & """,""" & LMixta & """,""" & rs("REG_Id") & """,""" & rs("PRY_AnioProyecto") & """,""" & fechaPrimerInforme & """,""" & estadoPrimerInforme & """,""" & fechaAceptadoPrimerInforme & """,""" & fechaSegundoInforme & """,""" & estadoSegundoInforme & """,""" & fechaAceptadoSegundoInforme & """,""" & fechaTercerInforme & """,""" & estadoTercerInforme & """,""" & fechaAceptadoTercerInforme & """,""" & estado & """,""" & msg & """,""" & rs("REG_Nombre") & """,""" & rs("COM_Nombre") & """,""" & rs("USR_NombreRevisor") & """,""" & rs("USR_ApellidoRevisor") & """,""" & rs("USR_MailRevisor") & """,""" & rs("USR_TelefonoRevisor") & """,""" & rs("USR_DireccionRevisor") & """,""" & rs("USR_NombreEjecutor") & """,""" & rs("USR_ApellidoEjecutor") & """,""" & rs("USR_MailEjecutor") & """,""" & rs("USR_TelefonoEjecutor") & """,""" & rs("USR_DireccionEjecutor") & """,""" & rs("USR_NombreInstitucionEjecutor") & """,""" & USR_SexoEjecutor & """,""" & rs("PRY_EncargadoProyecto") & """,""" & rs("PRY_EncargadoProyectoMail") & """,""" & rs("PRY_EncargadoProyectoCelular") & """,""" & SEX_IdEncargadoProyecto & """,""" & rs("PRY_EncargadoActividades") & """,""" & rs("PRY_EncargadoActividadesMail") & """,""" & rs("PRY_EncargadoActividadesCelular") & """,""" & SEX_IdEncargadoActividades & """,""" & rs("PRY_InformeInicioFechaEnvio") & """,""" & rs("PRY_InformeFinalFechaEnvio") & """,""" & rs("PRY_CreacionProyectoFechaEnvio") & """,""" & estadoPrimer & """,""" & estadoSegundo & """,""" & estadoTercer & """,""" & rs("PRY_LanzamientoDireccion") & """,""" & rs("PRY_LanzamientoFecha") & """,""" & rs("PRY_LanzamientoHora") & """,""" & rs("PRY_CierreDireccion") & """,""" & rs("PRY_CierreFecha") & """,""" & rs("PRY_CierreHora") & """,""" & diferenciaPrimerInforme & """,""" & diferenciaSegundoInforme & """,""" & diferenciaTercerInforme & """]"												
-						
+		'estadoPrimer 50
+		'diferenciaPrimerInforme 60
+		if(LFO_Id = 14) then
+			dataProyectos = dataProyectos & "[""" & rs("PRY_Id") & """,""" & rs("PRY_EmpresaEjecutora") & """,""" & PMixto & """,""" & rs("PRY_CodigoAsociado") & """,""" & rs("LFO_Id") & """,""" & rs("LFO_Nombre") & """,""" & rs("LIN_Id") & """,""" & rs("LIN_Nombre") & """,""" & LMixta & """,""" & rs("REG_Id") & """,""" & rs("PRY_AnioProyecto") & """,""" & fechaPrimerInforme & """,""" & estadoPrimerInforme & """,""" & fechaAceptadoPrimerInforme & """,""" & fechaSegundoInforme & """,""" & estadoSegundoInforme & """,""" & fechaAceptadoSegundoInforme & """,""" & fechaCuartoInforme & """,""" & estadoCuartoInforme & """,""" & fechaAceptadoCuartoInforme & """,""" & fechaTercerInforme & """,""" & estadoTercerInforme & """,""" & fechaAceptadoTercerInforme  & """,""" & estado & """,""" & msg & """,""" & rs("REG_Nombre") & """,""" & rs("COM_Nombre") & """,""" & rs("USR_NombreRevisor") & """,""" & rs("USR_ApellidoRevisor") & """,""" & rs("USR_MailRevisor") & """,""" & rs("USR_TelefonoRevisor") & """,""" & rs("USR_DireccionRevisor") & """,""" & rs("USR_NombreEjecutor") & """,""" & rs("USR_ApellidoEjecutor") & """,""" & rs("USR_MailEjecutor") & """,""" & rs("USR_TelefonoEjecutor") & """,""" & rs("USR_DireccionEjecutor") & """,""" & rs("USR_NombreInstitucionEjecutor") & """,""" & USR_SexoEjecutor & """,""" & rs("PRY_EncargadoProyecto") & """,""" & rs("PRY_EncargadoProyectoMail") & """,""" & rs("PRY_EncargadoProyectoCelular") & """,""" & SEX_IdEncargadoProyecto & """,""" & rs("PRY_EncargadoActividades") & """,""" & rs("PRY_EncargadoActividadesMail") & """,""" & rs("PRY_EncargadoActividadesCelular") & """,""" & SEX_IdEncargadoActividades & """,""" & rs("PRY_InformeInicioFechaEnvio") & """,""" & rs("PRY_InformeFinalFechaEnvio") & """,""" & rs("PRY_CreacionProyectoFechaEnvio") & """,""" & estadoPrimer & """,""" & estadoSegundo & """,""" & estadoCuarto & """,""" & estadoTercer & """,""" & rs("PRY_LanzamientoDireccion") & """,""" & rs("PRY_LanzamientoFecha") & """,""" & rs("PRY_LanzamientoHora") & """,""" & rs("PRY_CierreDireccion") & """,""" & rs("PRY_CierreFecha") & """,""" & rs("PRY_CierreHora") & """,""" & diferenciaPrimerInforme & """,""" & diferenciaSegundoInforme & """,""" & diferenciaCuartoInforme & """,""" & diferenciaTercerInforme & """]"
+		else
+			dataProyectos = dataProyectos & "[""" & rs("PRY_Id") & """,""" & rs("PRY_EmpresaEjecutora") & """,""" & PMixto & """,""" & rs("PRY_CodigoAsociado") & """,""" & rs("LFO_Id") & """,""" & rs("LFO_Nombre") & """,""" & rs("LIN_Id") & """,""" & rs("LIN_Nombre") & """,""" & LMixta & """,""" & rs("REG_Id") & """,""" & rs("PRY_AnioProyecto") & """,""" & fechaPrimerInforme & """,""" & estadoPrimerInforme & """,""" & fechaAceptadoPrimerInforme & """,""" & fechaSegundoInforme & """,""" & estadoSegundoInforme & """,""" & fechaAceptadoSegundoInforme & """,""" & fechaTercerInforme & """,""" & estadoTercerInforme & """,""" & fechaAceptadoTercerInforme & """,""" & estado & """,""" & msg & """,""" & rs("REG_Nombre") & """,""" & rs("COM_Nombre") & """,""" & rs("USR_NombreRevisor") & """,""" & rs("USR_ApellidoRevisor") & """,""" & rs("USR_MailRevisor") & """,""" & rs("USR_TelefonoRevisor") & """,""" & rs("USR_DireccionRevisor") & """,""" & rs("USR_NombreEjecutor") & """,""" & rs("USR_ApellidoEjecutor") & """,""" & rs("USR_MailEjecutor") & """,""" & rs("USR_TelefonoEjecutor") & """,""" & rs("USR_DireccionEjecutor") & """,""" & rs("USR_NombreInstitucionEjecutor") & """,""" & USR_SexoEjecutor & """,""" & rs("PRY_EncargadoProyecto") & """,""" & rs("PRY_EncargadoProyectoMail") & """,""" & rs("PRY_EncargadoProyectoCelular") & """,""" & SEX_IdEncargadoProyecto & """,""" & rs("PRY_EncargadoActividades") & """,""" & rs("PRY_EncargadoActividadesMail") & """,""" & rs("PRY_EncargadoActividadesCelular") & """,""" & SEX_IdEncargadoActividades & """,""" & rs("PRY_InformeInicioFechaEnvio") & """,""" & rs("PRY_InformeFinalFechaEnvio") & """,""" & rs("PRY_CreacionProyectoFechaEnvio") & """,""" & estadoPrimer & """,""" & estadoSegundo & """,""" & estadoTercer & """,""" & rs("PRY_LanzamientoDireccion") & """,""" & rs("PRY_LanzamientoFecha") & """,""" & rs("PRY_LanzamientoHora") & """,""" & rs("PRY_CierreDireccion") & """,""" & rs("PRY_CierreFecha") & """,""" & rs("PRY_CierreHora") & """,""" & diferenciaPrimerInforme & """,""" & diferenciaSegundoInforme & """,""" & diferenciaTercerInforme & """]"
+		end if			
 		rs.MoveNext
 		if not rs.eof then
-			dataEscuela = dataEscuela & ","
+			dataProyectos = dataProyectos & ","
 		end if
   Loop   	   				
   rs.Close
   cnn.Close     
   
-  dataEscuela=dataEscuela & "]}"	
-  response.write(dataEscuela)	  
+  dataProyectos=dataProyectos & "]}"	
+  response.write(dataProyectos)	  
 %>
