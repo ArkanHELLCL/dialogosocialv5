@@ -68,10 +68,14 @@ while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC))
       $PRY_InformeInicialFecha = $row['PRY_InformeInicialFecha'];
       $PRY_InformeConsensosFecha = $row['PRY_InformeConsensosFecha'];
       $PRY_InformeSistematizacionFecha = $row['PRY_InformeSistematizacionFecha'];
+      $PRY_InformeParcialFecha = $row['PRY_InformeParcialFecha'];
 
       $PRY_InformeInicialFechaOriginal = $row['PRY_InformeInicialFechaOriginal'];
       $PRY_InformeConsensosFechaOriginal = $row['PRY_InformeConsensosFechaOriginal'];
       $PRY_InformeSistematizacionFechaOriginal = $row['PRY_InformeSistematizacionFechaOriginal'];
+      $PRY_InformeParcialFechaOriginal = $row['PRY_InformeParcialFechaOriginal'];
+
+
 
       $PRY_FechaTramitacionContrato = $row['PRY_FechaTramitacionContrato'];
       //Fechas de cierre      
@@ -165,13 +169,13 @@ $pdf->VerSis = $ver;
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('SUBTRAB');
 //pdf->SetTitle($_POST["titulo"]);
-$pdf->SetTitle('Informe Avances Recuperación');
+$pdf->SetTitle('Informe Avances Eficacia');
 $pdf->SetSubject($ver);
 $pdf->SetKeywords('TCPDF, PDF, mesa, dialogo, social');
 
 // set default header data
 //$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
-$pdf->SetHeaderData("logo_subtrab.jpg", 30, 'Informe Avances Recuperación' , $PRY_Nombre." Nro.: ".$data->PRY_Id."\nEmpresa Ejecutora: ".$PRY_EmpresaEjecutora."\nROL/RUT: ".$EME_Rol."\Encargado/a del Pryecto: ".$PRY_EncargadoProyecto."\n\nSantiago ".date('d-m-o'));
+$pdf->SetHeaderData("logo_subtrab.jpg", 30, 'Informe Avances Eficacia' , $PRY_Nombre." Nro.: ".$data->PRY_Id."\nEmpresa Ejecutora: ".$PRY_EmpresaEjecutora."\nROL/RUT: ".$EME_Rol."\Encargado/a del Pryecto: ".$PRY_EncargadoProyecto."\n\nSantiago ".date('d-m-o'));
 
 // set header and footer fonts
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -405,27 +409,31 @@ $html = $htmlstyle.'<h4>Fechas de Cierre</h4>
                 <h5>Fechas de Cierre Informadas</h5>
                 <table  border="0">
                 <tr>
-                    <th scope="col" width="33%">Fecha Cierre Informe Incial</th>
-                    <th scope="col" width="33%">Fecha Cierre Informe Avances</th>
-                    <th scope="col" width="33%">Fecha Cierre Informe Final</th>
+                    <th scope="col" width="25%">Fecha Cierre Informe Nro 1</th>
+                    <th scope="col" width="25%">Fecha Cierre Informe Nro 2</th>
+                    <th scope="col" width="25%">Fecha Cierre Informe Nro 3</th>
+                    <th scope="col" width="25%">Fecha Cierre Informe Nro 4</th>
                 </tr>
                 <tr>
-                    <td width="33%">'.$PRY_InformeInicialFecha.'</td>
-                    <td width="33%">'.$PRY_InformeConsensosFecha.'</td>
-                    <td width="33%">'.$PRY_InformeSistematizacionFecha.'</td>
+                    <td width="25%">'.$PRY_InformeInicialFecha.'</td>
+                    <td width="25%">'.$PRY_InformeConsensosFecha.'</td>
+                    <td width="25%">'.$PRY_InformeParcialFecha.'</td>
+                    <td width="25%">'.$PRY_InformeSistematizacionFecha.'</td>
                 </tr>
                 </table>                
                 <h5>Fecha de Cierre Originales</h5>
                 <table  border="0">
                 <tr>
-                    <th scope="col" width="33%">Fecha Cierre Informe Incial</th>
-                    <th scope="col" width="33%">Fecha Cierre Informe Avances</th>
-                    <th scope="col" width="33%">Fecha Cierre Informe Final</th>
+                    <th scope="col" width="25%">Fecha Cierre Informe Nro 1</th>
+                    <th scope="col" width="25%">Fecha Cierre Informe Nro 2</th>
+                    <th scope="col" width="25%">Fecha Cierre Informe Nro 3 </th>
+                    <th scope="col" width="25%">Fecha Cierre Informe Nro 4 </th>
                 </tr>
                 <tr>
-                    <td width="33%">'.$PRY_InformeInicialFechaOriginal.'</td>
-                    <td width="33%">'.$PRY_InformeConsensosFechaOriginal.'</td>
-                    <td width="33%">'.$PRY_InformeSistematizacionFechaOriginal.'</td>
+                    <td width="25%">'.$PRY_InformeInicialFechaOriginal.'</td>
+                    <td width="25%">'.$PRY_InformeConsensosFechaOriginal.'</td>
+                    <td width="25%">'.$PRY_InformeParcialFechaOriginal.'</td>
+                    <td width="25%">'.$PRY_InformeSistematizacionFechaOriginal.'</td>
                 </tr>
                 </table>
                 <h5>Fecha Tramitación de Contrato</h5>
@@ -439,6 +447,7 @@ $html = $htmlstyle.'<h4>Fechas de Cierre</h4>
                 </table>
                 
                 <br><br>';
+
 
 // reset pointer to the last page
 $pdf->lastPage();
