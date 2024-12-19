@@ -166,6 +166,34 @@
 							end if
 						end if
 					end if
+				else
+					if LFO_Id=14 then
+						if PRY_Hito=0 then
+							carpeta_informe="informecreacion"
+						else
+							if PRY_Hito=1 then
+								carpeta_informe="informeinicial"
+							else
+								if PRY_Hito=2 then
+									carpeta_informe="informeavances"
+								else
+									if PRY_Hito=3 then
+										carpeta_informe="informedesarrollo"
+									else
+										if PRY_Hito=4 then
+											carpeta_informe="informefinal"
+										else
+											if PRY_Hito=999 then
+												carpeta_informe="verificadoresrecuperacion"
+											else
+												carpeta_informe="no_definido"
+											end if
+										end if
+									end if
+								end if
+							end if
+						end if
+					end if
 				end if
 			end if
 		end if
