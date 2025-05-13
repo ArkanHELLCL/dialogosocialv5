@@ -54,8 +54,9 @@
 						<table id="tbl-beneficiarios" class="table-striped table-bordered dataTable table-sm" cellspacing="0" width="100%" data-id="beneficiarios" >
 							<thead>
 								<tr> 
-									<th>id</th>
-									<th>RUT</th> 
+									<th>RUT</th>
+									<th>RUT-DV</th>
+									<th>DV</th>
 									<th>Nombres</th>
 									<th>Paterno</th>
 									<th>Materno</th>
@@ -67,7 +68,7 @@
 									<th>Estado</th>
 									<th>PRYs/Ficha</th>
 
-									<th>Fecha Nacimeinto</th>
+									<th>Fecha Nacimiento</th>
 									<th>Edad</th>
 									<th>Cargo Directivo</th>
 									<th>Tiene Discapacidad?</th>
@@ -139,7 +140,7 @@
 			});			
 			beneficiariosTable = $('#tbl-beneficiarios').DataTable({
 				lengthMenu: [[ 10,15,20,50,100 ],['10','15','20','50','100']],
-				columnDefs: [{"targets": [ 0,8,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39, 40,41,42,43,44,45,46 ],"visible": false,"searchable": false},{ className: "vermas", "targets": [ 11 ] }],
+				columnDefs: [{"targets": [ 1,8,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39, 40,41,42,43,44,45,46,47 ],"visible": false,"searchable": false},{ className: "vermas", "targets": [ 12 ] }],
 				processing: true,
         		serverSide: true,
 				ajax:{
@@ -182,7 +183,8 @@
 							}
 						});
 					});														
-				}
+				},
+				stateSave: true
 			});
 		}		
 		
@@ -299,7 +301,8 @@
 						}
 						$("#" + table_id).DataTable({								
 							lengthMenu: [ 4, 6, 10 ],
-							order: [[ 0, 'desc' ]]
+							order: [[ 0, 'desc' ]],
+							stateSave: true
 						});											
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown){				

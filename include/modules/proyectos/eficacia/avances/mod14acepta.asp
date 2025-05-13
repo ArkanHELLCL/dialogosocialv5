@@ -11,8 +11,9 @@
 	
 	TIP_Id				= 24	'Aceptación Informe AVANCES
 	MEN_Archivo			= ""	'Sin adjuntos
-	MEN_Texto			= "Informe AVANCES ha sido ACEPTADO (RECUPERACIÓN)"
+	MEN_Texto			= "Informe Avances ha sido ACEPTADO (Eficacia)"
 	MEN_Archivo			= ""
+	Informe				= 2		'Informe Avances Eficacia
 
 	set cnn = Server.CreateObject("ADODB.Connection")
 	on error resume next	
@@ -24,7 +25,7 @@
 	   response.End() 			   
 	end if	
 	
-	sql="exec spProyectoInformeConsensosAceptado_Cerrar " & PRY_Id & ",'" & PRY_Identificador & "'," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'"
+	sql="exec spProyectoInformeConsensosAceptado_Cerrar " & PRY_Id & ",'" & PRY_Identificador & "'," & Informe & "," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'"
 	set rs = cnn.Execute(sql)
 	on error resume next
 	if cnn.Errors.Count > 0 then
@@ -46,7 +47,7 @@
 		response.end()
 	End If%>
 	   
-	{"state": 200, "message": "Informe Avances correctamente aceptado","data": null}<%
+	{"state": 200, "message": "Informe Desarrollo correctamente aceptado","data": null}<%
 	
 	cnn.close
 	set cnn = nothing

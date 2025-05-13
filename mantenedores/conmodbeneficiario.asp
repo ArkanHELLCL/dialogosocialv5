@@ -14,7 +14,8 @@
 		
 	Rut = request("ALU_Rut")
 	if(Rut<>"" and not IsNull(Rut)) then
-		ALU_Rut = mid(Rut,1,len(Rut)-1)
+		'ALU_Rut = mid(Rut,1,len(Rut)-1)
+		ALU_Rut = Rut
 	else
 		ALU_Rut = 0
 	end if
@@ -45,9 +46,25 @@
 		ALU_FichaX=""
 		ALU_Ficha=""
 		PRY_Identificador=""	
-		edad=0			
+		edad=0
+
+		fecNacArray = split(rs("ALU_FechaNacimiento"),"/")
+		if(len(fecNacArray))>0 then
+			fecNac = fecNacArray(2) & "-" & fecNacArray(1) & "-" & fecNacArray(0)
+		else
+			fecNacArray = split(rs("ALU_FechaNacimiento"),"-")
+			if(len(fecNacArray))>0 and (len(fecNacArray(2)))=4 then
+				fecNac = fecNacArray(2) & "-" & fecNacArray(1) & "-" & fecNacArray(0)
+			else
+				fecNac = ""
+			end if
+		end if
+
+		if(fecNac="") then
+			fecNac = replace(rs("ALU_FechaNacimiento"),"/","-")
+		end if
 		
-		dataAlumnos = dataAlumnos & "[""" & rs("ALU_Rut") & "-" & rs("ALU_DV") & """,""" & rs("ALU_Nombre") & """,""" & rs("ALU_ApellidoPaterno") & """,""" & rs("ALU_ApellidoMaterno") & """,""" & rs("ALU_FechaNacimiento") & """,""" & edad & """,""" & rs("NAC_Id") & """,""" & rs("SEX_Descripcion") & """,""" & rs("SEX_Id") & """,""" & rs("EDU_Id") & """,""" & rs("ALU_Discapacidad") & """,""" & rs("TDI_Id") & """,""" & rs("ALU_FechaEdit") & """,""" & rs("ALU_AccesoInternet") & """,""" & rs("ALU_DispositivoElectronico") & """,""" & rs("ALU_ReconocePuebloOriginario") & """,""" & rs("ALU_PuebloOriginario") & """,""" & ALU_FichaX & """,""" & ALU_Ficha & """,""" & PRY_Identificador & """,""" & rs("REG_Id") & """,""" & rs("COM_Id") & """,""" & rs("ALU_Direccion") & """,""" & rs("ALU_Mail") & """,""" & rs("ALU_Telefono") & """,""" & rs("TTR_Id") & """,""" & rs("ALU_NombreEmpresa") & """,""" & rs("RUB_Id") & """,""" & rs("ALU_PerteneceSindicato") & """,""" & rs("ALU_FechaIngreso") & """,""" & rs("ALU_NombreOrganizacion") & """,""" & rs("ALU_RSU") & """,""" & rs("ALU_PermisoCapacitacionEnOrganizacion") & """,""" & rs("ALU_DirigenteSindical") & """,""" & rs("ALU_TiempoDirigenteSindical") & """,""" & rs("ALU_CursosFormacionSindicalAnteriormente") & """,""" & rs("ALU_InstitucionCursoFormacionSindical") & """,""" & rs("ALU_AnioCursoFormacionSindical") & """,""" & rs("ALU_CargoDirectivoEnOrganizacion") & """,""" & rs("ALU_FechaInicioCargoDirectivo") & """,""" & rs("ALU_NombreCargoDirectivo") & """,""" & rs("ALU_Estado") & """]"
+		dataAlumnos = dataAlumnos & "[""" & rs("ALU_Rut") & "-" & rs("ALU_DV") & """,""" & rs("ALU_Nombre") & """,""" & rs("ALU_ApellidoPaterno") & """,""" & rs("ALU_ApellidoMaterno") & """,""" & fecNac & """,""" & edad & """,""" & rs("NAC_Id") & """,""" & rs("SEX_Descripcion") & """,""" & rs("SEX_Id") & """,""" & rs("EDU_Id") & """,""" & rs("ALU_Discapacidad") & """,""" & rs("TDI_Id") & """,""" & replace(rs("ALU_FechaCrea"),"/","-") & """,""" & rs("ALU_AccesoInternet") & """,""" & rs("ALU_DispositivoElectronico") & """,""" & rs("ALU_ReconocePuebloOriginario") & """,""" & rs("ALU_PuebloOriginario") & """,""" & ALU_FichaX & """,""" & ALU_Ficha & """,""" & PRY_Identificador & """,""" & rs("REG_Id") & """,""" & rs("COM_Id") & """,""" & rs("ALU_Direccion") & """,""" & rs("ALU_Mail") & """,""" & rs("ALU_Telefono") & """,""" & rs("TTR_Id") & """,""" & rs("ALU_NombreEmpresa") & """,""" & rs("RUB_Id") & """,""" & rs("ALU_PerteneceSindicato") & """,""" & replace(rs("ALU_FechaIngreso"),"/","-") & """,""" & rs("ALU_NombreOrganizacion") & """,""" & rs("ALU_RSU") & """,""" & rs("ALU_PermisoCapacitacionEnOrganizacion") & """,""" & rs("ALU_DirigenteSindical") & """,""" & rs("ALU_TiempoDirigenteSindical") & """,""" & rs("ALU_CursosFormacionSindicalAnteriormente") & """,""" & rs("ALU_InstitucionCursoFormacionSindical") & """,""" & rs("ALU_AnioCursoFormacionSindical") & """,""" & rs("ALU_CargoDirectivoEnOrganizacion") & """,""" & replace(rs("ALU_FechaInicioCargoDirectivo"),"/","-") & """,""" & rs("ALU_NombreCargoDirectivo") & """,""" & rs("ALU_Estado") & """]"
 
 		rs.movenext
 		if not rs.eof then

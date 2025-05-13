@@ -32,6 +32,7 @@
 	
 	if not rs.eof then
 		PRY_InformeInicioEstado=rs("PRY_InformeInicioEstado")
+		PRY_InformeIcicialEstado=rs("PRY_InformeIcicialEstado")
 		USR_IdRevisor=rs("USR_IdRevisor")
 		USR_IdEjecutor=rs("USR_IdEjecutor")
 		PRY_Estado=rs("PRY_Estado")
@@ -74,8 +75,10 @@
 										<th>Módulo</th>
 										<th>Fecha</th>
 										<th>Inicio</th>
-										<th>Fin</th>
-										<th>Tot</th>
+										<th>Fin</th>										
+										<th>H.Pla</th>
+										<th>H.Pen</th>	
+										<th>H.Tot</th>									
 										<th>Relator</th>
 										<th>Metodología</th><%
 										if (PRY_InformeInicioEstado=0 and PRY_Estado=1) then%>
@@ -285,7 +288,8 @@
 							dropdown: true,
 							scrollbar: true,
 							change:function(time){									
-								$(this).siblings("label").addClass("active");								
+								$(this).siblings("label").addClass("active");
+								 calculaHorasPlanificadas($(this));
 							},
 							beforeShow: function(input, inst) {
 								$(document).off('focusin.bs.modal');
@@ -364,7 +368,6 @@
 			
 		})
 		
-
 		function exportTable(){
 			$(".buttonExport").click(function(e){
 				e.preventDefault();
@@ -414,8 +417,84 @@
 				},
 
 			});
+		}		
+
+		function calculaHorasPlanificadas(obj){
+			const arrayId = obj.attr("id").split("-");
+			if(arrayId[0]==='PLN_HoraFin' || arrayId[0]==='PLN_HoraInicio'){
+				const PLN_HoraInicio = "#PLN_HoraInicio-" + arrayId.slice(1).join("-");
+				const PLN_HoraFin = "#PLN_HoraFin-" + arrayId.slice(1).join("-");
+				const TEM_HorasPlanificadas = "#TEM_HorasPlanificadas-" + arrayId.slice(1).join("-");
+				const TEM_HorasReales = "#TEM_HorasReales-" + arrayId.slice(1).join("-");
+				const TEM_HorasFaltantes = "#TEM_HorasFaltantes-" + arrayId.slice(1).join("-");
+				const horasFaltantes = $(TEM_HorasFaltantes).data("oldvalue");
+				const horaInicio = $(PLN_HoraInicio).val();
+				const horaFin = $(PLN_HoraFin).val();
+				const horaInicioArray = horaInicio.split(":");
+				const horaFinArray = horaFin.split(":");
+				const horaInicioDate = new Date(0, 0, 0, horaInicioArray[0], horaInicioArray[1], 0);
+				const horaFinDate = new Date(0, 0, 0, horaFinArray[0], horaFinArray[1], 0);
+				const diff = horaFinDate - horaInicioDate;
+				const minutes = Math.floor((diff/1000)/60);
+				const horasReales = Math.floor(minutes/60) ? Math.floor(minutes/60) : 0;
+				const horasPedagogicas = Math.ceil(minutes/45) ? Math.ceil(minutes/45) : 0;
+				
+				$(TEM_HorasPlanificadas).val(horasPedagogicas);
+				$(TEM_HorasReales).val(horasReales);
+				$(TEM_HorasFaltantes).val(horasFaltantes - horasPedagogicas);				
+				
+			}
 		}
-		
+
+		$("#planificacionModal").on("change","select",function(e){
+			e.preventDefault();
+			e.stopImmediatePropagation();
+			e.stopPropagation();
+
+			const arrayId = $(this).attr("id").split("-");
+			console.log(arrayId);
+			if(arrayId[0]==='MET_Id' && arrayId[1]==='new'){
+				console.log("MET_Id");
+				const PLN_Fecha = "#PLN_Fecha-" + arrayId.slice(1).join("-");
+				const PLN_HoraInicio = "#PLN_HoraInicio-" + arrayId.slice(1).join("-");
+				const PLN_HoraFin = "#PLN_HoraFin-" + arrayId.slice(1).join("-");
+				const REL_Id = "#REL_Id-" + arrayId.slice(1).join("-");
+				const MET_Id = "#MET_Id-" + arrayId.slice(1).join("-");
+				const TEM_HorasPlanificadas = "#TEM_HorasPlanificadas-" + arrayId.slice(1).join("-");
+				const TEM_HorasReales = "#TEM_HorasReales-" + arrayId.slice(1).join("-");
+				const TEM_HorasFaltantes = "#TEM_HorasFaltantes-" + arrayId.slice(1).join("-");
+
+				if($(this).val()!=""){
+					$(PLN_Fecha).attr("required","required");
+					$(PLN_Fecha).removeAttr("hidden");
+					$(PLN_HoraInicio).attr("required","required");
+					$(PLN_HoraInicio).removeAttr("hidden");
+					$(PLN_HoraFin).attr("required","required");
+					$(PLN_HoraFin).removeAttr("hidden");
+					$(REL_Id).attr("required","required");
+					$(REL_Id).removeAttr("hidden");
+					$(MET_Id).attr("required","required");
+					$(TEM_HorasPlanificadas).removeAttr("hidden");
+					$(TEM_HorasReales).removeAttr("hidden");
+					$(TEM_HorasFaltantes).removeAttr("hidden");
+				}else{
+					$(PLN_Fecha).removeAttr("required");
+					$(PLN_Fecha).attr("hidden","hidden");
+					$(PLN_HoraInicio).attr("hidden","hidden");
+					$(PLN_HoraInicio).removeAttr("required");
+					$(PLN_HoraFin).attr("hidden","hidden");
+					$(PLN_HoraFin).removeAttr("required");
+					$(REL_Id).attr("hidden","hidden");
+					$(REL_Id).removeAttr("required");
+					$(MET_Id).removeAttr("required");
+					$(TEM_HorasPlanificadas).attr("hidden","hidden");
+					$(TEM_HorasReales).attr("hidden","hidden");
+					$(TEM_HorasFaltantes).attr("hidden","hidden");
+				}				
+
+			}
+		})
+
 		$("body").append("<button id='btn_modalplanificacion' name='btn_modalplanificacion' style='visibility:hidden;width:0;height:0'></button>");
 		$("#btn_modalplanificacion").click(function(e){
 			e.preventDefault();

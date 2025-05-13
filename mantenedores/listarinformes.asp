@@ -20,7 +20,7 @@
 	'LFO_Id=11'
 	Informe(2,0) = "Todos"
 	Informe(2,1) = "Inicial"
-	Informe(2,2) = "Avances"
+	Informe(2,2) = "Desarrollo"
 	Informe(2,3) = "Final"		'Sistematización
 	
 	'LFO_Id=12'
@@ -38,7 +38,7 @@
 	'LFO_Id=14'
 	Informe(5,0) = "Todos"
 	Informe(5,1) = "Inicio"	
-	Informe(5,2) = "Avances"	
+	Informe(5,2) = "Desarrollo"	
 	Informe(5,3) = "Desarrollo"
 	Informe(5,4) = "Final"
 	

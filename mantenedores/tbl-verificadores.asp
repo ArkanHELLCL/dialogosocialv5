@@ -62,7 +62,7 @@
 							Informe="Inicial"
 						else
 							if(rsx("VER_NumeroInforme")=2) then
-								Informe="Avances"
+								Informe="Desarrollo"
 							else
 								if(rsx("VER_NumeroInforme")=3) then
 									Informe="Sistematización"

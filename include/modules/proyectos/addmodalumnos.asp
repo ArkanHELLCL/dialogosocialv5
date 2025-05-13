@@ -39,7 +39,7 @@
 		TDI_Id							 = up.form("TDI_Id")
 	end if
 	
-	ALU_FechaCreacionRegistro		 = up.form("ALU_FechaCreacionRegistro")	
+	'ALU_FechaCreacionRegistro		 = up.form("ALU_FechaCreacionRegistro")		Se debe crear en la base de datos
 	ALU_AccesoInternet				 = up.form("ALU_AccesoInternet")
 	if(ALU_AccesoInternet="") then
 		ALU_AccesoInternet=0
@@ -157,7 +157,7 @@
 		response.End() 	
 	end if
 	
-	datos =   ALU_Rut & ",'" & ALU_DV & "'," & PRY_Id & "," & SEX_Id & ",'" & ALU_Nombre & "','" & ALU_ApellidoPaterno & "','" & ALU_ApellidoMaterno & "','" & ALU_Direccion & "'," & COM_Id & ",'" & ALU_Telefono & "','" & ALU_Mail & "','" & ALU_NombreEmpresa & "'," & RUB_Id & "," & EDU_Id & "," & ALU_PerteneceSindicato & ",'" & ALU_NombreOrganizacion & "','" & ALU_RSU & "','" & ALU_FechaCreacionRegistro & "'," & ALU_PermisoCapacitacionEnOrganizacion & "," & ALU_CargoDirectivoEnOrganizacion & ",'" & ALU_NombreCargoDirectivo & "','" & ALU_FechaInicioCargoDirectivo & "'," & ALU_CursosFormacionSindicalAnteriormente & ",'" & ALU_AnioCursoFormacionSindical & "','" & ALU_InstitucionCursoFormacionSindical & "'," & NAC_Id & ",'" & ALU_Ficha & "'," & ALU_Discapacidad & "," & TDI_Id & "," & ALU_ReconocePuebloOriginario & ",'" & ALU_PuebloOriginario & "'," & TTR_Id & "," & ALU_DirigenteSindical & ",'" & ALU_TiempoDirigenteSindical & "'," & ALU_AccesoInternet & "," & ALU_DispositivoElectronico & ",'" & ALU_FechaNacimiento & "'," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'"
+	datos =   ALU_Rut & ",'" & ALU_DV & "'," & PRY_Id & "," & SEX_Id & ",'" & ALU_Nombre & "','" & ALU_ApellidoPaterno & "','" & ALU_ApellidoMaterno & "','" & ALU_Direccion & "'," & COM_Id & ",'" & ALU_Telefono & "','" & ALU_Mail & "','" & ALU_NombreEmpresa & "'," & RUB_Id & "," & EDU_Id & "," & ALU_PerteneceSindicato & ",'" & ALU_NombreOrganizacion & "','" & ALU_RSU & "','" & ALU_FechaIngreso & "'," & ALU_PermisoCapacitacionEnOrganizacion & "," & ALU_CargoDirectivoEnOrganizacion & ",'" & ALU_NombreCargoDirectivo & "','" & ALU_FechaInicioCargoDirectivo & "'," & ALU_CursosFormacionSindicalAnteriormente & ",'" & ALU_AnioCursoFormacionSindical & "','" & ALU_InstitucionCursoFormacionSindical & "'," & NAC_Id & ",'" & ALU_Ficha & "'," & ALU_Discapacidad & "," & TDI_Id & "," & ALU_ReconocePuebloOriginario & ",'" & ALU_PuebloOriginario & "'," & TTR_Id & "," & ALU_DirigenteSindical & ",'" & ALU_TiempoDirigenteSindical & "'," & ALU_AccesoInternet & "," & ALU_DispositivoElectronico & ",'" & ALU_FechaNacimiento & "'," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'"
 
 
 	'Adjunto

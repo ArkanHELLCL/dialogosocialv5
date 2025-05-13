@@ -25,7 +25,7 @@
 	portot=0
 	portotcan=0
 	do While Not rs.EOF		
-		dataPresupuestos = dataPresupuestos  & "[""" & rs("PRE_Id") & """,""" & rs("PRE_NumCuota") & """,""" & rs("PRE_PorcentajeMonto") & """,""" & rs("PRE_MontoCuota") & """,""" & rs("PRE_EstadoCuota") & """,""" & rs("PRE_MontoFactura") & """,""" & rs("PRE_FechaFactura") & """,""" & rs("PRE_NumFactura") & """,""" & rs("PRE_FechaPagoCuota") & """,""" & rs("PRE_FechaVenCuota") & """,""" & rs("PRE_GlosaFactura") & """]"
+		dataPresupuestos = dataPresupuestos  & "[""" & rs("PRE_Id") & """,""" & rs("PRE_NumCuota") & """,""" & rs("PRE_PorcentajeMonto") & """,""" & rs("PRE_MontoCuota") & """,""" & rs("PRE_EstadoCuota") & """,""" & rs("PRE_MontoFactura") & """,""" & rs("PRE_FechaFactura") & """,""" & rs("PRE_NumFactura") & """,""" & rs("PRE_FechaPagoCuota") & """,""" & rs("PRE_FechaVenCuota") & """,""" & rs("PRE_GlosaFactura") & """,""" & rs("LFH_Id") & """,""" & rs("LFH_HitoDescripcion") & """]"
 				
 		rs.movenext
 		if not rs.eof then

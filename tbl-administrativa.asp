@@ -255,7 +255,7 @@
 									estado="Sistematizaciones"
 								end if							
 							else
-								estado="Avances"
+								estado="Desarrollo"
 							end if
 						else
 							estado="Inicial"

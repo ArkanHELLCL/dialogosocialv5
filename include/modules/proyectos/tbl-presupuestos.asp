@@ -54,10 +54,10 @@
 		else
 			Bajar="<i class='fas fa-cloud-download-alt text-50-white' style='cursor:not-allowed'></i>"
 		end if
-		if(session("ds5_usrperfil")<>3 and session("ds5_usrperfil"))<>4 and not PRY_InformeFinalAceptado then										
-			dataPresupuestos = dataPresupuestos  & "[""" & rs("PRE_Id") & """,""" & rs("PRE_NumCuota") & """,""" & rs("PRE_PorcentajeMonto") & """,""" & rs("PRE_MontoCuota") & """,""" & estado & """,""" & rs("PRE_MontoFactura") & """,""" & rs("PRE_FechaFactura") & """,""" & rs("PRE_NumFactura") & """,""" & rs("PRE_FechaPagoCuota") & """,""" & Bajar & " <i class='fas fa-trash-alt text-danger delpre' data-pre='" & rs("PRE_Id") & "' data-pry='" & PRY_Id & "' data-toggle='tooltip' title='Eliminar cuota' data-num='" & rs("PRE_NumCuota") & "'></i>""]"
+		if(session("ds5_usrperfil")<>3 and session("ds5_usrperfil"))<>4 and not PRY_InformeFinalAceptado and (rs("PRE_EstadoCuota")<>1) then										
+			dataPresupuestos = dataPresupuestos  & "[""" & rs("PRE_Id") & """,""" & rs("LFH_HitoDescripcion") & """,""" & rs("PRE_NumCuota") & """,""" & rs("PRE_PorcentajeMonto") & """,""" & rs("PRE_MontoCuota") & """,""" & estado & """,""" & rs("PRE_MontoFactura") & """,""" & rs("PRE_FechaFactura") & """,""" & rs("PRE_NumFactura") & """,""" & rs("PRE_FechaPagoCuota") & """,""" & Bajar & " <i class='fas fa-trash-alt text-danger delpre' data-pre='" & rs("PRE_Id") & "' data-pry='" & PRY_Id & "' data-toggle='tooltip' title='Eliminar cuota' data-num='" & rs("PRE_NumCuota") & "'></i>""]"
 		else										
-			dataPresupuestos = dataPresupuestos  & "[""" & rs("PRE_Id") & """,""" & rs("PRE_NumCuota") & """,""" & rs("PRE_PorcentajeMonto") & """,""" & rs("PRE_MontoCuota") & """,""" & estado & """,""" & rs("PRE_MontoFactura") & """,""" & rs("PRE_FechaFactura") & """,""" & rs("PRE_NumFactura") & """,""" & rs("PRE_FechaPagoCuota") & """,""" & Bajar & """]"
+			dataPresupuestos = dataPresupuestos  & "[""" & rs("PRE_Id") & """,""" & rs("LFH_HitoDescripcion") & """,""" & rs("PRE_NumCuota") & """,""" & rs("PRE_PorcentajeMonto") & """,""" & rs("PRE_MontoCuota") & """,""" & estado & """,""" & rs("PRE_MontoFactura") & """,""" & rs("PRE_FechaFactura") & """,""" & rs("PRE_NumFactura") & """,""" & rs("PRE_FechaPagoCuota") & """,""" & Bajar & """]"
 		end if												
 		rs.movenext
 		if not rs.eof then

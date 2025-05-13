@@ -806,20 +806,20 @@
 						
 		if(session("ds5_usrperfil")=1 or session("ds5_usrperfil")=2 or session("ds5_usrperfil")=4) then	'Administrador, revisor, auditor
 			if(PRY_InformeInicialAceptado<>0) then
-				menucierre=array("<i class='fas fa-users'></i>Representantes",adecuaciones,mensajesproyectos,verificadores,"<i class='fas fa-file-signature'></i>Contratos","<i class='fas fa-hand-holding-usd'></i>Presupuesto")
-				menucierrepag=array("/representantes-modal","/adecuaciones-modal","/mensajes-proyecto-modal","/verificadores-mesas-modal","/contratos-modal","/presupuestos-modal")
+				menucierre=array("<i class='fas fa-users'></i>Representantes",adecuaciones,mensajesproyectos,"<i class='fas fa-calendar-alt'></i>Planificación","<i class='fas fa-users' aria-hidden='true'></i>Asistencia",verificadores,"<i class='fas fa-file-signature'></i>Contratos","<i class='fas fa-hand-holding-usd'></i>Presupuesto")
+				menucierrepag=array("/representantes-modal","/adecuaciones-modal","/mensajes-proyecto-modal","/planificacion-modal","/asistencia-modal","/verificadores-mesas-modal","/contratos-modal","/presupuestos-modal")
 			else
-				menucierre=array("<i class='fas fa-users'></i>Representantes",mensajesproyectos,verificadores,"<i class='fas fa-file-signature'></i>Contratos","<i class='fas fa-hand-holding-usd'></i>Presupuesto")
-				menucierrepag=array("/representantes-modal","/mensajes-proyecto-modal","/verificadores-mesas-modal","/contratos-modal","/presupuestos-modal")
+				menucierre=array("<i class='fas fa-users'></i>Representantes",mensajesproyectos,"<i class='fas fa-calendar-alt'></i>Planificación","<i class='fas fa-users' aria-hidden='true'></i>Asistencia",verificadores,"<i class='fas fa-file-signature'></i>Contratos","<i class='fas fa-hand-holding-usd'></i>Presupuesto")
+				menucierrepag=array("/representantes-modal","/mensajes-proyecto-modal","/planificacion-modal","/asistencia-modal","/verificadores-mesas-modal","/contratos-modal","/presupuestos-modal")
 			end if			
 		else
 			if(session("ds5_usrperfil")=3) then
 				if(PRY_InformeInicialAceptado<>0) then
-					menucierre=array(adecuaciones,mensajesproyectos,verificadores)
-					menucierrepag=array("/adecuaciones-modal","/mensajes-proyecto-modal","/verificadores-mesas-modal")
+					menucierre=array(adecuaciones,mensajesproyectos,"<i class='fas fa-calendar-alt'></i>Planificación","<i class='fas fa-users' aria-hidden='true'></i>Asistencia",verificadores)
+					menucierrepag=array("/adecuaciones-modal","/mensajes-proyecto-modal","/planificacion-modal","/asistencia-modal","/verificadores-mesas-modal")
 				else
-					menucierre=array(mensajesproyectos,verificadores)
-					menucierrepag=array("/mensajes-proyecto-modal","/verificadores-mesas-modal")
+					menucierre=array(mensajesproyectos,"<i class='fas fa-calendar-alt'></i>Planificación","<i class='fas fa-users' aria-hidden='true'></i>Asistencia",verificadores)
+					menucierrepag=array("/mensajes-proyecto-modal","/planificacion-modal","/asistencia-modal","/verificadores-mesas-modal")
 				end if
 			else
 				if(session("ds5_usrperfil")=5) then	'Administrativo
@@ -838,7 +838,7 @@
 		
 		hitoscerrados=array(PRY_CreacionProyectoEstado,PRY_InformeInicialEstado,PRY_InformeConsensosEstado,PRY_InformeSistematizacionEstado)
 		hitosaceptados=array(true,PRY_InformeInicialAceptado,PRY_InformeConsensosAceptado,PRY_InformeSistematizacionAceptado)
-		hitos=array("Creación","Inicial","Avances","Final")	
+		hitos=array("Creación","Inicial","Desarrollo","Final")	
 		hitoslen=3
 		informesnombre=array("informecreacionmesas.pdf","informeinicialmesas.pdf","informeavancesmesas.pdf","informefinalmesas.pdf")
 		informessubdir=array("informecreacion","informeinicial","informeavances","informefinal")

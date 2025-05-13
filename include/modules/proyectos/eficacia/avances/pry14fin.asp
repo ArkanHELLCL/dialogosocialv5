@@ -74,7 +74,7 @@
 			<form role="form" action="<%=action%>" method="POST" name="frm14sfin" id="frm14sfin" class="needs-validation">
 				<div class="row align-items-center">
 					<div class="col-sm-6 col-md-6 col-lg-6" style="text-align:center;height:100%">
-						<button type="button" class="btn btn-danger btn-lg" id="btn_frm10fin" name="btn_frm10fin" value="enviar"><i class="fas fa-door-open"></i> Cerrar Hito AVANCES</button>
+						<button type="button" class="btn btn-danger btn-lg" id="btn_frm10fin" name="btn_frm10fin" value="enviar"><i class="fas fa-door-open"></i> Cerrar Hito Avances</button>
 					</div>
 					<div class="col-sm-6 col-md-6 col-lg-6">
 						<blockquote>
@@ -82,7 +82,7 @@
 								Después de haber ingresado toda la información requerida en los pasos anteriores, es necesario cerrar la etapa "Avances", con el fin de informar el paso al siguiente Hito y asi poder generar los informes pertinentes a esta etapa (Informe Avances).
 							</p>
 							<p>
-								Presionando el botón "Cerrar Hito AVANCES", se cambiará el estado del proyecto actual y se enviará a los perfiles asociados el requerimiento en su nueva etapa.
+								Presionando el botón "Cerrar Hito Avances", se cambiará el estado del proyecto actual y se enviará a los perfiles asociados el requerimiento en su nueva etapa.
 							</p>
 						</blockquote>                                		                                                                    
 					</div>                               		                                    
@@ -112,7 +112,7 @@
 					<div class="col-sm-12 col-md-10 col-lg-10">
 						<blockquote>
 							<p>
-								Estimado <%=perfil%>, actualmente el informe AVANCES se encuentra en proceso de cierre. En este período el ejecutor del proyecto podría enviarle algunas solicitudes de adecuaciones requeridas para completar el informe y asi proceder al cierre del mismo.
+								Estimado <%=perfil%>, actualmente el informe Avances se encuentra en proceso de cierre. En este período el ejecutor del proyecto podría enviarle algunas solicitudes de adecuaciones requeridas para completar el informe y asi proceder al cierre del mismo.
 							</p>
 							<p>
 								Para revisar estas observaciones solo debe ingresar en el menú de Adecuaciones que se encuentra situado en la parte superior izquierda de esta pantalla.
@@ -149,8 +149,8 @@
 		
 		$("#btn_frm10fin").click(function(){
 			swalWithBootstrapButtons.fire({
-			  title: 'Confirmación de Cierre de Hito AVANCES',
-			  text: '¿Estas seguro de querer cerrar del Hito "AVANCES" para dar inicio al desarrollo del programa?',
+			  title: 'Confirmación de Cierre de Hito Avances',
+			  text: '¿Estas seguro de querer cerrar del Hito "Avances" para dar inicio al desarrollo del programa?',
 			  icon: 'question',
 			  showCancelButton: true,
 			  confirmButtonColor: '#3085d6',

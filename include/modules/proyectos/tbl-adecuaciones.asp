@@ -121,6 +121,16 @@
 										response.end
 									End If	
 								else
+									if(TAD_Id=13) then
+										set rs2 = cnn.Execute("exec spAdecuacionMetodologiaPor_Listar  " & ADE_Id)
+										on error resume next
+										if cnn.Errors.Count > 0 then 
+											ErrMsg = cnn.Errors(0).description		
+											cnn.close 		
+											response.end
+										End If	
+									else
+									end if
 								end if
 							end if
 						end if
@@ -622,6 +632,38 @@
 					<td>Modificación</td>
 					<td><%=rs2("GFS_Id")%></td>					
 					<td><%=rs2("GFS_GRFPorcentajeNew")%></td>					
+				</tr><%
+				rs2.movenext
+			loop
+			rs2.Close
+			cnn.Close%>
+
+			</tbody>
+		</table><%
+	end if
+	if (TAD_Id=13) then%>
+		<table class="table table-striped" id="<%=table%>">
+			<thead>
+				<tr>
+					<th>Registro</th>
+					<th>#</th>
+					<th>Porcentaje Onlie</th>
+					<th>Porcentaje Presencial</th>
+				</tr>
+			</thead>
+			<tbody><%
+			do while not rs2.eof%>
+				<tr>
+					<td>Original</td>
+					<td><%=rs2("MES_Id")%></td>					
+					<td><%=rs2("MES_METPorcentajeOnlineOri")%></td>
+					<td><%=rs2("MES_METPorcentajePresencialOri")%></td>
+				</tr>
+				<tr>
+					<td>Modificación</td>
+					<td><%=rs2("MES_Id")%></td>					
+					<td><%=rs2("MES_METPorcentajeOnlineNew")%></td>
+					<td><%=rs2("MES_METPorcentajePresencialNew")%></td>
 				</tr><%
 				rs2.movenext
 			loop

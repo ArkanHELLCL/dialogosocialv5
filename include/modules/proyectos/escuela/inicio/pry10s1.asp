@@ -169,12 +169,12 @@
 						classdown="text-primary arcadj"
 						styledown="cursor:pointer; pointer-events: all !important;"
 						data = "data-pry='" & PRY_Id & "'" & " data-arc='" & COR_Adjunto & "'" & " data-token='" & PRY_Identificador & "'" & " data-hito='109'"%>
-						<label for="COR_AdjuntoX" class="active">Adjunto</label><%
+						<label for="COR_AdjuntoX" class="active">Adjunto CV</label><%
 					else
 						classdown="disabled text-white-50"
 						styledown="cursor:not-allowed; pointer-events: all !important;"
 						data=""%>
-						<label for="COR_AdjuntoX" class="">Adjunto</label><%
+						<label for="COR_AdjuntoX" class="">Adjunto CV</label><%
 					end if%>
 				</div>
 			</div>
@@ -271,12 +271,12 @@
 						classdown="text-primary arcadj"
 						styledown="cursor:pointer; pointer-events: all !important;"
 						data = "data-pry='" & PRY_Id & "'" & " data-arc='" & ENC_Adjunto & "'" & " data-token='" & PRY_Identificador & "'" & " data-hito='110'"%>
-						<label for="ENC_AdjuntoX" class="active">Adjunto</label><%
+						<label for="ENC_AdjuntoX" class="active">Adjunto CV</label><%
 					else
 						classdown="disabled text-white-50"
 						styledown="cursor:not-allowed; pointer-events: all !important;"
 						data=""%>
-						<label for="ENC_AdjuntoX" class="">Adjunto</label><%
+						<label for="ENC_AdjuntoX" class="">Adjunto CV</label><%
 					end if%>					
 				</div>
 			</div>

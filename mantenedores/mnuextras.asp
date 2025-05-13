@@ -25,7 +25,7 @@
 		reportesLar = UBound(reportesUrl)
 		
 		mantenedoresUrl=array("/sindicatos","/linea-formativa","/lineas","/usuarios","/afiliacion-central","/rubros","/cursos","/perspectivas","/modulos","/educacion","/nacionalidades","/organizacion","/empresas","/ministerios","/servicios","/nivel-de-dialogo-social","/hitos","/documentos","/departamentos","/organizaciones-civiles","/tipos-de-discapacidad","/tipos-de-trabajador","/ejecutores","/bases","/linea-formativa-licitacion","/numeral-multas","/incumplimiento","/gravedad-incumplimiento","/moneda","/documentos-de-gobierno","/bases-linea-formativa","/beneficiarios","/fondos","/estados-del-beneficiario","/tipos-de-mensajes","/tipos-de-mesas","/tipos-de-adecuaciones","/tipos-de-ejecutor","/unidad-de-medida","/tipos-de-metodologias","/relatores","/festivos","/tramo-etareo")
-		mantenedoresNom=array("Sindicatos","Línea Formativa","Líneas","Usuarios","Afiliación Central","Rubros","Módulo","Perspectivas","Cursos","Educacional","Nacionalidades","Organización","Empresas","Ministerios","Servicios","Nivel de Diálogo Social","Hitos","Documentos","Departamentos","Organizaciones Civiles","Tipos de Discapacidad","Tipo de Trabajador","Ejecutores","Bases","Línea Formativa/Licitación","Numeral Multas","Incumplimientos","Gravedad incumplimiento","Monedas","Documentos de Gobierno","Bases/Línea Formativa","Beneficiarios","Fondos","Estados del Beneficiario","Tipos de Mensajes","Tipos de Mesas","Tipos de Adecuaciones","Tipos de Ejecutor","Unidad de Medida","Tipos de Metodologías","Relatores", "Festivos", "Tramos Etarios")
+		mantenedoresNom=array("Sindicatos","Línea Formativa","Líneas","Usuarios","Afiliación Central","Rubros","Curso","Módulo","Perspectiva","Educacional","Nacionalidades","Organización","Empresas","Ministerios","Servicios","Nivel de Diálogo Social","Hitos","Documentos","Departamentos","Organizaciones Civiles","Tipos de Discapacidad","Tipo de Trabajador","Ejecutores","Bases","Línea Formativa/Licitación","Numeral Multas","Incumplimientos","Gravedad incumplimiento","Monedas","Documentos de Gobierno","Bases/Línea Formativa","Beneficiarios","Fondos","Estados del Beneficiario","Tipos de Mensajes","Tipos de Mesas","Tipos de Adecuaciones","Tipos de Ejecutor","Unidad de Medida","Tipos de Metodologías","Relatores", "Festivos", "Tramos Etarios")
 		mantenedoresPer = array("1,2","1","1","1","1,2","1,2","1","1","1","1,2","1,2","1,2","1,2","1,2","1,2","1,2","1","1","1","1","1,2","1,2","1,2","1,2","1","1","1","1","1","1,2","1,2","1","1,2","1","1","1","1,2","1,2","1,2","1","1","1,2","1,2","1")
 
 		'mantenedoresLar=22
@@ -60,7 +60,7 @@
 		if (session("ds5_usrperfil")<>3) then	'Todos tienen accesos menos el ejecutor, solo el admin tendrá acceso a modificar los mantenerores
 			'salida = salida + "<li class='hitos' style='padding-top:15px;opacity:0;visiblity:hidden'></li>"
 			salida = salida + "<ul class='nav nav-stacked nav-tree' role='tab-list'>"
-			salida = salida + "<li role='presentation' class='category text-primary reportes' style='margin-top: 0;margin-bottom:5px;'><i class='fas fa-angle-up ml-1 repmenu'></i><i class='fas fa-file-invoice' style='padding-right:7px;'></i> Reportes </li>"
+			salida = salida + "<li role='presentation' class='category text-primary reportes' style='margin-top: 0;margin-bottom:5px;'><i class='fas fa-angle-up ml-1 '></i><i class='fas fa-file-invoice' style='padding-right:7px;'></i> Reportes </li>"
 			for i=0 to reportesLar
 				if(i=item) then
 					clase="active"

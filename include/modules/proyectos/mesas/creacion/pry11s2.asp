@@ -144,7 +144,7 @@
 						<input type="text" id="PRY_InformeConsensosFecha" name="PRY_InformeConsensosFecha" class="form-control" readonly value="<%=PRY_InformeConsensosFecha%>"><%
 					end if%>
 					<span class="select-bar"></span>
-					<label for="PRY_InformeConsensosFecha" class="<%=lblClass%>">Fecha Cierre Informe Avances (<%=LIN_DiasCierreInformeParcial%>)</label>									
+					<label for="PRY_InformeConsensosFecha" class="<%=lblClass%>">Fecha Cierre Informe Desarrollo (<%=LIN_DiasCierreInformeParcial%>)</label>									
 				</div>
 			</div>
 		</div>			
@@ -196,7 +196,7 @@
 					end if%>
 					<input type="text" id="PRY_InformeConsensosFechaOriginal" name="PRY_InformeConsensosFechaOriginal" class="form-control" readonly value="<%=PRY_InformeConsensosFechaOriginal%>">
 					<span class="select-bar"></span>
-					<label for="PRY_InformeConsensosFechaOriginal" class="<%=lblClass%>">Fecha Fecha Cierre Informe Avances</label>									
+					<label for="PRY_InformeConsensosFechaOriginal" class="<%=lblClass%>">Fecha Fecha Cierre Informe Desarrollo</label>									
 				</div>
 			</div>
 		</div>		

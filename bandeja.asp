@@ -265,9 +265,9 @@
 													<th>Inicial</th>
 													<th>A</th>
 													<th>Informe Inicial Fecha Aceptado</th>
-													<th>Avances</th>
+													<th>Desarrollo</th>
 													<th>A</th>
-													<th>Informe Avances Fecha Aceptado</th>													
+													<th>Informe Desarrollo Fecha Aceptado</th>													
 													<th>Final</th>
 													<th>A</th>
 													<th>Informe Final Fecha Aceptado</th>	
@@ -297,10 +297,10 @@
 													<th>Encargado Actividades Celular</th>
 													<th>Sexo Encargado Actividades</th>
 													<th>Informe Inicial Fecha Envio</th>		
-													<th>Informe Avances Fecha Envio</th>
+													<th>Informe Desarrollo Fecha Envio</th>
 													<th>Creacion Proyecto Fecha Envio</th>	
 													<th>Informe Inicial Aceptado</th>			
-													<th>Informe Avances Aceptado</th>	
+													<th>Informe Desarrollo Aceptado</th>	
 													<th>Informe Final Aceptado</th>													
 													<th>Direccion de Lanzamiento</th>			
 													<th>Fecha de Lanzamiento</th>	
@@ -310,7 +310,7 @@
 													<th>Hora de Cierre</th>
 													
 													<th>Dias para vencimiento Inf.Inicial</th>
-													<th>Dias para vencimiento Inf.Avances</th>
+													<th>Dias para vencimiento Inf.Desarrollo</th>
 													<th>Dias para vencimiento Inf.Final</th>													
 												</tr>		
 												</tr>
@@ -498,9 +498,9 @@
 													<th>Inicio</th>
 													<th>A</th>
 													<th>Informe Inicio Fecha Aceptado</th>
-													<th>Avances</th>
+													<th>Desarrollo</th>
 													<th>A</th>
-													<th>Informe Avances Fecha Aceptado</th>													
+													<th>Informe Desarrollo Fecha Aceptado</th>													
 													<th>Final</th>
 													<th>A</th>
 													<th>Informe Final Fecha Aceptado</th>	
@@ -611,7 +611,7 @@
 													<th>L.M.</th>
 													<th>Reg.</th> 
 													<th>Año</th>
-													<th>Inicio</th>
+													<th>Inicial</th>
 													<th>A</th>
 													<th>Informe Inicio Fecha Aceptado</th>
 													<th>Avances</th>

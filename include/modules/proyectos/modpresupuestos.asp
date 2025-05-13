@@ -48,8 +48,9 @@
 			PRE_EstadoCuota=0
 		end if
 	end if
+	LFH_Id = up.form("LFH_Id")
 	 
-	datos =  PRE_Id & "," & PRE_NumCuota & "," & PRE_MontoCuota & "," & PRE_EstadoCuota & "," & PRE_MontoFactura & ",'" & PRE_FechaFactura & "'," & PRE_NumFactura & ",'" & PRE_GlosaFactura & "','" & PRE_FechaPagoCuota & "','" & PRE_Adjunto & "'," & PRE_PorcentajeMonto & ",'" & PRE_FechaVenCuota & "'," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'"
+	datos =  PRE_Id & "," & PRE_NumCuota & "," & PRE_MontoCuota & "," & PRE_EstadoCuota & "," & PRE_MontoFactura & ",'" & PRE_FechaFactura & "'," & PRE_NumFactura & ",'" & PRE_GlosaFactura & "','" & PRE_FechaPagoCuota & "','" & PRE_Adjunto & "'," & PRE_PorcentajeMonto & ",'" & PRE_FechaVenCuota & "'," & LFH_Id & ","	& session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'"
 
 
 	set cnn = Server.CreateObject("ADODB.Connection")

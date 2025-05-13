@@ -10,7 +10,7 @@
 	PRY_Id				= request("PRY_Id")
 	PRY_Identificador	= request("PRY_Identificador")
 	
-	TIP_Id				= 10	'Observaciones al informe AVANCES
+	TIP_Id				= 10	'Observaciones al informe Desarrollo
 	MEN_Archivo			= ""	'Sin adjuntos
 	MEN_Texto			= LimpiarURL(request("MEN_TextoRechazo")) & " (RECUPERACIÓN)"
 	MEN_Archivo			= ""
@@ -47,7 +47,7 @@
 		response.end()
 	End If%>
 	   
-	{"state": 200, "message": "Informe Avances correctamente rechazado","data": null}<%
+	{"state": 200, "message": "Informe Desarrollo correctamente rechazado","data": null}<%
 	
 	cnn.close
 	set cnn = nothing

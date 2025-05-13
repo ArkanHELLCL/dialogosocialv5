@@ -783,7 +783,7 @@
 		if LFO_Calif=1 then
 			if(session("ds5_usrperfil")=1 or session("ds5_usrperfil")=2 or session("ds5_usrperfil")=4) then	'Administrador, revisor, auditor
 				menucierre=array(planificaciones,"<i class='fas fa-address-card'></i>Alumnos","<i class='fas fa-users' aria-hidden='true'></i>Asistencia","<i class='far fa-check-square' aria-hidden='true'></i>Calificaciones",adecuaciones,mensajesproyectos,"<i class='fas fa-file-signature'></i>Contratos","<i class='fas fa-hand-holding-usd'></i>Presupuesto")				
-				menucierrepag=array("/planificacion-modal","/alumnos-modal","/asistencia-modal","/calificaciones-modal","/adecuaciones-modal","/mensajes-proyecto-modal","/presupuestos-modal")				
+				menucierrepag=array("/planificacion-modal","/alumnos-modal","/asistencia-modal","/calificaciones-modal","/adecuaciones-modal","/mensajes-proyecto-modal","/contratos-modal","/presupuestos-modal")				
 			else
 				if(session("ds5_usrperfil")=3) then					
 						menucierre=array(planificaciones,"<i class='fas fa-address-card'></i>Alumnos","<i class='fas fa-users' aria-hidden='true'></i>Asistencia","<i class='far fa-check-square' aria-hidden='true'></i>Calificaciones",adecuaciones,mensajesproyectos)					

@@ -69,20 +69,20 @@
 	'response.end
 	if(mode="mod") then%>
 		<h5>Finalizar</h5>
-		<h6>Cierre del hito Avances</h6>
+		<h6>Cierre del hito Desarrollo</h6>
 		<div style="padding-top:50px;"></div>
 			<form role="form" action="<%=action%>" method="POST" name="frm13sfin" id="frm13sfin" class="needs-validation">
 				<div class="row align-items-center">
 					<div class="col-sm-6 col-md-6 col-lg-6" style="text-align:center;height:100%">
-						<button type="button" class="btn btn-danger btn-lg" id="btn_frm10fin" name="btn_frm10fin" value="enviar"><i class="fas fa-door-open"></i> Cerrar Hito AVANCES</button>
+						<button type="button" class="btn btn-danger btn-lg" id="btn_frm10fin" name="btn_frm10fin" value="enviar"><i class="fas fa-door-open"></i> Cerrar Hito Desarrollo</button>
 					</div>
 					<div class="col-sm-6 col-md-6 col-lg-6">
 						<blockquote>
 							<p>
-								Después de haber ingresado toda la información requerida en los pasos anteriores, es necesario cerrar la etapa "Avances", con el fin de informar el paso al siguiente Hito y asi poder generar los informes pertinentes a esta etapa (Informe Avances).
+								Después de haber ingresado toda la información requerida en los pasos anteriores, es necesario cerrar la etapa "Desarrollo", con el fin de informar el paso al siguiente Hito y asi poder generar los informes pertinentes a esta etapa (Informe Desarrollo).
 							</p>
 							<p>
-								Presionando el botón "Cerrar Hito AVANCES", se cambiará el estado del proyecto actual y se enviará a los perfiles asociados el requerimiento en su nueva etapa.
+								Presionando el botón "Cerrar Hito Desarrollo", se cambiará el estado del proyecto actual y se enviará a los perfiles asociados el requerimiento en su nueva etapa.
 							</p>
 						</blockquote>                                		                                                                    
 					</div>                               		                                    
@@ -102,7 +102,7 @@
 			perfil="Administrativo"
 		end if%>
 		<h5>Finalizar</h5>
-		<h6>Hito Avances en proceso de cierre</h6>
+		<h6>Hito Desarrollo en proceso de cierre</h6>
 		<div style="padding-top:50px;"></div>
 			<form role="form" action="<%=action%>" method="POST" name="frm13sfin" id="frm13sfin" class="needs-validation">
 				<div class="row align-items-center">					
@@ -112,7 +112,7 @@
 					<div class="col-sm-12 col-md-10 col-lg-10">
 						<blockquote>
 							<p>
-								Estimado <%=perfil%>, actualmente el informe AVANCES se encuentra en proceso de cierre. En este período el ejecutor del proyecto podría enviarle algunas solicitudes de adecuaciones requeridas para completar el informe y asi proceder al cierre del mismo.
+								Estimado <%=perfil%>, actualmente el informe Desarrollo se encuentra en proceso de cierre. En este período el ejecutor del proyecto podría enviarle algunas solicitudes de adecuaciones requeridas para completar el informe y asi proceder al cierre del mismo.
 							</p>
 							<p>
 								Para revisar estas observaciones solo debe ingresar en el menú de Adecuaciones que se encuentra situado en la parte superior izquierda de esta pantalla.
@@ -149,8 +149,8 @@
 		
 		$("#btn_frm10fin").click(function(){
 			swalWithBootstrapButtons.fire({
-			  title: 'Confirmación de Cierre de Hito AVANCES',
-			  text: '¿Estas seguro de querer cerrar del Hito "AVANCES" para dar inicio al desarrollo del programa?',
+			  title: 'Confirmación de Cierre de Hito Desarrollo',
+			  text: '¿Estas seguro de querer cerrar del Hito "Desarrollo" para dar inicio al desarrollo del programa?',
 			  icon: 'question',
 			  showCancelButton: true,
 			  confirmButtonColor: '#3085d6',
@@ -169,7 +169,7 @@
 							$("#frm13sfin")[0].reset();
 							Toast.fire({
 							  icon: 'success',
-							  title: 'Cierre del Hito Avances realizado con éxito.'
+							  title: 'Cierre del Hito Desarrollo realizado con éxito.'
 							});
 							var data   = {modo:<%=modo%>,PRY_Id:<%=PRY_Id%>,LIN_Id:<%=LIN_Id%>};
 							$.ajax( {

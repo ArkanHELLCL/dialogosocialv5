@@ -86,17 +86,17 @@
 								on error resume next					
 								do While Not rs.eof
 									if(PRY_InformeInicioAceptado or PRY_InformeInicialAceptado) then
-										if(LFO_Id=10 or LFO_Id=12) then
+										if(LFO_Id=10 or LFO_Id=12) then										
 											if(rs("TAD_Id")<>9 and rs("TAD_Id")<>10 and rs("TAD_Id")<>11) then%>
 												<option value="<%=rs("TAD_Id")%>"><%=rs("TAD_Descripcion")%></option><%
 											end if
 										else
-											if(rs("TAD_Id")<>5) and  (rs("TAD_Id")<>6) and (rs("TAD_Id")<>8) and (rs("TAD_Id")<>12) then%>
+											if(rs("TAD_Id")<>5) and  (rs("TAD_Id")<>6) and (rs("TAD_Id")<>8) and (rs("TAD_Id")<>12) and (rs("TAD_Id")<>13) then%>
 												<option value="<%=rs("TAD_Id")%>"><%=rs("TAD_Descripcion")%></option><%
 											end if
 										end if
 									else
-										if(rs("TAD_Id")=12) then%>
+										if(rs("TAD_Id")=12 or rs("TAD_Id")=13) then%>
 											<option value="<%=rs("TAD_Id")%>"><%=rs("TAD_Descripcion")%></option><%
 										end if
 									end if
@@ -891,7 +891,42 @@
 				</div>						
 			</div>
 		</form>
-	</div>
+	</div><%
+	if(LFO_Id<>11) then%>
+		<div id="ade-13" style="padding-left: 30px;">	<!--Porcentaje Cumplimiento Metodologías-->
+			<h5>Adecuación</h5>
+			<h6>Porcentaje Cumplimiento Metodologías</h6>		
+			<form role="form" action="" method="POST" name="frmPorcentajeMetodologias" id="frmPorcentajeMetodologias" class="form-signin needs-validation">
+				<div class="row align-items-center"><%
+					if(MET_Id=1 or MET_Id=3) then%>
+						<div class="col-sm-12 col-md-6 col-lg-3">
+							<div class="md-form input-with-post-icon">
+								<div class="error-message">	
+									<i class="fas fa-percentage input-prefix"></i>													
+									<input type="number" id="PRY_PorcentajeMinOnlineADE" name="PRY_PorcentajeMinOnlineADE" class="form-control" value="" required data-msg="Ingresa un porcentaje válido" min="1" max="100">
+									<span class="select-bar"></span>
+									<label for="PRY_PorcentajeMinOnlineADE" class="">Porcentaje mínimo clases online</label>
+								</div>
+							</div>
+						</div><%
+					end if
+					if(MET_Id=2 or MET_Id=3) then%>
+						<div class="col-sm-12 col-md-6 col-lg-3">
+							<div class="md-form input-with-post-icon">
+								<div class="error-message">	
+									<i class="fas fa-percentage input-prefix"></i>													
+									<input type="number" id="PRY_PorcentajeMinPresencialADE" name="PRY_PorcentajeMinPresencialADE" class="form-control" value="" required data-msg="Ingresa un porcentaje válido" min="1" max="100">
+									<span class="select-bar"></span>
+									<label for="PRY_PorcentajeMinPresencialADE" class="">Porcentaje mínimo clases presenciales</label>
+								</div>
+							</div>
+						</div>
+					<%end if%>
+				</div>
+			</form>
+		</div><%
+	end if%>
+
 	<form role="form" action="" method="POST" name="frmaddadecuaciones" id="frmaddadecuaciones" class="form-signin needs-validation" style="padding-left: 30px;"><%
 		if ((PRY_InfFinal=0 and PRY_Estado=1) and (USR_IdRevisor=session("ds5_usrid") and session("ds5_usrperfil")=2) or session("ds5_usrperfil")=1 or ((PRY_InfFinal=0 and PRY_Estado=1) and (USR_IdEjecutor=session("ds5_usrid") and session("ds5_usrperfil")=3))) then%>							
 			<button type="button" class="btn btn-primary btn-md waves-effect waves-dark" id="btn_frmaddadecuaciones" name="btn_frmaddadecuaciones" style="float:right;"><i class="fas fa-plus"></i> Solicitar</button><%
@@ -899,3 +934,18 @@
 		<button type="button" class="btn btn-danger btn-md waves-effect waves-dark" id="btn_saliradecuaciones" name="btn_saliradecuaciones" style="float:right;"><i class="fas fa-sign-out-alt"></i> Salir</button>											
 	</form>
 	<!--form-->
+
+	<script>
+		$("#frmPorcentajeMetodologias").on("change","#PRY_PorcentajeMinOnlineADE", function(e){			
+			e.preventDefault();
+			e.stopPropagation();			
+			var PRY_PorcentajeMinOnline = parseInt($("#PRY_PorcentajeMinOnlineADE").val());			
+			$("#PRY_PorcentajeMinPresencialADE").val(100-PRY_PorcentajeMinOnline);
+		})
+		$("#frmPorcentajeMetodologias").on("change","#PRY_PorcentajeMinPresencialADE", function(e){		
+			e.preventDefault();
+			e.stopPropagation();			
+			var PRY_PorcentajeMinPresencial = parseInt($("#PRY_PorcentajeMinPresencialADE").val());
+			$("#PRY_PorcentajeMinOnlineADE").val(100-PRY_PorcentajeMinPresencial);			
+		})
+	</script>

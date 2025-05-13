@@ -274,7 +274,7 @@
 									estado="Final"
 								end if							
 							else
-								estado="Avances"
+								estado="Desarrollo"
 							end if
 						else
 							estado="Inicial"
@@ -294,10 +294,10 @@
 											estado="Final"
 										end if	
 									else
-										estado="Desarrollo"						
+										estado="Avances"						
 									end if
 								else
-									estado="Avances"
+									estado="Desarrollo"
 								end if
 							else
 								estado="Inicial"

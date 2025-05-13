@@ -47,7 +47,7 @@
 		response.end()
 	End If%>
 	   
-	{"state": 200, "message": "Informe Avances correctamente rechazado","data": null}<%
+	{"state": 200, "message": "Informe Desarrollo correctamente rechazado","data": null}<%
 	
 	cnn.close
 	set cnn = nothing

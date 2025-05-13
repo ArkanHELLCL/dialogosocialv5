@@ -38,7 +38,7 @@
 		TDI_Id							 = up.form("TDI_Id")
 	end if
 	
-	ALU_FechaCreacionRegistro		 = up.form("ALU_FechaCreacionRegistro")	
+	'ALU_FechaCreacionRegistro		 = up.form("ALU_FechaCreacionRegistro")	
 	ALU_AccesoInternet				 = up.form("ALU_AccesoInternet")
 	if(ALU_AccesoInternet="") then
 		ALU_AccesoInternet=0

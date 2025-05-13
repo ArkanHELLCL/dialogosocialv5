@@ -728,8 +728,8 @@ $html = $html.'<h4>Metodología: '.$MET_Descripcion.'</h4>
                   <tr>
                     <th>Metodología</th>
                     <th>Total Horas</th>
-                    <th>Total Horas Pedadgógicas</th>
-                    <th>% Horas Pedadgógicas</th>
+                    <th>Total Horas Pedagógicas</th>
+                    <th>% Horas Pedagógicas</th>
                     <th>% Mínimo Exigido</th>
                   </tr>';
 

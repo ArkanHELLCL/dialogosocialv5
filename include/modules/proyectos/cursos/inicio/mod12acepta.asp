@@ -11,8 +11,9 @@
 	
 	TIP_Id				= 19	'Aceptación Informe INICIO
 	MEN_Archivo			= ""	'Sin adjuntos
-	MEN_Texto			= "Informe INICIO ha sido ACEPTADO (ESCUELA)"
+	MEN_Texto			= "Informe INICIO ha sido ACEPTADO (CURSOS)"
 	MEN_Archivo			= ""
+	Informe				= 1		'Informe Inicio Cursos
 
 	set cnn = Server.CreateObject("ADODB.Connection")
 	on error resume next	
@@ -24,7 +25,7 @@
 	   response.End() 			   
 	end if	
 	
-	sql="exec spProyectoInformeInicioAceptado_Cerrar " & PRY_Id & ",'" & PRY_Identificador & "'," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'"
+	sql="exec spProyectoInformeInicioAceptado_Cerrar " & PRY_Id & ",'" & PRY_Identificador & "'," & Informe & "," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'"
 	set rs = cnn.Execute(sql)
 	on error resume next
 	if cnn.Errors.Count > 0 then

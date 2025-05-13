@@ -59,7 +59,7 @@
 		if (session("ds5_usrperfil")<>3) then	'Todos tienen accesos menos el ejecutor, solo el admin tendrá acceso a modificar los mantenerores
 			'salida = salida + "<li class='hitos' style='padding-top:15px;opacity:0;visiblity:hidden'></li>"
 			salida = salida + "<ul class='nav nav-stacked nav-tree' role='tab-list'>"
-			salida = salida + "<li role='presentation' class='category text-primary reportes' style='margin-top: 0;margin-bottom:5px;'><i class='fas fa-angle-up ml-1 repmenu'></i><i class='fas fa-file-invoice' style='padding-right:7px;'></i> Reportes </li>"
+			salida = salida + "<li role='presentation' class='category text-primary reportes repmenu' style='margin-top: 0;margin-bottom:5px;'></i><i class='fas fa-file-invoice' style='padding-right:7px;'></i> Reportes </li>"
 			for i=0 to reportesLar
 				if(i=item) then
 					clase="active"
@@ -74,7 +74,7 @@
 			
 			salida = salida + "<ul class='nav nav-stacked nav-tree' role='tab-list'>"
 			'salida = salida + "<li class='reportes' style='padding-top:0px;opacity:0;visiblity:hidden;height:0;'></li>"
-			salida = salida + "<li role='presentation' class='category text-primary mantenedores' style='margin-top: 0;'><i class='fas fa-angle-up ml-1 manmenu'></i><i class='fas fa-server' style='padding-right:7px;'></i> Mantenedores </li>"
+			salida = salida + "<li role='presentation' class='category text-primary mantenedores manmenu' style='margin-top: 0;'><i class='fas fa-server' style='padding-right:7px;'></i> Mantenedores </li>"
 			
 			for i=0 to mantenedoresLar
 				perfiles=Split(mantenedoresPer(i),",")							

@@ -148,7 +148,6 @@
 							<div class="res" id="pasos" disabled></div>
 							<div class="res" id="hitos" disabled></div>
 							<div class="res" id="menus" disabled></div>							
-							<i class="fas fa-thumbtack pin text-primary"></i>
 							<div id="pry-menucontent"></div>
 						</div>
 					</div>
@@ -316,14 +315,14 @@ end if%>
 						}else{							
 						}
 						
-						$(".pin").click(function(){
+						/*$(".pin").click(function(){
 							$("#pry-menu").toggleClass("show");
 							if(pinmenu){
 								pinmenu = false;
 							}else{
 								pinmenu = true;
 							}							
-						});
+						});*/
 						if(firsttimenu && !pinmenu){
 							setTimeout(function() {
 								$("#pry-menu").toggleClass("show");	

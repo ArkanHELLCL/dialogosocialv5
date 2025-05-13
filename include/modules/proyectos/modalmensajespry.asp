@@ -32,6 +32,7 @@
 		PRY_InformeFinalEstado=rs("PRY_InformeFinalEstado")
 		PRY_InformeFinalAceptado=rs("PRY_InformeFinalAceptado")
 		PRY_InformeSistematizacionEstado = rs("PRY_InformeSistematizacionEstado")
+		PRY_InformeSistematizacionAceptado = rs("PRY_InformeSistematizacionAceptado")
 		USR_IdRevisor=rs("USR_IdRevisor")
 		USR_IdEjecutor=rs("USR_IdEjecutor")
 		PRY_Estado=rs("PRY_Estado")
@@ -57,12 +58,20 @@
 	end if	
 	if(PRY_InformeSistematizacionEstado="" or IsNULL(PRY_InformeSistematizacionEstado)) then
 		PRY_InformeSistematizacionEstado=0
+	end if
+
+	if(PRY_InformeFinalAceptado="" or IsNULL(PRY_InformeFinalAceptado)) then
+		PRY_InformeFinalAceptado=0
 	end if	
-	if(LFO_Id=10 or LFO_Id=12) then
-		PRY_InfFinal = PRY_InformeFinalEstado
+	if(PRY_InformeSistematizacionAceptado="" or IsNULL(PRY_InformeSistematizacionAceptado)) then
+		PRY_InformeSistematizacionAceptado=0
+	end if
+
+	if(LFO_Id=10 or LFO_Id=12 or LFO_Id=13) then
+		PRY_InfFinal = PRY_InformeFinalAceptado
 	end if
 	if(LFO_Id=11) then
-		PRY_InfFinal = PRY_InformeSistematizacionEstado
+		PRY_InfFinal = PRY_InformeSistematizacionAceptado
 	end if
 	columnsDefsmensajespry="[]"
 	response.write("200\\#mensajespryModal\\")%>
@@ -92,7 +101,7 @@
 				</div>									
 			</div>
 			<!--body-->
-			<div class="modal-footer"><%
+			<div class="modal-footer"><%				
 				if ((PRY_InfFinal=0 and PRY_Estado=1)) then%>
 					<div style="float:left;" class="btn-group" role="group" aria-label="">
 						<button class="btn btn-success btn-md waves-effect" type="button" data-url="" title="Crear nuevo mensaje" id="btn_creaconsultapry" name="btn_creaconsultapry"><i class="fas fa-plus ml-1"></i></button>

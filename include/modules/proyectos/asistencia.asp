@@ -61,6 +61,7 @@
 		PRY_Estado=rs("PRY_Estado")
 		PRY_Identificador=rs("PRY_Identificador")
 		LFO_CAlif=rs("LFO_Calif")
+		LFO_Id = rs("LFO_Id")
 	end if
 		
 	if(searchTXT<>"") then		
@@ -69,12 +70,15 @@
 	else
 		search=""
 	end if
-		
-	SQLquery="exec [spAlumnoProyecto_Listar] " & PRY_Id & ",'" & search & "'"
+	if(LFO_Id<>11) then
+		SQLquery="exec [spAlumnoProyecto_Listar] " & PRY_Id & ",'" & search & "'"
+	Else
+		SQLquery="exec [spRepresentantesProyecto_Listar] " & PRY_Id & ",'" & search & "'"
+	end if
 	set rs=createobject("ADODB.recordset")
 	if cnn.Errors.Count > 0 then 
 		ErrMsg = cnn.Errors(0).description
-		response.write("Error [spAlumno_Listar]")
+		response.write("Error " & SQLquery)
 		cnn.close 		
 		response.end
 	End If	
@@ -104,22 +108,27 @@
 			xTotAsis = TotAsis & "%"
 		else
 			xTotAsis = "0%"
-		end if						
-		dataAsistencia = dataAsistencia & "[""" & rs("ALU_Rut") & "-" & rs("ALU_DV") & """,""" & rs("ALU_Nombre") & """,""" & rs("ALU_ApellidoPaterno") & """,""" & rs("ALU_ApellidoMaterno") & """,""" & rs("SEX_Descripcion") & """,""" & rs("ALU_Mail") & """,""" & xTotAsis
+		end if
+		if(LFO_Id<>11) then
+			dataAsistencia = dataAsistencia & "[""" & rs("ALU_Rut") & "-" & rs("ALU_DV") & """,""" & rs("ALU_Nombre") & """,""" & rs("ALU_ApellidoPaterno") & """,""" & rs("ALU_ApellidoMaterno") & """,""" & rs("SEX_Descripcion") & """,""" & rs("ALU_Mail") & """,""" & xTotAsis
+		Else
+			dataAsistencia = dataAsistencia & "[""" & rs("ALU_Rut") & "-" & rs("ALU_DV") & """,""" & rs("ALU_Nombre") & """,""" & rs("ALU_ApellidoPaterno") & """,""" & rs("ALU_ApellidoMaterno") & """,""" & rs("SEX_Descripcion") & """,""" & rs("ALU_Mail") & """,""" & xTotAsis & """,""" & rs("ALU_Tipo") & """,""" & rs("ALU_Patrocinio")
+		end if
+		
+		if(LFO_Id<>11) then
+			CDE_InfoCausaDesercion=""
+			RDE_InfoRazonDesercion=""
+			EST_InfoObservaciones=""
+			
+			EstadoAcademico = rs("TES_Descripcion")		'Primer registro, utimo en ingresar
+			EstadoAcademicoId = rs("EST_Estado") 
+			RDE_InfoRazonDesercion = LimpiarURL(rs("RDE_InfoRazonDesercion"))
+			CDE_InfoCausaDesercion = LimpiarURL(rs("CDE_InfoCausaDesercion"))
+			EST_InfoObservaciones = LimpiarURL(rs("EST_InfoObservaciones"))
+			RDE_InfoRazonId = rs("RDE_InfoRazonId")
+			dataAsistencia = dataAsistencia & """,""" & EstadoAcademico & """,""" & CDE_InfoCausaDesercion & """,""" & RDE_InfoRazonDesercion & """,""" & EST_InfoObservaciones
+		end if
 				
-		CDE_InfoCausaDesercion=""
-		RDE_InfoRazonDesercion=""
-		EST_InfoObservaciones=""
-		
-		EstadoAcademico = rs("TES_Descripcion")		'Primer registro, utimo en ingresar
-		EstadoAcademicoId = rs("EST_Estado") 
-		RDE_InfoRazonDesercion = LimpiarURL(rs("RDE_InfoRazonDesercion"))
-		CDE_InfoCausaDesercion = LimpiarURL(rs("CDE_InfoCausaDesercion"))
-		EST_InfoObservaciones = LimpiarURL(rs("EST_InfoObservaciones"))
-		RDE_InfoRazonId = rs("RDE_InfoRazonId")
-		
-		dataAsistencia = dataAsistencia & """,""" & EstadoAcademico & """,""" & CDE_InfoCausaDesercion & """,""" & RDE_InfoRazonDesercion & """,""" & EST_InfoObservaciones
-
 		if LFO_Calif=1 then
 			sql="exec spNota_PromedioConsultar " & rs("ALU_Rut") & "," & PRY_Id & "," & session("ds5_usrid") & ",'" & PRY_Identificador & "','" &  session("ds5_usrtoken") & "'"
 			set rs3 = cnn.Execute(sql)
@@ -138,34 +147,38 @@
 			dataAsistencia = dataAsistencia & """,""" & iPronot
 		end if
 
-		if(EstadoAcademicoId<>6) then
-			if(mode="mod") then
-				desertar = "<i class='fas fa-user-alt-slash aludes text-danger' data-rut='" & rs("ALU_Rut") & "' data-dv='" & rs("ALU_Dv") & "' title='Desertar alumno'></i></i><span style='display:none'>-</span>"
-			else
-				desertar = "<i class='fas fa-user-alt-slash aludes text-white-50' data-rut='" & rs("ALU_Rut") & "' data-dv='" & rs("ALU_Dv") & "' style='cursor:not-allowed' title='Desertar alumno'></i></i><span style='display:none'>-</span>"
-			end if
-		else
-			if(not isnull(RDE_InfoRazonId)) then
+		if(LFO_Id<>11) then
+			if(EstadoAcademicoId<>6) then
 				if(mode="mod") then
-					desertar = "<i class='fas fa-user-check aluhab text-success' data-rut='" & rs("ALU_Rut") & "' data-dv='" & rs("ALU_Dv") & "' title='Habilitar Alumno'></i></i><span style='display:none'>Desertado manual</span>"
+					desertar = "<i class='fas fa-user-alt-slash aludes text-danger' data-rut='" & rs("ALU_Rut") & "' data-dv='" & rs("ALU_Dv") & "' title='Desertar alumno'></i></i><span style='display:none'>-</span>"
 				else
-					desertar = "<i class='fas fa-user-check aluhab text-white-50' data-rut='" & rs("ALU_Rut") & "' data-dv='" & rs("ALU_Dv") & "' title='Habilitar Alumno'></i></i><span style='display:none'>Desertado manual</span>"
+					desertar = "<i class='fas fa-user-alt-slash aludes text-white-50' data-rut='" & rs("ALU_Rut") & "' data-dv='" & rs("ALU_Dv") & "' style='cursor:not-allowed' title='Desertar alumno'></i></i><span style='display:none'>-</span>"
 				end if
 			else
-				if(mode="mod") then
-					desertar = "<i class='fas fa-ban text-danger' title='Desertado por sistema'></i><span style='display:none'>Desertado por sistema</span>"
+				if(not isnull(RDE_InfoRazonId)) then
+					if(mode="mod") then
+						desertar = "<i class='fas fa-user-check aluhab text-success' data-rut='" & rs("ALU_Rut") & "' data-dv='" & rs("ALU_Dv") & "' title='Habilitar Alumno'></i></i><span style='display:none'>Desertado manual</span>"
+					else
+						desertar = "<i class='fas fa-user-check aluhab text-white-50' data-rut='" & rs("ALU_Rut") & "' data-dv='" & rs("ALU_Dv") & "' title='Habilitar Alumno'></i></i><span style='display:none'>Desertado manual</span>"
+					end if
 				else
-					desertar = "<i class='fas fa-ban text-white-50' title='Desertado por sistema'></i><span style='display:none'>Desertado por sistema</span>"
+					if(mode="mod") then
+						desertar = "<i class='fas fa-ban text-danger' title='Desertado por sistema'></i><span style='display:none'>Desertado por sistema</span>"
+					else
+						desertar = "<i class='fas fa-ban text-white-50' title='Desertado por sistema'></i><span style='display:none'>Desertado por sistema</span>"
+					end if
 				end if
 			end if
-		end if						
-		dataAsistencia = dataAsistencia & """,""" & desertar  & """]"			
+			dataAsistencia = dataAsistencia & """,""" & desertar  & """]"
+		Else
+			dataAsistencia = dataAsistencia & """]"
+		end if					
+		
 		rs.movenext
 		if not rs.eof and (contreg < length or length=0) then
 			dataAsistencia = dataAsistencia & ","
 		end if		
-		contreg=contreg+1
-		
+		contreg=contreg+1		
 	loop	
 	dataAsistencia=dataAsistencia & "]" & ",""search"": """ & search & """" & "}"		
 	response.write(replace(dataAsistencia,"],]","]]"))

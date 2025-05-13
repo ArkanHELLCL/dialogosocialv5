@@ -159,9 +159,9 @@
 		
 		if PRY_InformeConsensosEstado=1 and INF_Id=2 then		'Solo si el hito CONCENSOS esta cerrado						
 			INF_Url="/informe-avances-mesas"
-			informe="Avances"
+			informe="Desarrollo"
 			carpeta="informeavancesmesa"
-			titulo="Informe de Avances"
+			titulo="Informe de Desarrollo"
 		else
 			if PRY_InformeConsensosEstado=0 and INF_Id=2 then
 				response.write("2/@/Hito Concensos no cerrado")				

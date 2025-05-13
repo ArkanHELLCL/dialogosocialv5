@@ -56,6 +56,9 @@
 	if(LFO_Id=11) then
 		PRY_InfFinal = PRY_InformeSistematizacionAceptado
 	end if
+	'Requerimiento de Dialogo, mantener abiero el modulo despues de que el proyecto haya sido cerrado
+	PRY_InfFinal = False
+	'Requerimiento de Dialogo, mantener abiero el modulo despues de que el proyecto haya sido cerrado
 	if(session("ds5_usrperfil")=4) and not PRY_InfFinal then
 		required="readonly"
 		disabled="disabled"
@@ -230,9 +233,8 @@
 							</div>																					
 						</div>																								
 
-						<div class="row footer">						
-							
-								<div class="col-sm-12 col-md-12 col-lg-3">
+						<div class="row footer">							
+								<div class="col-sm-12 col-md-12 col-lg-2">
 									<div class="md-form input-with-post-icon">
 										<div class="error-message ">
 											<i class="fas fa-dollar-sign input-prefix"></i><%
@@ -247,7 +249,7 @@
 										</div>
 									</div>
 								</div>	
-								<div class="col-sm-12 col-md-12 col-lg-3">
+								<div class="col-sm-12 col-md-12 col-lg-2">
 									<div class="md-form input-with-post-icon">
 										<div class="error-message">
 											<i class="fas fa-percent input-prefix"></i><%
@@ -258,11 +260,11 @@
 											end if%>
 											<input type="number" id="PRE_PorAvance" name="PRE_PorAvance" class="form-control" readonly value="0">
 											<span class="select-bar"></span>
-											<label for="PRE_PorAvance" class="active">Porcentaje de Avance</label>
+											<label for="PRE_PorAvance" class="active">% Avance</label>
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-12 col-md-12 col-lg-3">
+								<div class="col-sm-12 col-md-12 col-lg-2">
 									<div class="md-form input-with-post-icon">
 										<div class="error-message">														
 											<i class="fas fa-cloud-upload-alt input-prefix"></i>
@@ -273,7 +275,29 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-12 col-md-12 col-lg-3"><%							
+								<div class="col-sm-12 col-md-12 col-lg-3">
+									<div class="md-form input-with-post-icon">
+										<div class="error-message">
+											<div class="select" id="selHitosLin">
+												<select name="LFH_Id" id="LFH_Id" class="validate select-text form-control" required data-msg="Debes seleccionar un informe">
+													<option value="" disabled selected></option><%													
+													set rs = cnn.Execute("exec [spLineaFormativaHitosDisponibles_Listar] " & PRY_Id)
+													on error resume next					
+													do While Not rs.eof%>
+														<option value="<%=rs("LFH_Id")%>"><%=rs("LFH_HitoDescripcion")%></option><%
+														rs.movenext						
+													loop
+													rs.Close%>
+												</select>														
+												<i class="fas fa-list-ol input-prefix"></i>
+												<span class="select-highlight"></span>
+												<span class="select-bar"></span>
+												<label class="select-label <%=lblSelect%>">Informe</label>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-12 col-md-12 col-lg-3"><%
 									if (session("ds5_usrperfil")=5 or session("ds5_usrperfil")=2 or session("ds5_usrperfil")=1) then%>
 										<button type="button" class="btn btn-success btn-md waves-effect waves-dark" id="btn_frmaddpresupuestos" name="btn_frmaddpresupuestos" data-toggle="tooltip" title="Agregar nuevo registro"><i class="fas fa-plus"></i></button><%
 									end if%>							
@@ -290,6 +314,7 @@
 					<input type="hidden" id="PorTot" name="PorTot" value="">
 					<input type="hidden" id="PorTotOri" name="PorTotOri" value="">
 					<input type="hidden" id="PRE_PorAvanceOri" name="PRE_PorAvanceOri" value="">
+					<input type="hidden" id="LFO_Id" name="LFO_Id" value="<%=LFO_Id%>">
 				</form><%			
 			end if%>
 			<!--form-->			
@@ -300,6 +325,7 @@
 							<thead> 
 								<tr> 
 									<th style="width:10px;">Id</th>
+									<th>Informe</th>
 									<th>Cuota</th>
 									<th>%</th>
 									<th>Monto</th> 
@@ -394,7 +420,17 @@
 			$("#btn_frmaddpresupuestos").attr("data-original-title","Agregar nuevo registro")
 			$(".limpiar").slideUp();
 			tooltipfunction();
-			
+			$.ajax({
+				url:"/select-hitos",
+				data:{PRY_Id:$("#PRY_Id").val()},
+				type:"POST",
+				success:function(data){
+					dataSplit = data.split(sas);
+					if(dataSplit[0]==200){
+						$("#selHitosLin").html(dataSplit[1]);
+					}											
+				}
+			})
 			
 			
 		})
@@ -532,6 +568,19 @@
 											$("#PRE_FechaVenCuota").siblings("label").addClass("active");
 											$("#PRE_GlosaFactura").val(datos[10]);						
 											$("#PRE_GlosaFactura").siblings("label").addClass("active");
+											$("#PRE_PorAvanceOri").val($("#PRE_PorAvanceOri").val() - parseInt(datos[2]));
+											$.ajax({
+												url:"/select-hitos",
+												data:{PRY_Id:$("#PRY_Id").val()},
+												type:"POST",
+												success:function(data){
+													dataSplit = data.split(sas);
+													if(dataSplit[0]==200){
+														$("#selHitosLin").html(dataSplit[1]);
+														$("select#LFH_Id").append('<option value="'+datos[11]+'" selected>'+datos[12]+'</option>');
+													}											
+												}
+											})																						
 											estadoCuota($("#PRE_MontoFactura").val());
 										},
 										error: function(XMLHttpRequest, textStatus, errorThrown){					
@@ -576,6 +625,17 @@
 														});	
 														presupuestosTable.ajax.reload();
 														$("#frmpresupuestos")[0].reset();
+														$.ajax({
+															url:"/select-hitos",
+															data:{PRY_Id:$("#PRY_Id").val()},
+															type:"POST",
+															success:function(data){
+																dataSplit = data.split(sas);
+																if(dataSplit[0]==200){
+																	$("#selHitosLin").html(dataSplit[1]);
+																}											
+															}
+														})
 													}else{
 														swalWithBootstrapButtons.fire({
 															icon:'error',								
@@ -590,12 +650,10 @@
 														title: 'Ups!, no pude cargar el menú del proyecto',					
 													});				
 												}
-											});
-									
+											});									
 										}
 									})
-								})
-								
+								})								
 								$(this).find("i.downloadFile").click(function(e){
 									e.preventDefault();
 									e.stopImmediatePropagation();
@@ -773,6 +831,7 @@
 				formdata.append("PRE_FechaPagoCuota",$("#PRE_FechaPagoCuota").val());
 				formdata.append("PRE_GlosaFactura",$("#PRE_GlosaFactura").val());								
 				formdata.append("PRE_AdjuntoX",$("#PRE_AdjuntoX").val());
+				formdata.append("LFH_Id",$("#LFH_Id").val());
 				
 				if($("#frmpresupuestos").attr('action')=="/agrega-presupuestos"){
 					var msg="Presupuesto agregado correctamente!";
@@ -823,6 +882,18 @@
 									$("#PRE_GlosaFactura").siblings("label").removeClass("active");
 									$("#PRE_EstadoCuotaPendiente").attr("checked","checked");
 									$("#PRE_EstadoCuotaCancelado").removeAttr("checked");
+									presupuestosTable.ajax.reload();
+									$.ajax({
+										url:"/select-hitos",
+										data:{PRY_Id:$("#PRY_Id").val()},
+										type:"POST",
+										success:function(data){
+											dataSplit = data.split(sas);
+											if(dataSplit[0]==200){
+												$("#selHitosLin").html(dataSplit[1]);
+											}											
+										}
+									})
 								}			
 							}else{
 								swalWithBootstrapButtons.fire({

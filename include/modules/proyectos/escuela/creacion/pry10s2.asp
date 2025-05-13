@@ -232,7 +232,7 @@
 			<div class="md-form input-with-post-icon">
 				<div class="error-message">
 					<i class="fas fa-percentage input-prefix"></i>											
-					<input type="number" id="GRF_Porcentaje" name="GRF_Porcentaje" class="form-control" value="<%=GRF_Porcentaje%>" min="1" max="100" <%=disabled%>>
+					<input type="number" id="GRF_Porcentaje" name="GRF_Porcentaje" class="form-control" value="<%=GRF_Porcentaje%>" min="0" max="100" <%=disabled%>>
 					<span class="select-bar"></span><%
 					if(GRF_Porcentaje<>"") then%>
 						<label for="GRF_Porcentaje" class="active">Porcentaje</label><%

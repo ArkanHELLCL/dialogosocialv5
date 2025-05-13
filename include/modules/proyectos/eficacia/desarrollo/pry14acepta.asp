@@ -128,7 +128,7 @@
 			</form>			
 		</div><%
 	end if%>
-<!-- Formulario para rechazar el informe AVANCES -->
+<!-- Formulario para rechazar el informe Desarrollo -->
 <div class="modal fade in" id="modalRechaza" tabindex="-1" role="dialog" aria-labelledby="modalRechazaLabel" aria-hidden="true">
 	<div class="modal-dialog cascading-modal narrower modal-lg" role="document">  		
     	<div class="modal-content">		
@@ -198,12 +198,12 @@
 							swalWithBootstrapButtons.fire({
 								icon:'error',								
 								title: 'Documentos faltantes.',						
-								text:'Antes de aceptar el informe AVANCES, debes tener APROBADOS todos los documentos solicitados en el ítem "Documentos"'
+								text:'Antes de aceptar el informe Desarrollo, debes tener APROBADOS todos los documentos solicitados en el ítem "Documentos"'
 							});	
 						}else{
 							swalWithBootstrapButtons.fire({
 							  title: 'Confirmación de Aceptación',
-							  text: '¿Estas seguro de querer aceptar el informe "AVANCES" para dar comienzo al ingreso del informe Final?',
+							  text: '¿Estas seguro de querer aceptar el informe "Desarrollo" para dar comienzo al ingreso del informe Final?',
 							  icon: 'success',
 							  showCancelButton: true,
 							  confirmButtonColor: '#3085d6',
@@ -283,7 +283,7 @@
 				$("#modalRechaza").modal("hide");
 				swalWithBootstrapButtons.fire({
 				  title: 'Confirmación de Rechazo',
-				  text: '¿Estas seguro de querer rechazar el informe "AVANCES" para liberar el HITO al ejecutor?',
+				  text: '¿Estas seguro de querer rechazar el informe "Desarrollo" para liberar el HITO al ejecutor?',
 				  icon: 'error',
 				  showCancelButton: true,
 				  confirmButtonColor: '#3085d6',

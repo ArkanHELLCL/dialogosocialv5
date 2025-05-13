@@ -433,6 +433,7 @@
 			response.end()
 		End If		
 	end if
+
 	if(TAD_Id=7) then
 		MEN_Texto	= "Se ha aceptado la solicitado de Adecuación"
 		TIP_Id		= 54
@@ -568,7 +569,52 @@
 			response.end()
 		End If		
 	end if
-		
+
+	if(LFO_Id<>11) then
+		if(TAD_Id=13) then
+			set rs2 = cnn.Execute("exec spAdecuacionMetodologiaPor_Listar " & ADE_Id)
+			on error resume next
+			if cnn.Errors.Count > 0 then
+				ErrMsg = cnn.Errors(0).description%>
+				{"state": 503, "message": "Error Conexión : <%=ErrMsg%>","data": "spAdecuacionMetodologiaPor_Listar"}<%
+				rs2.close
+				cnn.close
+				response.end()
+			End If
+			if not rs2.eof then
+				MES_Id=rs2("MES_Id")
+				MES_METPorcentajeOnlineNew = rs2("MES_METPorcentajeOnlineNew")
+				MES_METPorcentajePresencialNew = rs2("MES_METPorcentajePresencialNew")
+			end if
+			
+			'Mensaje de aducuacion de encargado de actividades
+			MEN_Texto	= "Se ha aceptado la solicitado de modificación del Porcentaje de Metodologías del proyecto : " & PRY_Id				
+			TIP_Id		= 77
+			
+			datos =  PRY_Id & "," & MES_METPorcentajeOnlineNew & "," & MES_METPorcentajePresencialNew & "," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'"
+			sql="exec spMetodologiaPorcentajeSolicitud_Modificar " & datos 
+			cnn.execute sql
+			on error resume next	
+			if cnn.Errors.Count > 0 then
+				ErrMsg = cnn.Errors(0).description%>
+				{"state": 503, "message": "Error Conexión : <%=ErrMsg%>","data": "<%=sql%>"}<%
+				rz.close
+				cnn.close
+				response.end()
+			End If	
+			
+			set rs = cnn.Execute("exec spMetodologiaPorcentaje_SolicitarResponder " & MES_Id & ",2," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'")
+			on error resume next
+			if cnn.Errors.Count > 0 then
+				ErrMsg = cnn.Errors(0).description%>
+				{"state": 503, "message": "Error Conexión : <%=ErrMsg%>","data": "spMetodologiaPorcentaje_SolicitarResponder"}<%
+				rz.close
+				cnn.close
+				response.end()
+			End If		
+		end if
+	end If
+
 	sqlw="exec spAdecuacionesAcepto_Modificar " & ADE_Id & "," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'"
 	on error resume next
 	cnn.execute sqlw

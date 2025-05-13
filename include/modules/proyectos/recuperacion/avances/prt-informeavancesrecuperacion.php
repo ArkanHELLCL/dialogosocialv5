@@ -165,13 +165,13 @@ $pdf->VerSis = $ver;
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('SUBTRAB');
 //pdf->SetTitle($_POST["titulo"]);
-$pdf->SetTitle('Informe Avances Recuperación');
+$pdf->SetTitle('Informe Desarrollo Recuperación');
 $pdf->SetSubject($ver);
 $pdf->SetKeywords('TCPDF, PDF, mesa, dialogo, social');
 
 // set default header data
 //$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
-$pdf->SetHeaderData("logo_subtrab.jpg", 30, 'Informe Avances Recuperación' , $PRY_Nombre." Nro.: ".$data->PRY_Id."\nEmpresa Ejecutora: ".$PRY_EmpresaEjecutora."\nROL/RUT: ".$EME_Rol."\Encargado/a del Pryecto: ".$PRY_EncargadoProyecto."\n\nSantiago ".date('d-m-o'));
+$pdf->SetHeaderData("logo_subtrab.jpg", 30, 'Informe Desarrollo Recuperación' , $PRY_Nombre." Nro.: ".$data->PRY_Id."\nEmpresa Ejecutora: ".$PRY_EmpresaEjecutora."\nROL/RUT: ".$EME_Rol."\Encargado/a del Pryecto: ".$PRY_EncargadoProyecto."\n\nSantiago ".date('d-m-o'));
 
 // set header and footer fonts
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -406,7 +406,7 @@ $html = $htmlstyle.'<h4>Fechas de Cierre</h4>
                 <table  border="0">
                 <tr>
                     <th scope="col" width="33%">Fecha Cierre Informe Incial</th>
-                    <th scope="col" width="33%">Fecha Cierre Informe Avances</th>
+                    <th scope="col" width="33%">Fecha Cierre Informe Desarrollo</th>
                     <th scope="col" width="33%">Fecha Cierre Informe Final</th>
                 </tr>
                 <tr>
@@ -419,7 +419,7 @@ $html = $htmlstyle.'<h4>Fechas de Cierre</h4>
                 <table  border="0">
                 <tr>
                     <th scope="col" width="33%">Fecha Cierre Informe Incial</th>
-                    <th scope="col" width="33%">Fecha Cierre Informe Avances</th>
+                    <th scope="col" width="33%">Fecha Cierre Informe Desarrollo</th>
                     <th scope="col" width="33%">Fecha Cierre Informe Final</th>
                 </tr>
                 <tr>

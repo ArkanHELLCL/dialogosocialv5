@@ -14,7 +14,8 @@
 		
 	Rut = replace(request("ALU_Rut"),"-","")
 	if(Rut<>"" and not IsNull(Rut)) then
-		ALU_Rut = mid(Rut,1,len(Rut)-1)
+		'ALU_Rut = mid(Rut,1,len(Rut)-1)
+		ALU_Rut = Rut
 	else
 		ALU_Rut = 0
 	end if

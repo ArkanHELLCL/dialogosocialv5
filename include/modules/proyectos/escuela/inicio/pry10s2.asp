@@ -174,7 +174,7 @@
 						classdown="disabled text-white-50"
 						styledown="cursor:not-allowed; pointer-events: all !important;"
 						data=""%>
-						<label for="RES1_AdjuntoX" class="">Adjunto</label><%
+						<label for="RES1_AdjuntoX" class="">Adjunto CV</label><%
 					end if%>
 				</div>
 			</div>

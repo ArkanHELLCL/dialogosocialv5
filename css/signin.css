@@ -77,7 +77,9 @@
   font-weight: 400;
   src: url("../fonts/Roboto/icon.woff2") format('woff2');
 }
-
+html{
+	color-scheme: dark;
+}
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;

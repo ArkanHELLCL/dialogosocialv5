@@ -9,9 +9,9 @@
 	PRY_Id				= request("PRY_Id")
 	PRY_Identificador	= request("PRY_Identificador")
 	
-	TIP_Id				= 31	'Cierre Informe AVANCES
+	TIP_Id				= 31	'Cierre Informe Avances
 	MEN_Archivo			= ""	'Sin adjuntos
-	MEN_Texto			= "Informe AVANCES ha sido CERRADO (RECUPERACIÓN)"
+	MEN_Texto			= "Informe Avances ha sido CERRADO (Eficacia)"
 	MEN_Archivo			= ""
 
 	set cnn = Server.CreateObject("ADODB.Connection")
@@ -46,7 +46,7 @@
 		response.end()
 	End If%>
 	   
-	{"state": 200, "message": "Informe Avances correctamente cerrado","data": null}<%
+	{"state": 200, "message": "Informe Desarrollo correctamente cerrado","data": null}<%
 	
 	cnn.close
 	set cnn = nothing	

@@ -838,7 +838,7 @@
 		
 		hitoscerrados=array(PRY_CreacionProyectoEstado,PRY_InformeInicialEstado,PRY_InformeConsensosEstado,PRY_InformeSistematizacionEstado)
 		hitosaceptados=array(true,PRY_InformeInicialAceptado,PRY_InformeConsensosAceptado,PRY_InformeSistematizacionAceptado)
-		hitos=array("Creación","Inicial","Avances","Final")	
+		hitos=array("Creación","Inicial","Desarrollo","Final")	
 		hitoslen=3
 		informesnombre=array("informecreacionrecuperacion.pdf","informeinicialrecuperacion.pdf","informeavancesrecuperacion.pdf","informefinalrecuperacion.pdf")
 		informessubdir=array("informecreacion","informeinicial","informeavances","informefinal")

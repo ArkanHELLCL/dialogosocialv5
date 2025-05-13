@@ -148,7 +148,7 @@
 					<!--tab--><%
 					end if%>
 					<div id="evaluacionprogtab<%=rs("MOD_Id")%>" class="tabs-pane">
-					<table id="tbl-plan-<%=rs("MOD_Id")%>" class="table-striped table-bordered table-sm no-hover no-footer dataTable" data-id="plan-<%=rs("MOD_Id")%>" data-keys="1" data-key1="11" data-url="" data-edit="false" data-header="9" data-ajaxcallview="" role="grid" aria-describedby="tbl-alummnos_info" style="width: 100%;" width="100%" cellspacing="0">
+					<table id="tbl-plan-<%=rs("MOD_Id")%>" class="table-striped table-bordered table-sm no-hover no-footer dataTable" data-id="plan-<%=rs("MOD_Id")%>" data-keys="1" data-key1="11" data-url="" data-edit="false" data-header="9" data-ajaxcallview="" role="grid" aria-describedby="tbl-alumnos_info" style="width: 100%;" width="100%" cellspacing="0">
 
 						<thead> 												
 							<tr>													

@@ -70,7 +70,7 @@
 	'response.end
 	if(mode="mod") then%>
 		<h5>Aceptar/Rechazar</h5>
-		<h6>Aceptar o Rechazar Informe AVANCES</h6>
+		<h6>Aceptar o Rechazar Informe Avances</h6>
 		<div style="padding-top:50px;"></div>
 			<form role="form" action="<%=action%>" method="POST" name="frm14acepta" id="frm14acepta" class="needs-validation">
 				<div class="row align-items-center">
@@ -87,7 +87,7 @@
 								Presionando el botón "ACEPTAR", se cambiará el estado del proyecto actual y se enviará a los perfiles asociados el requerimiento en su nueva etapa.
 							</p>
 							<p>
-								Al rechazar el informe se liberará el HITO AVANCES para que el ejecutor pueda subsanar las observaciones que deben ser ingresadas un vez presionado el botón "RECHAZAR"
+								Al rechazar el informe se liberará el HITO Avances para que el ejecutor pueda subsanar las observaciones que deben ser ingresadas un vez presionado el botón "RECHAZAR"
 							</p>
 						</blockquote>                                		                                                                    
 					</div>                               		                                    
@@ -107,7 +107,7 @@
 			perfil="Administrativo"
 		end if%>
 		<h5>Revisión de Informe</h5>
-		<h6>Informe AVANCES en proceso de revisión</h6>
+		<h6>Informe Avancees en proceso de revisión</h6>
 		<div style="padding-top:50px;"></div>
 			<form role="form" action="" method="POST" name="" id="" class="needs-validation">
 				<div class="row align-items-center">
@@ -117,7 +117,7 @@
 					<div class="col-sm-12 col-md-10 col-lg-10">
 						<blockquote>
 							<p>
-								Estimado <%=perfil%>, actualmente el informe AVANCES se encuentra en proceso de revisión. En este período el revisor del proyecto podría enviarle algunas solicitudes de adecuaciones requeridas para completar el informe y asi proceder a la aceptación del mismo.
+								Estimado <%=perfil%>, actualmente el informe Avancees se encuentra en proceso de revisión. En este período el revisor del proyecto podría enviarle algunas solicitudes de adecuaciones requeridas para completar el informe y asi proceder a la aceptación del mismo.
 							</p>
 							<p>
 								Para revisar estas observaciones solo debe ingresar en el menú de Adecuaciones que se encuentra situado en la parte superior izquierda de esta pantalla.
@@ -128,7 +128,7 @@
 			</form>			
 		</div><%
 	end if%>
-<!-- Formulario para rechazar el informe AVANCES -->
+<!-- Formulario para rechazar el informe Avances -->
 <div class="modal fade in" id="modalRechaza" tabindex="-1" role="dialog" aria-labelledby="modalRechazaLabel" aria-hidden="true">
 	<div class="modal-dialog cascading-modal narrower modal-lg" role="document">  		
     	<div class="modal-content">		
@@ -198,12 +198,12 @@
 							swalWithBootstrapButtons.fire({
 								icon:'error',								
 								title: 'Documentos faltantes.',						
-								text:'Antes de aceptar el informe AVANCES, debes tener APROBADOS todos los documentos solicitados en el ítem "Documentos"'
+								text:'Antes de aceptar el informe Avances, debes tener APROBADOS todos los documentos solicitados en el ítem "Documentos"'
 							});	
 						}else{
 							swalWithBootstrapButtons.fire({
 							  title: 'Confirmación de Aceptación',
-							  text: '¿Estas seguro de querer aceptar el informe "AVANCES" para dar comienzo al ingreso del informe Final?',
+							  text: '¿Estas seguro de querer aceptar el informe "Avances" para dar comienzo al ingreso del informe Final?',
 							  icon: 'success',
 							  showCancelButton: true,
 							  confirmButtonColor: '#3085d6',
@@ -283,7 +283,7 @@
 				$("#modalRechaza").modal("hide");
 				swalWithBootstrapButtons.fire({
 				  title: 'Confirmación de Rechazo',
-				  text: '¿Estas seguro de querer rechazar el informe "AVANCES" para liberar el HITO al ejecutor?',
+				  text: '¿Estas seguro de querer rechazar el informe "Avances" para liberar el HITO al ejecutor?',
 				  icon: 'error',
 				  showCancelButton: true,
 				  confirmButtonColor: '#3085d6',

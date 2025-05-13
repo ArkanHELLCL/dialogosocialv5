@@ -62,8 +62,7 @@
 					<div class="col-auto div">						
 						<div id="pry-menu">							
 							<div class="res" id="reportes" disabled></div>
-							<div class="res" id="mantenedores" disabled></div>
-							<i class="fas fa-thumbtack pin text-primary"></i>
+							<div class="res" id="mantenedores" disabled></div>							
 							<div id="pry-menucontent"></div>						
 						</div>
 					</div>
@@ -342,14 +341,14 @@ end if%>
 						}else{							
 						}
 						
-						$(".pin").click(function(){
+						/*$(".pin").click(function(){
 							$("#pry-menu").toggleClass("show");
 							if(pinmenu){
 								pinmenu = false;
 							}else{
 								pinmenu = true;
 							}							
-						});
+						});*/
 						if(firsttimenu && !pinmenu){
 							setTimeout(function() {
 								$("#pry-menu").toggleClass("show");	

@@ -90,7 +90,7 @@
 			else
 				if INF_NumeroInformeTecnico=2 then
 					TIP_Id							 = 10
-					MEN_Texto						 = "Apertura manual del informe AVANCES por el " & tipo & " : " & session("ds5_usrnom") & " (Mesa) - OBS: " & trim(MEN_Observaciones)
+					MEN_Texto						 = "Apertura manual del informe Desarrollo por el " & tipo & " : " & session("ds5_usrnom") & " (Mesa) - OBS: " & trim(MEN_Observaciones)
 				else
 					if INF_NumeroInformeTecnico=3 then
 						TIP_Id							 = 11
@@ -129,7 +129,7 @@
 			else
 				if INF_NumeroInformeTecnico=2 then
 					TIP_Id							 = 10
-					MEN_Texto						 = "Apertura manual del informe AVANCES por el " & tipo & " : " & session("ds5_usrnom") & " (Recuperación) - OBS: " & trim(MEN_Observaciones)
+					MEN_Texto						 = "Apertura manual del informe Desarrollo por el " & tipo & " : " & session("ds5_usrnom") & " (Recuperación) - OBS: " & trim(MEN_Observaciones)
 				else
 					if INF_NumeroInformeTecnico=3 then
 						TIP_Id							 = 11
@@ -151,7 +151,7 @@
 			else
 				if INF_NumeroInformeTecnico=2 then
 					TIP_Id							 = 10
-					MEN_Texto						 = "Apertura manual del informe AVANCES por el " & tipo & " : " & session("ds5_usrnom") & " (Recuperación) - OBS: " & trim(MEN_Observaciones)
+					MEN_Texto						 = "Apertura manual del informe Desarrollo por el " & tipo & " : " & session("ds5_usrnom") & " (Recuperación) - OBS: " & trim(MEN_Observaciones)
 				else
 					if INF_NumeroInformeTecnico=3 then
 						TIP_Id							 = 6

@@ -170,6 +170,7 @@
 
 												'background="#b0e0b0;"
 												background="transparent"
+												requierd=""
 
 												TotArc=TotArc+1						
 											else
@@ -190,12 +191,11 @@
 												functiondel=""
 
 												'background="#2577d466"
-												background="transparent"						
+												background="transparent"
+												requierd="required"
 											end if
 											%>
 										<th style="text-align: center;padding: 0;margin: 0;background-color:<%=background%>;" id="evi-<%=rs3("PLN_Sesion")%>" name="evi-<%=rs3("PLN_Sesion")%>" class="evi" data-sesion="<%=rs3("PLN_Sesion")%>"><%
-											
-											'if ((PRY_InformeFinalEstado=0 and PRY_Estado=1) and (USR_IdRevisor=session("ds5_usrid") and session("ds5_usrperfil")=2) or session("ds5_usrperfil")=1 or ((PRY_InformeFinalEstado=0 and PRY_Estado=1) and (USR_IdEjecutor=session("ds5_usrid") and session("ds5_usrperfil")=3))) then
 											if ((PRY_InformeFinalEstado=0 and PRY_Estado=1) and ((USR_IdEjecutor=session("ds5_usrid") and session("ds5_usrperfil")=3) or (session("ds5_usrperfil")=1))) then%>
 												<i class="fas fa-cloud-upload-alt upload <%=colorup%>" style="cursor:<%=cursorup%>" title="<%=tooltipup%>" id="upd_evi-<%=rs3("PLN_Sesion")%>" name="upd_evi-<%=rs3("PLN_Sesion")%>" data-modulo="<%=rs3("PLN_Sesion")%>" data-mode="upload" data-modulodes="<%=rs3("TEM_Nombre")%>" <%=disabledup%> data-sesion="<%=rs3("PLN_Sesion")%>"></i><%
 											else%>
@@ -207,7 +207,7 @@
 											else%>
 												<i class="fas fa-trash text-white-50>" style="cursor:not-allowed" disabled></i><%
 											end if%>
-											<div class="progress-bar"><div class="progress"></div></div>
+											<div class="progress-bar"><div class="progress"></div></div>											
 										</th><%
 										rs3.movenext
 									loop
@@ -217,7 +217,11 @@
 										<th>Hidden</th>
 										<th style="text-align: center;vertical-align: top;">Alumno</th>
 										<th style="text-align: center;vertical-align: top;">RUT</th>
-										<th style="text-align: center;vertical-align: top;">Estado</th>
+										<% if(LFO_Id <> 11) then %>
+											<th style="text-align: center;vertical-align: top;">Estado</th>
+										<% else %>
+											<th style="text-align: center;vertical-align: top;">Patrocinio</th>	
+										<% end if %>
 										<th style="text-align: center;vertical-align: top;">Asist.<br/>(%)</th><%
 											for j=0 to TotSes-1%>
 												<th style="text-align: center;vertical-align: top;" class="no-sort"><%=response.Write(sesnom(j) & " [" & sesfec(j) & "/" & seshra(j) & "/s-" & sesid(j) & "]")%></th><%
@@ -246,7 +250,7 @@
 							<!--Table-->
 							<table id="tbl-asistenciamodal" class="table-striped table-bordered table-sm no-hover" cellspacing="0" width="99%" data-id="asistencia" data-keys="1" data-key1="11" data-url="" data-edit="false" data-header="9" data-ajaxcallview="">
 								<thead>	
-									<tr>										
+									<tr>
 										<th>RUT</th> 
 										<th>Nombres</th>
 										<th>Paterno</th>
@@ -254,17 +258,22 @@
 										<th>Sexo</th>
 										<th>Email</th>
 										<th>Asis.(%)</th>
-										<th>Estado</th>
-										<th style="display:none">Causa Deserción</th>
-										<th style="display:none">Razón Causa Deserción</th>
-										<th style="display:none">Observación</th><%
+										<% if(LFO_Id <> 11) then %>
+											<th>Estado</th>
+											<th style="display:none">Causa Deserción</th>
+											<th style="display:none">Razón Causa Deserción</th>
+											<th style="display:none">Observación</th><%
+										Else%>
+											<th>Patrocinio </th><%
+										end if
 										if LFO_Calif=1 then%>
 											<th>Nota (Prom)</th><%
 										end if										
-										'if((PRY_InformeFinalEstado=0 and PRY_Estado=1) and (session("ds5_usrperfil")=3 or session("ds5_usrperfil")=1)) then%>
+										'if((PRY_InformeFinalEstado=0 and PRY_Estado=1) and (session("ds5_usrperfil")=3 or session("ds5_usrperfil")=1)) then
+										if(LFO_Id<>11) then %>
 											<th>Des/Hab</th><%
-										'end if
-										columnsDefsAsistencia = "[{""targets"": [ 8 ],""visible"": false,""searchable"": false},{""targets"": [ 9 ],""visible"": false,""searchable"": false},{""targets"": [ 10 ],""visible"": false,""searchable"": false}]"%>										
+											columnsDefsAsistencia = "[{""targets"": [ 8 ],""visible"": false,""searchable"": false},{""targets"": [ 9 ],""visible"": false,""searchable"": false},{""targets"": [ 10 ],""visible"": false,""searchable"": false}]"
+										end if%>
 									</tr>
 								</thead>
 							</table>
@@ -438,7 +447,7 @@
 			},
 		});
 					
-		function loadTableAsistencia(){			
+		function loadTableAsistencia(){
 			$(".loader_wrapper").remove()
 			if($.fn.DataTable.isDataTable( "#tbl-asistenciamodal")){				
 				if(asistenciaTable!=undefined){
@@ -501,22 +510,62 @@
 			var sesiones = Object.values(asisobj)
 			var event = e;
 			var si = false;
-			
+			//console.log(alumnos)
+			//console.log(sesiones)
 			chkCount=0			
-			asisobj={};
-			alumno=[];
+			//asisobj={};
+			//alumno=[];
+			erroradjunto = false;
 			
 			$("#btn_frmaddasistencia").attr("disabled","disabled");
 			$("#btn_frmaddasistencia").css("color","green");
 			$("#btn_frmaddasistencia").css("cursor","not-allowed");
 			$("#btn_frmaddasistencia i").removeClass("fa-plus");
 			$("#btn_frmaddasistencia i").addClass("fa-sync-alt fa-spin");
+
+			$("[type=checkbox]").each(function(){
+				const PLN_Sesion = $(this).data("sesion")
+				const adjunto = $("#dwn_evi-"+PLN_Sesion).data("arc")
+				const subAdj = $("#upd_evi-"+PLN_Sesion)
+				subAdj.removeClass("is-invalid")
+				if((adjunto === '' || adjunto === undefined) && $(this).is(":checked")){
+					subAdj.addClass("is-invalid")
+					erroradjunto = true
+					return false;
+				}
+			})
+
+			if(erroradjunto){
+				Swal.fire({
+					icon: 'error',
+					title: 'Verificador',
+					text: 'Por favor, sube un verificador de asistencia'
+				});
+				$("#btn_frmaddasistencia").removeAttr("disabled");
+				$("#btn_frmaddasistencia").css("color","white");
+				$("#btn_frmaddasistencia").css("cursor","pointer");
+				$("#btn_frmaddasistencia i").addClass("fa-plus");
+				$("#btn_frmaddasistencia i").removeClass("fa-sync-alt fa-spin");
+				return
+			}
+			if(sesiones.length==0){
+				Toast.fire({
+					icon: 'info',
+					title: 'Sin cambios que guardar.'
+				});
+				$("#btn_frmaddasistencia").removeAttr("disabled");
+				$("#btn_frmaddasistencia").css("color","white");
+				$("#btn_frmaddasistencia").css("cursor","pointer");
+				$("#btn_frmaddasistencia i").addClass("fa-plus");
+				$("#btn_frmaddasistencia i").removeClass("fa-sync-alt fa-spin");
+				return
+			}
 			$(sesiones).each(function(i,e){
 				si = true;
 				var ALU_Rut = alumnos[i];				
 				$(this).each(function(){
 					var Asistio = Object.values($(this)[0])[0];
-					var PLN_Sesion = Object.keys($(this)[0])[0].replace("id-","");					
+					var PLN_Sesion = Object.keys($(this)[0])[0].replace("id-","");
 					$.ajax({
 						url: "/agregar-asistencia",
 						method: 'POST',
@@ -529,6 +578,8 @@
 								  icon: 'success',
 								  title: 'Asistencia agregada/Modificada exitosamente.'
 								});
+								asisobj={};
+								alumno=[];
 							}else{
 								swalWithBootstrapButtons.fire({
 									icon:'error',
@@ -560,6 +611,7 @@
 			e.preventDefault();
 			e.stopImmediatePropagation();
 			e.stopPropagation();
+			
 			$("body").removeClass("modal-open")
 			$("#frmAsistencia").css("height","0");			
 			$("#btn_agregaasistencia").find('i').toggleClass('openmenu');			
@@ -596,49 +648,174 @@
 				}
 			});
 		});
+
+		// Evento para cancelar el cierre de la ventana modal
+		$('#asistenciaModal').on('hide.bs.modal', function(e) {
+			let erroradjunto = false
+			$("[type=checkbox]").each(function(){
+				const PLN_Sesion = $(this).data("sesion")
+				const adjunto = $("#dwn_evi-"+PLN_Sesion).data("arc")
+				const subAdj = $("#upd_evi-"+PLN_Sesion)
+				subAdj.removeClass("is-invalid")
+				if((adjunto === '' || adjunto === undefined) && $(this).is(":checked")){
+					subAdj.addClass("is-invalid")
+					erroradjunto = true
+					return false;
+				}
+			})
+			// Condición para cancelar el cierre de la modal
+			if (alumno.length>0) {
+				e.preventDefault();
+				e.stopImmediatePropagation();
+				e.stopPropagation();
+				Swal.fire({
+					icon: 'warning',
+					title: 'No puedes cerrar la ventana',
+					text: 'Hay cambios sin guardar. Por favor, guarda los cambios antes de cerrar.'
+				});
+			}
+
+			if (erroradjunto) {
+				e.preventDefault();
+				e.stopImmediatePropagation();
+				e.stopPropagation();
+				Swal.fire({
+					icon: 'warning',
+					title: 'No puedes cerrar la ventana',
+					text: 'Debes agregar un/os adjunto antes de cerrar.'
+				});
+			}
+		});
 		
 		$("#asistenciaModal").on("click","#btn_agregaasistencia",function(e){
 			e.preventDefault();
 			e.stopImmediatePropagation();
 			e.stopPropagation();
-			
-			chkCount=0			
-			asisobj={};
-			alumno=[];
-			
-			$("#btn_frmaddasistencia").show();
-			if($("#frmAsistencia").css("height")=="600px"){				
-				$("#frmAsistencia").css("height","0");				
-				$("#btn_agregaasistencia").find('i').toggleClass('openmenu');				
-				$('#container-table-asistencia').animate({
-					height: $('#container-table-asistencia').get(0).scrollHeight
-				}, 600, function(){
-					$(this).height('auto');
-				});				
-				asistenciamodTable.ajax.reload();
-				asistenciaTable.ajax.reload();
-			}else{								
-				$("#frmAsistencia").css("height","600px");								
-				$("#btn_agregaasistencia").find('i').toggleClass('openmenu');
-				$("#container-table-asistencia").css("height","0");
-				asistencia_grid(e);
-			}						
+
+			if(alumno.length>0){
+				swalWithBootstrapButtons.fire({
+					title: '¿Estas seguro?',
+					text: "Existen asistencias sin guardar, ¿Deseas salir sin guardar?",
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: '<i class="fas fa-thumbs-up"></i> Si, proceder!',
+					cancelButtonText: '<i class="fas fa-thumbs-down"></i> Cancelar'
+				}).then((result) => {
+					if (result.value) {
+						chkCount=0			
+						asisobj={};
+						alumno=[];
+						
+						$("#btn_frmaddasistencia").show();
+						if($("#frmAsistencia").css("height")=="600px"){				
+							$("#frmAsistencia").css("height","0");				
+							$("#btn_agregaasistencia").find('i').toggleClass('openmenu');				
+							$('#container-table-asistencia').animate({
+								height: $('#container-table-asistencia').get(0).scrollHeight
+							}, 600, function(){
+								$(this).height('auto');
+							});				
+							asistenciamodTable.ajax.reload();
+							asistenciaTable.ajax.reload();
+						}else{								
+							$("#frmAsistencia").css("height","600px");								
+							$("#btn_agregaasistencia").find('i').toggleClass('openmenu');
+							$("#container-table-asistencia").css("height","0");
+							asistencia_grid(e);
+						}		
+					}
+				})
+			}else{
+				chkCount=0			
+				asisobj={};
+				alumno=[];
+				
+				$("#btn_frmaddasistencia").show();
+				if($("#frmAsistencia").css("height")=="600px"){				
+					$("#frmAsistencia").css("height","0");				
+					$("#btn_agregaasistencia").find('i').toggleClass('openmenu');				
+					$('#container-table-asistencia').animate({
+						height: $('#container-table-asistencia').get(0).scrollHeight
+					}, 600, function(){
+						$(this).height('auto');
+					});				
+					asistenciamodTable.ajax.reload();
+					asistenciaTable.ajax.reload();
+				}else{								
+					$("#frmAsistencia").css("height","600px");								
+					$("#btn_agregaasistencia").find('i').toggleClass('openmenu');
+					$("#container-table-asistencia").css("height","0");
+					asistencia_grid(e);
+				}
+			}							
 		})
 		
 		$("#asistenciaModal").on("click","#btn_salirasistencia",function(e){
 			e.preventDefault();
 			e.stopImmediatePropagation();
-			e.stopPropagation();			
-			asistenciaTable.ajax.reload();
-			if($("#frmAsistencia").css("height")=="600px"){				
-				$("#frmAsistencia").css("height","0");				
-				$("#btn_agregaasistencia").find('i').toggleClass('openmenu');				
-				$('#container-table-asistencia').animate({
-					height: $('#container-table-asistencia').get(0).scrollHeight
-				}, 600, function(){
-					$(this).height('auto');					
-				});				
-			}			
+			e.stopPropagation();
+
+			if(alumno.length>0){
+				swalWithBootstrapButtons.fire({
+					title: '¿Estas seguro?',
+					text: "Existen asistencias sin guardar, ¿Deseas salir sin guardar?",
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: '<i class="fas fa-thumbs-up"></i> Si, proceder!',
+					cancelButtonText: '<i class="fas fa-thumbs-down"></i> Cancelar'
+				}).then((result) => {
+					if (result.value) {
+						chkCount=0			
+						asisobj={};
+						alumno=[];
+						
+						$("#btn_frmaddasistencia").show();
+						if($("#frmAsistencia").css("height")=="600px"){				
+							$("#frmAsistencia").css("height","0");				
+							$("#btn_agregaasistencia").find('i').toggleClass('openmenu');				
+							$('#container-table-asistencia').animate({
+								height: $('#container-table-asistencia').get(0).scrollHeight
+							}, 600, function(){
+								$(this).height('auto');
+							});				
+							asistenciamodTable.ajax.reload();
+							asistenciaTable.ajax.reload();
+						}else{								
+							$("#frmAsistencia").css("height","600px");								
+							$("#btn_agregaasistencia").find('i').toggleClass('openmenu');
+							$("#container-table-asistencia").css("height","0");
+							asistencia_grid(e);
+						}		
+					}
+				})
+			}else{
+				chkCount=0			
+				asisobj={};
+				alumno=[];
+				
+				$("#btn_frmaddasistencia").show();
+				if($("#frmAsistencia").css("height")=="600px"){				
+					$("#frmAsistencia").css("height","0");				
+					$("#btn_agregaasistencia").find('i').toggleClass('openmenu');				
+					$('#container-table-asistencia').animate({
+						height: $('#container-table-asistencia').get(0).scrollHeight
+					}, 600, function(){
+						$(this).height('auto');
+					});				
+					asistenciamodTable.ajax.reload();
+					asistenciaTable.ajax.reload();
+				}else{								
+					$("#frmAsistencia").css("height","600px");								
+					$("#btn_agregaasistencia").find('i').toggleClass('openmenu');
+					$("#container-table-asistencia").css("height","0");
+					asistencia_grid(e);
+				}
+			}
+
 		})		
 		
 		$("#asistenciaModal").on("change","[type=checkbox]",function(e){
@@ -877,8 +1054,8 @@
 			e.stopPropagation();
 			
 			var rut=$("#RutAlumno").val().split("-")
-			formValidate("#frmDesertar");
-			if($("#frmDesertar").valid()){
+			formValidate("#frmAsistencia");
+			if($("#frmAsistencia").valid()){
 				$.ajax({
 					type: 'POST',			
 					url: '/graba-desercion',
@@ -1138,12 +1315,12 @@
 												$("#" + id).html(data.data[0])											
 											}
 										})
-									
+										//$("#btn_frmaddasistencia").click();
 										Toast.fire({
 										icon: 'success',
 										title: 'Evidencia subida correctamente.'
-										});									
-										asistencia_grid(e);
+										});
+										//asistencia_grid(e);
 									}else{
 										swalWithBootstrapButtons.fire({
 											icon:'error',

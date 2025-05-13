@@ -95,6 +95,7 @@
 			End If
 		end if
 	end if
+
 	if(TAD_Id=3) then
 		set rs2 = cnn.Execute("exec spAdecuacionCambioEncargados_Listar  " & ADE_Id)
 		on error resume next
@@ -123,6 +124,7 @@
 			response.end()
 		End If
 	end if
+
 	if(TAD_Id=4) then
 		set rs2 = cnn.Execute("exec spAdecuacionCambioEncargados_Listar  " & ADE_Id)
 		on error resume next
@@ -151,6 +153,7 @@
 			response.end()
 		End If
 	end if
+
 	if(TAD_Id=5) then
 		if(LFO_Id<>11) then
 			set rs2 = cnn.Execute("exec spAdecuacionRelator_Listar  " & ADE_Id)
@@ -211,6 +214,7 @@
 			End If
 		end if
 	end if
+
 	if(TAD_Id=6) then
 		set rs = cnn.Execute("exec spAdecuacionJustificacion_Listar " & ADE_Id)
 		on error resume next
@@ -248,10 +252,12 @@
 			response.end()
 		End If		
 	end if
-	if(TAD_Id=7) then	
+
+	if(TAD_Id=7) then
 		MEN_Texto	= "Se ha rechazado la solicitado de Adecuación"
 		TIP_Id		= 55
 	end if
+
 	if(TAD_Id=8) then
 		set rs = cnn.Execute("exec spAdecuacionDesvinculaAlumno_Listar " & ADE_Id)
 		on error resume next
@@ -289,7 +295,8 @@
 			cnn.close
 			response.end()
 		End If		
-	end if	
+	end if
+
 	if(TAD_Id=9) then
 		set rs2 = cnn.Execute("exec spAdecuacionCambioEncargados_Listar  " & ADE_Id)
 		on error resume next
@@ -318,6 +325,7 @@
 			response.end()
 		End If
 	end if
+
 	if(TAD_Id=12) then
 		set rs2 = cnn.Execute("exec spAdecuacionGrupoFocal_Listar  " & ADE_Id)
 		on error resume next
@@ -341,6 +349,35 @@
 		if cnn.Errors.Count > 0 then
 			ErrMsg = cnn.Errors(0).description%>
 			{"state": 503, "message": "Error Conexión : <%=ErrMsg%>","data": "spGrupoFocalPorcentaje_SolicitarResponder"}<%
+			rz.close
+			cnn.close
+			response.end()
+		End If
+	end if
+
+	if(TAD_Id=13) then
+		set rs2 = cnn.Execute("exec spAdecuacionMetodologiaPor_Listar  " & ADE_Id)
+		on error resume next
+		if cnn.Errors.Count > 0 then
+			ErrMsg = cnn.Errors(0).description%>
+			{"state": 503, "message": "Error Conexión : <%=ErrMsg%>","data": "spAdecuacionMetodologiaPor_Listar"}<%
+			rs2.close
+			cnn.close
+			response.end()
+		End If
+		if not rs2.eof then
+			MES_Id=rs2("MES_Id")
+		end if
+		
+		'Mensaje de aducuacion de porcentaje
+		MEN_Texto	= "Se ha rechazado la solicitado de modificación del porcentaje de Metodología del proyecto : " & PRY_Id
+		TIP_Id		= 78	'Solicitud de modificacion de porcentaje rechazada
+		
+		set rs = cnn.Execute("exec spMetodologiaPorcentaje_SolicitarResponder " & MES_Id & ",3," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'")
+		on error resume next
+		if cnn.Errors.Count > 0 then
+			ErrMsg = cnn.Errors(0).description%>
+			{"state": 503, "message": "Error Conexión : <%=ErrMsg%>","data": "spMetodologiaPorcentaje_SolicitarResponder"}<%
 			rz.close
 			cnn.close
 			response.end()

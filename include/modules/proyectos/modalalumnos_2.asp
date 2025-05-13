@@ -260,14 +260,14 @@
 							<div class="md-form input-with-post-icon">
 								<div class="error-message">								
 									<i class="fas fa-calendar input-prefix"></i><%
-									set rs = cnn.Execute("SELECT CONVERT(VARCHAR(10), getdate(),111) AS DATE;")
-									on error resume next					
-									if Not rs.eof then
-										ALU_FechaCreacionRegistro=replace(rs("date"),"/","-")
-									end if%>
-									<input type="text" id="ALU_FechaCreacionRegistro" name="ALU_FechaCreacionRegistro" class="form-control" required readonly value="<%=ALU_FechaCreacionRegistro%>">
+									'set rs = cnn.Execute("SELECT CONVERT(VARCHAR(10), getdate(),111) AS DATE;")
+									'on error resume next					
+									'if Not rs.eof then
+									'	ALU_FechaCreacionRegistro=replace(rs("date"),"/","-")
+									'end if%>
+									<input type="text" id="ALU_FechaCreacionRegistro" name="ALU_FechaCreacionRegistro" class="form-control" readonly value="">
 									<span class="select-bar"></span>
-									<label for="ALU_FechaCreacionRegistro" class="active">Fecha de Ingreso</label>
+									<label for="ALU_FechaCreacionRegistro" class="">Fecha de Creación</label>
 								</div>
 							</div>
 						</div>

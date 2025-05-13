@@ -419,7 +419,7 @@ $html = $htmlstyle.'<h4>Fechas de Cierre</h4>
                 <table  border="0">
                 <tr>
                     <th scope="col" width="33%">Fecha Cierre Informe Incial</th>
-                    <th scope="col" width="33%">Fecha Cierre Informe Avances</th>
+                    <th scope="col" width="33%">Fecha Cierre Informe Desarrollo</th>
                     <th scope="col" width="33%">Fecha Cierre Informe Final</th>
                 </tr>
                 <tr>
@@ -432,7 +432,7 @@ $html = $htmlstyle.'<h4>Fechas de Cierre</h4>
                 <table  border="0">
                 <tr>
                     <th scope="col" width="33%">Fecha Cierre Informe Incial</th>
-                    <th scope="col" width="33%">Fecha Cierre Informe Avances</th>
+                    <th scope="col" width="33%">Fecha Cierre Informe Desarrollo</th>
                     <th scope="col" width="33%">Fecha Cierre Informe Final</th>
                 </tr>
                 <tr>

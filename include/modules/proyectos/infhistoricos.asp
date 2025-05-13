@@ -83,7 +83,7 @@
 				titulo="Informe Inicial"
 			else
 				if PRY_Hito=2 then
-					informe="Avances"
+					informe="Desarrollo"
 					carpeta="informeavances"
 					titulo="Informe de Avances"
 				else
@@ -143,7 +143,7 @@
 				titulo="Informe Inicio"
 			else
 				if PRY_Hito=2 then
-					informe="Avances"
+					informe="Desarrollo"
 					carpeta="informeavances"
 					titulo="Informe Avances"
 				else

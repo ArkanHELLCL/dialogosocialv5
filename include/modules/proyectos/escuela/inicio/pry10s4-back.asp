@@ -17,7 +17,7 @@
 		modo=2
 		txtBoton="<i class='fas fa-download'></i> Grabar"
 		btnColor="btn-warning"		
-		action="/mod-12-h1-s4"
+		action="/mod-10-h1-s4"
 	end if
 	if(session("ds5_usrperfil")=2 or session("ds5_usrperfil")=4 or session("ds5_usrperfil")=5) then	'Revisor, Auditor y Administrativo
 		mode="vis"
@@ -165,11 +165,11 @@
 	end if
 	
 	rs.close
-	response.write("200/@/")			
+	response.write("200/@/")	
 	'response.write(LIN_Id & "-" & mode & "-" & PRY_Id)	
 	'response.end
 %>
-<form role="form" action="<%=action%>" method="POST" name="frm12s4" id="frm12s4" class="needs-validation">
+<form role="form" action="<%=action%>" method="POST" name="frm10s4" id="frm10s4" class="needs-validation">
 	<h5>Planificación</h5>
 	<h6>La Planificación incompleta se representa con fondo rojo</h6>
 	<div class="row px-4" style="padding-top:30px;padding-bottom:30px;">
@@ -179,7 +179,7 @@
 					<th rowspan="1" scope="row" style="text-align: center;vertical-align: middle;"></th>
 					<th style="text-align: center;vertical-align: middle;">Cursos</th>
 					<th style="text-align: center;vertical-align: middle;">Perspectivas</th>
-					<th style="text-align: center;vertical-align: middle;">Módulos (<%=TotalPlantilla%>)</th>
+					<th style="text-align: center;vertical-align: middle;">Cursos y Dimensiones (<%=TotalPlantilla%>)</th>
 					<th style="text-align: center;vertical-align: middle;">Total Horas</th>
 					<th style="text-align: center;vertical-align: middle;">Horas Pedagógicas (<%=PRY_HorasPedagogicasMin%>)</th>
 					<th style="text-align: center;vertical-align: middle;">Fecha Inicio</th>
@@ -222,7 +222,8 @@
 				imprimir = false
 				porerror=0
 				PorMinArray=array(PRY_PorcentajeMinOnline,PRY_PorcentajeMinPresencial)
-				vacio=array(true,true)				
+				TotHorArray=array(0,0)
+				vacio=array(true,true)
 				do while not rw.eof
 					PorMin = 0
 					if(MET_Id=3) then
@@ -260,7 +261,8 @@
 							end if							
 						end if
 					end if
-					if(imprimir) then						
+					if(imprimir) then
+						'Nuevo calculo de porcentaje
 						if(round((CDbl(rw("TotalHorasPedagogicasMET"))/PRY_HorasPedagogicasMin)*100)<round(CDbl(PorMin),1)) then
 							porerror=1
 							background_por="rgba(217, 83, 79, .3);"
@@ -292,14 +294,15 @@
 						exit do
 					end if
 					rw.movenext
-				loop
+				loop				
 				for i=0 to 1
-					if(vacio(i)) then
+					if(vacio(i)) then						
 						porerror=1
 						background_por="rgba(217, 83, 79, .3);"										
 						sqlz="exec spMetodologia_Consultar " & i+1
 						set sr = cnn.Execute(sqlz)						
-						on error resume next%>
+						on error resume next
+						PorMin = PorMinArray(sr("MET_Id")-1)%>
 						<tr>
 							<td><%=sr("MET_Descripcion")%></td>
 							<td>0</td>
@@ -310,18 +313,19 @@
 								else%>
 									0%</td><%
 								end if%>
-							<td><%=PorMinArray(sr("MET_Id")-1)%>%</td>
+							<td><%=PorMin%>%</td>
 						</tr><%												
 						TotalHoras = TotalHoras + round(CDbl(rw("TotalHorasMET")),1)
-						TotalHorasPedagogica = TotalHorasPedagogica + round(CDbl(rw("TotalHorasPedagogicasMET")),1)
+						TotalHorasPedagogica = TotalHorasPedagogica + round(CDbl(rw("TotalHorasPedagogicasMET")),1)						
 						TotalPorMin = TotalPorMin + round(CDbl(PorMin ),1)
+						TotHorArray(sr("MET_Id")-1)=round(CDbl(rw("TotalHorasPedagogicasMET")),1)
 						if(PRY_HorasPedagogicasMin>0) then
 							TotalPorHoras = round(TotalPorHoras + round((CDbl(rw("TotalHorasPedagogicasMET"))/PRY_HorasPedagogicasMin)*100),1)
 						else
 							TotalPorHoras = round(TotalPorHoras,1)
 						end if
 					end if
-				next
+				next				
 				if(MET_Id=3) then%>
 					<tr>
 						<td>Totales</td>
@@ -542,7 +546,7 @@
 	<div class="row px-4">
 		<div class="footer"><%
 			if mode="mod" or mode="add" then%>		
-				<button type="button" class="btn <%=btnColor%> btn-md waves-effect waves-dark" id="btn_frm12s4" name="btn_frm12s4"><%=txtBoton%></button><%
+				<button type="button" class="btn <%=btnColor%> btn-md waves-effect waves-dark" id="btn_frm10s4" name="btn_frm10s4"><%=txtBoton%></button><%
 			else%>
 				<button type="button" class="btn <%=btnColorA%> btn-md waves-effect waves-dark" id="btn_retroceder" name="btn_retroceder"><%=txtBotonA%></button>
 				<button type="button" class="btn <%=btnColorS%> btn-md waves-effect waves-dark" id="btn_avanzar" name="btn_avanzar"><%=txtBotonS%></button><%
@@ -627,9 +631,9 @@
 		if(dif==1){
 			$("#planificacion-tab").tabsmaterialize({menumovil:false},function(){});
 		}
-		$("#btn_frm12s4").click(function(){
-			formValidate("#frm12s4")
-			if($("#frm12s4").valid()){
+		$("#btn_frm10s4").click(function(){
+			formValidate("#frm10s4")
+			if($("#frm10s4").valid()){
 				if(Number($('#Horas_Pedagogicas').val().replace(",","."))<Number($('#PRY_HorasPedagogicasMin').val().replace(",","."))){
 					swalWithBootstrapButtons.fire({
 						icon:'error',								
@@ -654,8 +658,8 @@
 							var bb = String.fromCharCode(92) + String.fromCharCode(92);
 							$.ajax({
 								type: 'POST',			
-								url: $("#frm12s4").attr("action"),
-								data: $("#frm12s4").serialize(),
+								url: $("#frm10s4").attr("action"),
+								data: $("#frm10s4").serialize(),
 								success: function(data) {					
 									param=data.split(bb)
 									if(param[0]=="200"){
@@ -666,7 +670,7 @@
 										var data   = {modo:<%=modo%>,PRY_Id:<%=PRY_Id%>,LIN_Id:<%=LIN_Id%>,CRT_Step:parseInt($("#Step").val())+1,PRY_Hito:1};							
 										$.ajax( {
 											type:'POST',					
-											url: '/mnu-12',
+											url: '/mnu-10',
 											data: data,
 											success: function ( data ) {
 												param = data.split(sas)

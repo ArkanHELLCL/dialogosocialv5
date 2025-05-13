@@ -13,6 +13,7 @@
 	MEN_Archivo			= ""	'Sin adjuntos
 	MEN_Texto			= "Informe INICIAL ha sido ACEPTADO (RECUPERACIÓN)"
 	MEN_Archivo			= ""
+	Informe				= 1		'Informe Inicial Recuperacion
 
 	set cnn = Server.CreateObject("ADODB.Connection")
 	on error resume next	
@@ -24,7 +25,7 @@
 	   response.End() 			   
 	end if	
 	
-	sql="exec spProyectoInformeInicialAceptado_Cerrar " & PRY_Id & ",'" & PRY_Identificador & "'," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'"
+	sql="exec spProyectoInformeInicialAceptado_Cerrar " & PRY_Id & ",'" & PRY_Identificador & "'," & Informe & "," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'"
 	set rs = cnn.Execute(sql)
 	on error resume next
 	if cnn.Errors.Count > 0 then

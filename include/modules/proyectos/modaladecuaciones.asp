@@ -224,7 +224,7 @@
 			})															
 			
 			exportTable();
-		});				
+		});		
 		
 		$("#adecuacionesModal").on("click","#btn_frmaddadecuaciones",function(e){
 			e.preventDefault();
@@ -355,6 +355,18 @@
 													});
 												}
 											}else{
+												if($("#TAD_Id").val()==13){
+													formValidate("#frmPorcentajeMetodologias");
+													if($("#frmPorcentajeMetodologias").valid()){
+														mod=true;
+														form="#frmPorcentajeMetodologias";
+														var data2 = $("#frmPorcentajeMetodologias").serializeArray();						
+														$.each(data2, function(i, field) { 
+															formdata.append(field.name,field.value);
+														});
+													}
+												}else{
+												}
 											}
 										}
 									}

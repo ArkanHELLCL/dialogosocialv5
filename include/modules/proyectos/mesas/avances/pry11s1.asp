@@ -185,7 +185,7 @@
 								swalWithBootstrapButtons.fire({
 									icon:'error',								
 									title: 'Documentos faltantes.',						
-									text:'Antes de avanzar al cierre del hito AVANCES, debes tener arriba todos los documentos aqui solicitados'
+									text:'Antes de avanzar al cierre del hito Desarrollo, debes tener arriba todos los documentos aqui solicitados'
 								});	
 							}else{								
 								var bb = String.fromCharCode(92) + String.fromCharCode(92);

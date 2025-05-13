@@ -66,11 +66,12 @@
 					<div class="px-4">
 						<div class="table-wrapper col-sm-12 mCustomScrollbar" id="container-table-alumnos">
 							<!--Table-->
-							<table id="tbl-alummnos" class="table-striped table-bordered table-sm no-hover" cellspacing="0" width="99%" data-id="alummnos" data-keys="1" data-key1="11" data-url="" data-edit="false" data-header="9" data-ajaxcallview="">
+							<table id="tbl-alumnos" class="table-striped table-bordered table-sm no-hover" cellspacing="0" width="99%" data-id="alumnos" data-keys="1" data-key1="11" data-url="" data-edit="false" data-header="9" data-ajaxcallview="">
 								<thead>	
 									<tr>
-										<th>id</th>
-										<th>RUT</th> 
+										<th>RUT</th>
+										<th>RUT-DV</th>
+										<th>DV</th>
 										<th>Nombres</th>
 										<th>Paterno</th>
 										<th>Materno</th>
@@ -128,7 +129,7 @@
 				end if%>
 
 				<div style="float:right;" class="btn-group" role="group" aria-label="">
-					<button class="btn btn-default buttonExport btn-md waves-effect" data-toggle="tooltip" title="Exportar datos de la tabla" data-id="alummnos"><i class="fas fa-download ml-1"></i></button>
+					<button class="btn btn-default buttonExport btn-md waves-effect" data-toggle="tooltip" title="Exportar datos de la tabla" data-id="alumnos"><i class="fas fa-download ml-1"></i></button>
 					<button type="button" class="btn btn-secondary btn-md waves-effect" data-dismiss="modal" data-toggle="tooltip" title="Salir"><i class="fas fa-sign-out-alt"></i></button>
 				</div>					
 			</div>		  
@@ -161,22 +162,22 @@
 		});
 					
 		function loadTableAlumnos(){			
-			if($.fn.DataTable.isDataTable( "#tbl-alummnos")){				
+			if($.fn.DataTable.isDataTable( "#tbl-alumnos")){				
 				if(alumnosTable!=undefined){
 					alumnosTable.destroy();
 				}else{
-					$('#tbl-alummnos').dataTable().fnClearTable();
-    				$('#tbl-alummnos').dataTable().fnDestroy();
+					$('#tbl-alumnos').dataTable().fnClearTable();
+    				$('#tbl-alumnos').dataTable().fnDestroy();
 				}
 			}
-			alumnosTable = $('#tbl-alummnos').DataTable({
+			alumnosTable = $('#tbl-alumnos').DataTable({
 				lengthMenu: [ 5,10,20 ],
 				ajax:{
 					url:"/alumnos",
 					type:"POST",
 					data:{PRY_Id:<%=PRY_Id%>}
 				},
-				columnDefs: [{"targets": [ 0,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39 ],"visible": false,"searchable": false}],
+				columnDefs: [{"targets": [ 1,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40 ],"visible": false,"searchable": false}],
 				fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {					
 					$("td:not(:last)",nRow).click(function(e){
 						e.preventDefault();
@@ -200,7 +201,8 @@
 						})    						
 					})
 				},
-				order:[1,"desc"]
+				order:[1,"desc"],
+				stateSave: true
 			});	
 		}				
 		
@@ -283,57 +285,56 @@
 						processData: false,
 						success: function (data) {
 							param=data.split(bb);
-							if(param[0]==200){
-								$("#frmalumnotab1")[0].reset();
-								$("#frmalumnotab2")[0].reset();
-								$("#frmalumnotab3")[0].reset();
-								
-							
-								$("#ALU_AccesoInternet").removeAttr("checked");
-								$("#ALU_DispositivoElectronico").removeAttr("checked");							
-												
-								$("#ALU_Discapacidad").removeAttr("checked");
-								$(".discapacidad").find("select").remove();
-								$("#TDI_id-error").remove();
-								$(".discapacidad").slideUp("slow");
-													
-								$("#ALU_ReconocePuebloOriginario").removeAttr("checked");
-								$("#PuebloOriginario").find("input").remove();
-								$("#ALU_PuebloOriginario-error").remove();
-								$("#PuebloOriginario").slideUp("slow");
-								
-								
-								$("#ALU_PerteneceSindicato").removeAttr("checked");
-								$("#sin1").find("input").remove();
-								$("#sin2").find("input").remove();
-								$("#sin3").find("input").remove();
-								$("#ALU_FechaIngreso-error").remove();
-								$("#ALU_NombreOrganizacion-error").remove();
-								$("#ALU_RSU-error").remove();
-								$(".sindicato").slideUp("slow")
-															
-								$("#ALU_PermisoCapacitacionEnOrganizacion").removeAttr("checked");
-								
-								$("#ALU_DirigenteSindical").removeAttr("checked");
-								$(".dirigente").find("input").remove();
-								$("#ALU_TiempoDirigenteSindical-error").remove();
-								$(".dirigente").slideUp("slow");
-
-								$("#ALU_CursosFormacionSindicalAnteriormente").removeAttr("checked");
-								$("#cur1").find("input").remove();
-								$("#cur2").find("input").remove();
-								$("#ALU_InstitucionCursoFormacionSindical-error").remove();
-								$("#ALU_AnioCursoFormacionSindical-error").remove();
-								$(".curso").slideUp("slow");
-
-								$("#ALU_CargoDirectivoEnOrganizacion").removeAttr("checked");
-								$("#car1").find("input").remove();
-								$("#car2").find("input").remove();
-								$("#ALU_FechaInicioCargoDirectivo-error").remove();
-								$("#ALU_NombreCargoDirectivo-error").remove();
-								$(".cargo").slideUp("slow");
-													
+							if(param[0]==200){																					
 								if(param[1]==""){
+									$("#frmalumnotab1")[0].reset();
+									$("#frmalumnotab2")[0].reset();
+									$("#frmalumnotab3")[0].reset();
+																
+									$("#ALU_AccesoInternet").removeAttr("checked");
+									$("#ALU_DispositivoElectronico").removeAttr("checked");							
+													
+									$("#ALU_Discapacidad").removeAttr("checked");
+									$(".discapacidad").find("select").remove();
+									$("#TDI_id-error").remove();
+									$(".discapacidad").slideUp("slow");
+														
+									$("#ALU_ReconocePuebloOriginario").removeAttr("checked");
+									$("#PuebloOriginario").find("input").remove();
+									$("#ALU_PuebloOriginario-error").remove();
+									$("#PuebloOriginario").slideUp("slow");
+									
+									
+									$("#ALU_PerteneceSindicato").removeAttr("checked");
+									$("#sin1").find("input").remove();
+									$("#sin2").find("input").remove();
+									$("#sin3").find("input").remove();
+									$("#ALU_FechaIngreso-error").remove();
+									$("#ALU_NombreOrganizacion-error").remove();
+									$("#ALU_RSU-error").remove();
+									$(".sindicato").slideUp("slow")
+																
+									$("#ALU_PermisoCapacitacionEnOrganizacion").removeAttr("checked");
+									
+									$("#ALU_DirigenteSindical").removeAttr("checked");
+									$(".dirigente").find("input").remove();
+									$("#ALU_TiempoDirigenteSindical-error").remove();
+									$(".dirigente").slideUp("slow");
+
+									$("#ALU_CursosFormacionSindicalAnteriormente").removeAttr("checked");
+									$("#cur1").find("input").remove();
+									$("#cur2").find("input").remove();
+									$("#ALU_InstitucionCursoFormacionSindical-error").remove();
+									$("#ALU_AnioCursoFormacionSindical-error").remove();
+									$(".curso").slideUp("slow");
+
+									$("#ALU_CargoDirectivoEnOrganizacion").removeAttr("checked");
+									$("#car1").find("input").remove();
+									$("#car2").find("input").remove();
+									$("#ALU_FechaInicioCargoDirectivo-error").remove();
+									$("#ALU_NombreCargoDirectivo-error").remove();
+									$(".cargo").slideUp("slow");
+
 									Toast.fire({
 									icon: 'success',
 									title: 'Alumno agregado exitosamente.'
@@ -409,7 +410,7 @@
 			e.stopImmediatePropagation();
 			e.stopPropagation();
 			alumnos_tabs(e);
-			alumnosTable.ajax.reload();
+			alumnosTable.ajax.reload(null, false);
 			$("#btn_frmaddalumnos").show();
 			if($("#frmAlumno").css("height")=="500px"){				
 				$("#frmAlumno").css("height","0");				
@@ -433,14 +434,14 @@
 			e.stopPropagation();			
 			
 			muestramodalalumno(e);
-			alumnosTable.ajax.reload();
+			alumnosTable.ajax.reload(null, false);
 		})
 		
 		$("#alumnosModal").on("click","#btn_saliralumnos",function(e){
 			e.preventDefault();
 			e.stopImmediatePropagation();
 			e.stopPropagation();
-			alumnosTable.ajax.reload();
+			alumnosTable.ajax.reload(null, false);
 			
 			$("#frmalumnotab1, #frmalumnotab2, #frmalumnotab3").find(":input").each(function(){
 				/*if(disabled[$(this).attr("id")]=="disabled"){				
@@ -598,7 +599,8 @@
 							}
 							$("#ALU_Discapacidad").attr(disabled,disabled);
 							
-							$("#ALU_FechaCreacionRegistro").val($(json.data)[0][12]);							
+							$("#ALU_FechaCreacionRegistro").val($(json.data)[0][12]);
+							$("#ALU_FechaCreacionRegistro").siblings("label").addClass("active");							
 							if($(json.data)[0][13]==1){
 								$("#ALU_AccesoInternet").attr("checked","checked");
 							}else{
@@ -860,7 +862,7 @@
 						$("#btn_frmaddalumnos").removeClass("btn-warning");
 						$("#btn_frmaddalumnos").html("<i class='fas fa-plus'></i> Agregar");
 						target="/agregar-alumno"
-						$("#ALU_FichaX").attr("required","required");
+						$("#ALU_FichaX").attr("required","required");						
 
 						var ALU_Rut = $("#ALU_Rut").val();
 
@@ -947,9 +949,16 @@
 							e.stopPropagation();
 
 							$(this).siblings("label").addClass("active");
-							dob = new Date($(this).val());
-							var today = new Date();
-							var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+							//dob = new Date($(this).val());
+							//var today = new Date();
+							//var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+							const today = new Date();
+							const fechaNac = new Date($(this).val());
+							let age = today.getFullYear() - fechaNac.getFullYear();
+							const m = today.getMonth() - fechaNac.getMonth();
+							if (m < 0 || (m === 0 && today.getDate() < fechaNac.getDate())) {
+								age--;
+							}
 
 							$('#ALU_Edad').val(age);
 							$('#ALU_Edad').siblings("label").addClass("active");

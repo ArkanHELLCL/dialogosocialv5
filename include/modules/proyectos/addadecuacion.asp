@@ -91,6 +91,10 @@
 	'Porcentaje de focalización
 	GRF_Porcentaje					= up.form("GRF_Porcentaje")
 
+	'Porcentaje de Metodologia
+	PRY_PorcentajeMinOnline			= up.form("PRY_PorcentajeMinOnlineADE")
+	PRY_PorcentajeMinPresencial		= up.form("PRY_PorcentajeMinPresencialADE")
+
 	if(EAD_Y<>"") then	
 		EAD_AdjuntoY	= CInt(EAD_Y)
 	else
@@ -226,6 +230,13 @@
 	if(TAD_Id=12) then	
 		MEN_Texto	= "Se ha solicitado una modificación al porcentaje de focalización : " & PRY_Id
 		TIP_Id		= 72
+		MEN_Archivo	= ""		
+	end if
+
+	'Mensaje de adecuacion de porcentaje de Metodología
+	if(TAD_Id=13) then	
+		MEN_Texto	= "Se ha solicitado una modificación al porcentaje cumplimiento de metodología : " & PRY_Id
+		TIP_Id		= 76
 		MEN_Archivo	= ""		
 	end if
 	
@@ -374,6 +385,26 @@
 		End If
 		if not rs.eof then
 			if(rs("GFS_GRFPorcentajeNew")<>"") then%>
+				{"state": 10, "message": "Error: Existe una solicitud pendiente para este proyecto","data": "Solicitud:<%=rs("GFS_Id")%>"}<%
+				rs.close
+				cnn.close
+				response.end()
+			end if
+		end if	
+	end if
+
+	if(TAD_Id=13) then	'Porcentaje de Metodologia
+		'Antes de agregar una nueva solicitud se verifica que la adecuacion no tenga una adecuacion pendiente.
+		set rs = cnn.Execute("exec spMetodologiaPorcentaje_SolicitudPendiente " & PRY_Id & "," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'")
+		on error resume next
+		if cnn.Errors.Count > 0 then 
+			ErrMsg = cnn.Errors(0).description	   
+			cnn.close%>
+			{"state": 503, "message": "Error Conexión : <%=ErrMsg%>","data": "Solicitudes Pendientes"}<%
+			response.End() 	
+		End If
+		if not rs.eof then
+			if(rs("MES_METPorcentajeOnlineNew")<>"" or rs("MES_METPorcentajePresencialNew")<>"") then%>
 				{"state": 10, "message": "Error: Existe una solicitud pendiente para este proyecto","data": "Solicitud:<%=rs("GFS_Id")%>"}<%
 				rs.close
 				cnn.close
@@ -826,6 +857,44 @@
 
 		'Grabar tabla relacion entre la solicitud y la modificacion
 		sqw="exec spAdecuacionGrupoFocal_Agregar " & ADE_Id & "," & GFS_Id & "," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'"
+		set rw = cnn.Execute(sqw)	
+		on error resume next
+		if cnn.Errors.Count > 0 then
+			ErrMsg = cnn.Errors(0).description%>
+			{"state": 503, "message": "Error Conexión : <%=ErrMsg%>","data": "<%=sqw%>"}<%
+			rw.close
+			cnn.close
+			response.end()
+		End If
+	end if
+
+	'Logica para porcentajes de Metodología
+	if(TAD_Id=13) then
+		'Grabar cambios solicitados en tabla
+		datos =  PRY_Id & "," & PRY_PorcentajeMinOnline & "," & PRY_PorcentajeMinPresencial & "," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'"						
+
+		sqz = "exec spMetodologiaPorcentaje_SolicitarModificar " & datos
+		set rz = cnn.Execute(sqz)	
+		on error resume next
+		if cnn.Errors.Count > 0 then
+			ErrMsg = cnn.Errors(0).description%>
+			{"state": 503, "message": "Error Conexión : <%=ErrMsg%>","data": "<%=sqz%>"}<%
+			rz.close
+			cnn.close
+			response.end()
+		End If
+		if not rz.eof then
+			MES_Id = trim(rz("MES_Id"))
+		end if	
+
+		'Verificando que se hayan creado correctamente los registros en las tablas anteiores
+		if(ADE_Id="" or MES_Id="") then%>
+			{"state": 11, "message": "Error: Creación incompleta","data": "ADE_Id : <%=ADE_Id%> - MES_Id : <%=MES_Id%>"}<%		
+			response.end()
+		end if
+
+		'Grabar tabla relacion entre la solicitud y la modificacion
+		sqw="exec [spAdecuacionMetodologiaPor_Agregar] " & ADE_Id & "," & MES_Id & "," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'"
 		set rw = cnn.Execute(sqw)	
 		on error resume next
 		if cnn.Errors.Count > 0 then

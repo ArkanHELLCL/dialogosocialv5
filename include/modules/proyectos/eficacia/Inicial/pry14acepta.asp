@@ -203,7 +203,7 @@
 						}else{										
 							swalWithBootstrapButtons.fire({
 							  title: 'Confirmación de Aceptación',
-							  text: '¿Estas seguro de querer aceptar el informe "INICIAL" para dar comienzo al ingreso del informe Avances?',
+							  text: '¿Estas seguro de querer aceptar el informe "INICIAL" para dar comienzo al ingreso del informe Desarrollo?',
 							  icon: 'success',
 							  showCancelButton: true,
 							  confirmButtonColor: '#3085d6',

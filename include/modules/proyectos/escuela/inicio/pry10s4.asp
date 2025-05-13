@@ -149,12 +149,14 @@
 			TotalPlantilla=rs("TotalPlantilla")
 			TotalPlanificado=rs("TotalPlanificado")
 		end if		
-		
-		if(Horas_Pedagogicas<PRY_HorasPedagogicasMin) then
+		dif=0
+        background_hra=""
+        background_tem=""
+		if(CDbl(Replace(Horas_Pedagogicas,",",".")) < CInt(PRY_HorasPedagogicasMin)) then
 			dif=1
-			background_hra="rgba(92, 184, 92, .3);"
+			background_hra="rgba(217, 83, 79, .3);"     'Rojo
 		else
-			background_hra="rgba(217, 83, 79, .3);"
+            background_hra="rgba(92, 184, 92, .3);"    'Verde	
 		end if
 				
 		if(TotalTematicas<TotalPlantilla) then
@@ -191,9 +193,9 @@
 					<th>Totales</th>
 					<td><%=TotalModulos%></td>
 					<td><%=TotalPerspectivas%></td>
-					<td style="background:<%=background_tem%>"><%=TotalTematicas%></td>
-					<td><%=ModuloHoras%></td>
-					<td style="background:<%=background_hra%>"><%=Horas_Pedagogicas%></td>
+					<td style="background:<%=background_tem%>"><%=round(TotalTematicas)%></td>
+					<td><%=round(ModuloHoras)%></td>
+					<td style="background:<%=background_hra%>"><%=round(Horas_Pedagogicas)%></td>
 					<td><%=FechaInicio%></td>
                     <td><%=FechaFin%></td>
 				</tr>
@@ -208,9 +210,9 @@
 				<tr>
 					<th scope="row" style="text-align: center;vertical-align: middle;">Metodología</th>
 					<th scope="row" style="text-align: center;vertical-align: middle;">Total Horas</th>
-					<th scope="row" style="text-align: center;vertical-align: middle;">Total Horas Pedadgógicas</th>
-					<th scope="row" style="text-align: center;vertical-align: middle;">% Horas Pedadgógicas</th>
-					<th scope="row" style="text-align: center;vertical-align: middle;">% Mínimo Exigido</th>
+					<th scope="row" style="text-align: center;vertical-align: middle;">Total Horas Pedagógicas</th>
+					<th scope="row" style="text-align: center;vertical-align: middle;">% Horas Pedagógicas</th>
+					<th scope="row" style="text-align: center;vertical-align: middle;">% Mínimo/Máximo Exigido</th>
 				</tr>
 			</thead>
 			<tbody><%
@@ -222,6 +224,7 @@
 				imprimir = false
 				porerror=0
 				PorMinArray=array(PRY_PorcentajeMinOnline,PRY_PorcentajeMinPresencial)
+				TotHorArray=array(0,0)
 				vacio=array(true,true)
 				do while not rw.eof
 					PorMin = 0
@@ -260,33 +263,46 @@
 							end if							
 						end if
 					end if
-					if(imprimir) then						
-						if(round((CDbl(rw("TotalHorasPedagogicasMET"))/PRY_HorasPedagogicasMin)*100)<round(CDbl(PorMin),1)) then
+					if(imprimir) then
+						'Nuevo calculo de porcentaje
+						if(round((CDbl(rw("TotalHorasPedagogicasMET"))/PRY_HorasPedagogicasMin)*100)<round(CDbl(PorMin),0)) and (rw("MET_Id")=2) then
 							porerror=1
-							background_por="rgba(217, 83, 79, .3);"
+							background_por="rgba(217, 83, 79, .3);"         'Rojo
 						else
-							background_por="rgba(92, 184, 92, .3);"
+                            if(round((CDbl(rw("TotalHorasPedagogicasMET"))/PRY_HorasPedagogicasMin)*100)>round(CDbl(PorMin),0)) and (rw("MET_Id")=1) then
+                                porerror=1
+                                background_por="rgba(217, 83, 79, .3);"         'Rojo
+                            else
+							    background_por="rgba(92, 184, 92, .3);"         'Verde
+                            end if
 						end if%>
 						<tr>
 							<td><%=rw("MET_Descripcion")%></td>
-							<td><%=round(CDbl(rw("TotalHorasMET")),1)%></td>
-							<td><%=round(rw("TotalHorasPedagogicasMET"),1)%></td>
+							<td><%=round(CDbl(rw("TotalHorasMET")),0)%></td>
+							<td><%=round(rw("TotalHorasPedagogicasMET"),0)%></td>
 							<td style="background:<%=background_por%>"><%
 								if(PRY_HorasPedagogicasMin>0) then%>
 									<%=round((CDbl(rw("TotalHorasPedagogicasMET"))/PRY_HorasPedagogicasMin)*100)%>%</td><%
 								else%>
 									0%</td><%
-								end if%>
-							<td><%=PorMin%>%</td>
+								end if
+                                if(rw("MET_Id")=1) then
+                                    msg="Máximo"
+                                end if
+                                if(rw("MET_Id")=2) then
+                                    msg="Mínimo"
+                                end if
+                                 %>
+							<td><%=PorMin%>% <%=msg%></td>
 						</tr><%
 					end if
-					TotalHoras = TotalHoras + round(CDbl(rw("TotalHorasMET")),1)
-					TotalHorasPedagogica = TotalHorasPedagogica + round(CDbl(rw("TotalHorasPedagogicasMET")),1)
-					TotalPorMin = TotalPorMin + round(CDbl(PorMin ),1)
+					TotalHoras = TotalHoras + round(CDbl(rw("TotalHorasMET")),0)
+					TotalHorasPedagogica = TotalHorasPedagogica + round(CDbl(rw("TotalHorasPedagogicasMET")),0)
+					TotalPorMin = TotalPorMin + round(CDbl(PorMin ),0)
 					if(PRY_HorasPedagogicasMin>0) then
-						TotalPorHoras = round(TotalPorHoras + round((CDbl(rw("TotalHorasPedagogicasMET"))/PRY_HorasPedagogicasMin)*100),1)
+						TotalPorHoras = round(TotalPorHoras + round((CDbl(rw("TotalHorasPedagogicasMET"))/PRY_HorasPedagogicasMin)*100),0)
 					else
-						TotalPorHoras = round(TotalPorHoras,1)
+						TotalPorHoras = round(TotalPorHoras,0)
 					end if
 					if(salir) then
 						exit do
@@ -313,17 +329,25 @@
 								end if%>
 							<td><%=PorMin%>%</td>
 						</tr><%												
-						TotalHoras = TotalHoras + round(CDbl(rw("TotalHorasMET")),1)
-						TotalHorasPedagogica = TotalHorasPedagogica + round(CDbl(rw("TotalHorasPedagogicasMET")),1)						
-						TotalPorMin = TotalPorMin + round(CDbl(PorMin ),1)
+						TotalHoras = TotalHoras + round(CDbl(rw("TotalHorasMET")),0)
+						TotalHorasPedagogica = TotalHorasPedagogica + round(CDbl(rw("TotalHorasPedagogicasMET")),0)						
+						TotalPorMin = TotalPorMin + round(CDbl(PorMin ),0)
+						TotHorArray(sr("MET_Id")-1)=round(CDbl(rw("TotalHorasPedagogicasMET")),0)
 						if(PRY_HorasPedagogicasMin>0) then
-							TotalPorHoras = round(TotalPorHoras + round((CDbl(rw("TotalHorasPedagogicasMET"))/PRY_HorasPedagogicasMin)*100),1)
+							TotalPorHoras = round(TotalPorHoras + round((CDbl(rw("TotalHorasPedagogicasMET"))/PRY_HorasPedagogicasMin)*100),0)
 						else
-							TotalPorHoras = round(TotalPorHoras,1)
+							TotalPorHoras = round(TotalPorHoras,0)
 						end if
 					end if
 				next				
-				if(MET_Id=3) then%>
+				if(MET_Id=3) then
+                    if(TotalPorHoras<100) then
+                        porerror=1
+                    
+                        background_por="rgba(217, 83, 79, .3);"
+                    else
+                        background_por="rgba(92, 184, 92, .3);"
+                    end if %>
 					<tr>
 						<td>Totales</td>
 						<td><%=TotalHoras%></td>
@@ -334,212 +358,7 @@
 				end if%>
 			</tbody>
 		</table>
-	</div>
-	<h5>Detalle de la Planificación</h5>
-	<h6>La Planificación incompleta se representa con fondo rojo</h6>
-	<!--container-nav-->
-	<div class="container-nav px-4" id="planificacion-tab" style="margin-top:30px;margin-bottom:30px;">
-		<div class="header">				
-			<div class="content-nav"><%
-				sqly="exec spPlanificacionModuloResumen_Listar " & PRY_Id & ",'" & PRY_Identificador & "'"
-				set rs = cnn.Execute(sqly)
-				on error resume next
-				if cnn.Errors.Count > 0 then 		
-				   ErrMsg = cnn.Errors(0).description	   
-				   cnn.close
-				   response.Write("503/@/Error Conexión:" & sqly)
-				   response.End() 			   
-				end if
-				cont=1
-				do while not rs.eof
-					TematicasPendientes=rs("TematicasPendientes")
-					if(cont=1) then
-						active="active"
-					else
-						active=""
-					end if
-					cont=cont+1%>
-					<a id="planificacion1-tab<%=rs("MOD_Id")%>" href="#planificaciontab<%=rs("MOD_Id")%>" class="<%=active%> tab"><i class="fas fa-book-reader"></i> <%=rs("MOD_Nombre")%></a><%					
-					rs.movenext
-				loop%>								
-				<span class="yellow-bar"></span>				
-			</div>	
-		</div>
-		<!--tab-content-->
-		<div class="tab-content tab-validate"><%
-			'set rs = cnn.Execute("exec spPlanificacionPlantilla_Listar " & PRY_Id & ",'" & PRY_Identificador & "'")		
-			Set rs = Server.CreateObject("ADODB.Recordset")
-			on error resume next
-			if cnn.Errors.Count > 0 then 		
-			   ErrMsg = cnn.Errors(0).description	   
-			   cnn.close
-			   response.Write("503/@/Error Conexión:" & ErrMsg)
-			   response.End() 			   
-			end if
-			MOD_Id=0
-			PER_Id=0
-			TEM_Id=0
-			corr=0
-			sw=0
-			Modulo=1
-			TemPen = 0
-
-			rs.CursorType = 1
-			rs.CursorLocation = 3
-			rs.Open "exec spPlanificacionPlantilla_Listar " & PRY_Id & ",'" & PRY_Identificador & "'", cnn
-			do while not rs.eof                                	
-				if MOD_Id<>rs("MOD_Id") then 'Cambio de Modulo - Nueva tabla
-					if MOD_id<>0 then	'No es el primero
-						Modulo=Modulo+1%>
-								</tr>
-							</tbody>
-						</table>
-						</div>
-						<!--tab--><%
-					end if%>
-					<div id="planificaciontab<%=rs("MOD_Id")%>" class="tabs-pane">
-					<table id="tbl-plan-<%=rs("MOD_Id")%>" class="table-striped table-bordered table-sm" data-id="plan-<%=rs("MOD_Id")%>" data-page="false" data-selected="false" data-keys="0" width="100%" style="margin-top:20px;"> 
-						<thead> 							
-							<tr>
-								<td data-sorter="false" data-filter="false" style="text-align: center;vertical-align: middle;">Perspectiva</td>
-								<td data-sorter="false" data-filter="false" style="text-align: center;vertical-align: middle;">Módulo</td>
-								<td data-sorter="false" data-filter="false" style="text-align: center;vertical-align: middle;">Metodología</td>
-								<td data-sorter="false" data-filter="false" style="text-align: center;vertical-align: middle;">Minutos Panificados</td>
-								<td data-sorter="false" data-filter="false" style="text-align: center;vertical-align: middle;">Max H.Ped. (M.Reales)</td>
-								<td data-sorter="false" data-filter="false" style="text-align: center;vertical-align: middle;">Diferencia</td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr><%						
-				end if								
-				if PER_Id<>rs("PER_Id") then	'Cambio de perspectiva
-					if PER_Id<>0 then		'No es el primero
-							sw=1%>
-							</tr>
-							<tr><%
-					end if
-					if rs("TematicaProyecto")=1 then
-						'set rs2 = cnn.Execute("exec spTematicaProyecto_Listar " & PRY_Id & ",'" & PRY_Identificador & "'," & rs("PER_Id"))	
-						set rs2 = cnn.Execute("exec [spTematicaProyectoPlanificacion_Listar] " & PRY_Id & ",'" & PRY_Identificador & "'," & rs("PER_Id"))							
-						on error resume next
-						if cnn.Errors.Count > 0 then 					
-							ErrMsg = cnn.Errors(0).description	   
-							cnn.close
-							response.Write("503/@/Error Conexión:" & ErrMsg)
-							response.End() 			   
-						end if
-					else
-						'set rs2 = cnn.Execute("exec spTematica_Listar " & rs("PER_Id") & ",1")	'Solo las tematicas activas
-						set rs2 = cnn.Execute("exec [spTematicaPlanificacion_Listar] " & PRY_Id & "," & rs("PER_Id") & ",1")	'Solo las tematicas activas
-						on error resume next
-						if cnn.Errors.Count > 0 then 					
-							ErrMsg = cnn.Errors(0).description	   
-							cnn.close
-							response.Write("503/@/Error Conexión:" & ErrMsg)
-							response.End() 			   
-						end if	
-					end if
-
-					TEM_Tot=0
-					do while not rs2.eof
-						TEM_Tot=TEM_Tot+1
-						rs2.movenext
-					loop
-					if(TEM_Tot=0) then
-						TEM_Tot=1
-					end if%>                             			
-					<th rowspan="<%=TEM_Tot%>" scope="row" style="text-align: center;vertical-align: middle;" id="<%=rs("PER_Id")%>"><%=rs("PER_Nombre")%></th><%
-				end if				
-				'Busqueda de tematicas planificadas
-				'set rsx = cnn.Execute("exec spTotalHorasTematica_Calcular " & rs("TEM_Id") & "," & PRY_Id & ",'" & PRY_Identificador & "'," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'")
-				set rsx = cnn.Execute("exec spTotalHorasTematicaMetodologia_Calcular " & rs("TEM_Id") & "," & PRY_Id & ",'" & PRY_Identificador & "'," & session("ds5_usrid") & ",'" & session("ds5_usrtoken") & "'")
-				on error resume next
-				if cnn.Errors.Count > 0 then 					
-					ErrMsg = cnn.Errors(0).description	   
-					cnn.close
-					response.Write("503/@/Error Conexión:" & ErrMsg)
-					response.End() 			   
-				end if							
-				background="rgba(92, 184, 92, .3);"
-				Diferencia=round((rs("TEM_Horas")*45),2) * -1
-				TotalMinutosPlanificados=0
-				TotalMinutosTematica=0				
-				if rsx.eof then
-					sesion=1
-					TemPen = TemPen + 1
-					background="rgba(217, 83, 79, .3);"
-					if (TEM_Id<>rs("TEM_Id"))  then
-						if (TEM_Id<>0 and PER_Id=rs("PER_Id")) then%>
-							</tr>
-							<tr><%
-						end if%>
-						<th rowspan="<%=sesion%>" scope="row" style="text-align: center;vertical-align: middle;font-size: 12px;font-weight: initial;background:<%=background%>;" id="<%=TEM_Id%>"><%=rs("TEM_Nombre")%></th><%
-					end if%>
-					<td style="background-color:<%=background%>;color:<%=color%>"><%=MET_Descripcion%></td>
-					<td style="background-color:<%=background%>;color:<%=color%>"><%=TotalMinutosPlanificados%></td>
-					<td style="background-color:<%=background%>;color:<%=color%>"><%=TotalMinutosTematica%></td>
-					<td style="background-color:<%=background%>;color:<%=color%>"><%=Diferencia%></td><%						
-				else
-					sesion=1
-					Diferencia=0
-					TotalMinutosPlanificados=0
-					final=false
-					MET_Id=0						
-					do while not rsx.eof							
-						TotalMinutosPlanificados=TotalMinutosPlanificados+rsx("TotalMinutosPlanificados")
-						TotalMinutosTematica=rsx("TotalMinutosTematica")			
-						imprime=false
-						sw=0
-						if (TEM_Id<>rs("TEM_Id"))  then
-							sw=1	
-							if(MET_Id<>rsx("MET_Id") and MET_Id<>0) then
-								sw=3%>
-								</tr>
-								<tr><%
-							end if		
-							if (TEM_Id<>0 and PER_Id=rs("PER_Id") and sw<>3)  then
-								sw=2%>
-								</tr>
-								<tr><%
-							end if
-							imprime=true
-						end if						
-						Diferencia = TotalMinutosPlanificados-TotalMinutosTematica
-						if Diferencia<0 then											
-							background="rgba(217, 83, 79, .3);"
-						else
-							background="rgba(92, 184, 92, .3);"
-						end if
-						if(imprime) then%>
-							<th rowspan="<%=sesion%>" scope="row" style="text-align: center;vertical-align: middle;font-size: 12px;font-weight: initial;background:<%=background%>;" id="<%=TEM_Id%>"><%=rs("TEM_Nombre")%></th><%
-						end if%>
-						<td style="background-color:<%=background%>;color:<%=color%>"><%=rsx("MET_Descripcion")%></td>
-						<td style="background-color:<%=background%>;color:<%=color%>"><%=TotalMinutosPlanificados%></td>
-						<td style="background-color:<%=background%>;color:<%=color%>"><%=TotalMinutosTematica%></td>
-						<td style="background-color:<%=background%>;color:<%=color%>"><%=Diferencia%></td><%
-						MET_Id=rsx("MET_Id")
-						rsx.movenext												
-					loop
-					if(Diferencia<0) then
-						TemPen = TemPen + 1
-					end if
-				end if				
-				'Busqueda de tematicas planificadas								
-				MOD_Id=rs("MOD_Id")
-				PER_Id=rs("PER_Id")
-				TEM_Id=rs("TEM_Id")
-				corr=corr+1									
-				rs.movenext
-			loop%>
-			</tr>
-			</tbody>
-			</table>
-			</div>
-			<!--tab-->
-		</div>
-		<!--tab-content-->
-	</div>
-	<!--container-nav-->		
+	</div>		
 	<div class="row px-4">
 		<div class="footer"><%
 			if mode="mod" or mode="add" then%>		

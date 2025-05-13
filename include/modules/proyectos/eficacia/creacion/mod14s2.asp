@@ -86,7 +86,7 @@
 	end if
 
 	if(xPRY_InformeConsensosFecha<>PRY_InformeConsensosFecha) then
-		informe="Avances"
+		informe="Desarrollo"
 		oldValue=xPRY_InformeConsensosFecha
 		newValue=PRY_InformeConsensosFecha
 

@@ -726,7 +726,7 @@
 				$(document).on('focusin.bs.modal');
 			},
 		});
-		$("#ALU_Rut").on("change",function(){		
+		$("#ALU_Rut").on("change",function(){
 			beneficiarios_tabs();
 		})
 		$("#ALU_FechaNacimiento").on("change",function(e){
@@ -785,11 +785,12 @@
 					{"targets": [0],"width":"10px"},
 					{"targets": [2],"width":"100px"}
 				],
-				autoWidth: false
+				autoWidth: false,
+				stateSave: true
 			});							
 		}		
 
-		$("#PRY_IdBen").on("change",function(){			
+		$("#PRY_IdBen").on("change",function(){
 			$.ajax({
 				type: "POST",
 				url: "/consultar-proyecto",
@@ -963,7 +964,7 @@
 				data: {ALU_Rut:$("#ALU_Rut").val().replace("-","")},
 				dataType: "json",
 				success: function(json) {					
-					benproyectosTable.ajax.reload();
+					benproyectosTable.ajax.reload(null, false);
 					if((json.data!=undefined) && ($(json.data).length>0)){
 						$('[data-toggle="tooltip"]').tooltip({
 							trigger : 'hover'
@@ -1092,8 +1093,7 @@
 								onClose:function(){
 									$(document).on('focusin.bs.modal');
 								},
-							});
-							console,log($(json.data)[0][29])
+							});							
 							$("#ALU_FechaIngreso").val($(json.data)[0][29]);
 							$("#ALU_FechaIngreso").siblings("label").addClass("active");
 							$("#ALU_NombreOrganizacion").val($(json.data)[0][30]);
@@ -1189,7 +1189,7 @@
 							$("#ALU_NombreCargoDirectivo-error").remove();
 							$(".cargo").slideUp("slow");											
 						}
-					}else{										
+					}else{
 						$("#btn_frmaddbeneficiarios").addClass("btn-success");
 						$("#btn_frmaddbeneficiarios").removeClass("btn-warning");
 						$("#btn_frmaddbeneficiarios").html("<i class='fas fa-plus'></i> Agregar");
@@ -1295,58 +1295,56 @@
 					processData: false,
 					success: function (data) {
 						param=data.split(bb);
-						if(param[0]==200){
-							$("#frmbeneficiariostab1")[0].reset();
-							$("#frmbeneficiariostab2")[0].reset();
-							$("#frmbeneficiariostab3")[0].reset();
-							
-							$("#ALU_Rut").val("");
-						
-							$("#ALU_AccesoInternet").removeAttr("checked");
-							$("#ALU_DispositivoElectronico").removeAttr("checked");							
-											
-							$("#ALU_Discapacidad").removeAttr("checked");
-							$(".discapacidad").find("select").remove();
-							$("#TDI_id-error").remove();
-							$(".discapacidad").slideUp("slow");
-												
-							$("#ALU_ReconocePuebloOriginario").removeAttr("checked");
-							$("#PuebloOriginario").find("input").remove();
-							$("#ALU_PuebloOriginario-error").remove();
-							$("#PuebloOriginario").slideUp("slow");
-							
-							
-							$("#ALU_PerteneceSindicato").removeAttr("checked");
-							$("#sin1").find("input").remove();
-							$("#sin2").find("input").remove();
-							$("#sin3").find("input").remove();
-							$("#ALU_FechaIngreso-error").remove();
-							$("#ALU_NombreOrganizacion-error").remove();
-							$("#ALU_RSU-error").remove();
-							$(".sindicato").slideUp("slow")
-														
-							$("#ALU_PermisoCapacitacionEnOrganizacion").removeAttr("checked");
-							
-							$("#ALU_DirigenteSindical").removeAttr("checked");
-							$(".dirigente").find("input").remove();
-							$("#ALU_TiempoDirigenteSindical-error").remove();
-							$(".dirigente").slideUp("slow");
-
-							$("#ALU_CursosFormacionSindicalAnteriormente").removeAttr("checked");
-							$("#cur1").find("input").remove();
-							$("#cur2").find("input").remove();
-							$("#ALU_InstitucionCursoFormacionSindical-error").remove();
-							$("#ALU_AnioCursoFormacionSindical-error").remove();
-							$(".curso").slideUp("slow");
-
-							$("#ALU_CargoDirectivoEnOrganizacion").removeAttr("checked");
-							$("#car1").find("input").remove();
-							$("#car2").find("input").remove();
-							$("#ALU_FechaInicioCargoDirectivo-error").remove();
-							$("#ALU_NombreCargoDirectivo-error").remove();
-							$(".cargo").slideUp("slow");
-												
+						if(param[0]==200){																			
 							if(param[1]==""){
+								$("#frmbeneficiariostab1")[0].reset();
+								$("#frmbeneficiariostab2")[0].reset();
+								$("#frmbeneficiariostab3")[0].reset();
+
+								$("#ALU_Rut").val("");						
+								$("#ALU_AccesoInternet").removeAttr("checked");
+								$("#ALU_DispositivoElectronico").removeAttr("checked");							
+												
+								$("#ALU_Discapacidad").removeAttr("checked");
+								$(".discapacidad").find("select").remove();
+								$("#TDI_id-error").remove();
+								$(".discapacidad").slideUp("slow");
+													
+								$("#ALU_ReconocePuebloOriginario").removeAttr("checked");
+								$("#PuebloOriginario").find("input").remove();
+								$("#ALU_PuebloOriginario-error").remove();
+								$("#PuebloOriginario").slideUp("slow");
+								
+								
+								$("#ALU_PerteneceSindicato").removeAttr("checked");
+								$("#sin1").find("input").remove();
+								$("#sin2").find("input").remove();
+								$("#sin3").find("input").remove();
+								$("#ALU_FechaIngreso-error").remove();
+								$("#ALU_NombreOrganizacion-error").remove();
+								$("#ALU_RSU-error").remove();
+								$(".sindicato").slideUp("slow")
+															
+								$("#ALU_PermisoCapacitacionEnOrganizacion").removeAttr("checked");
+								
+								$("#ALU_DirigenteSindical").removeAttr("checked");
+								$(".dirigente").find("input").remove();
+								$("#ALU_TiempoDirigenteSindical-error").remove();
+								$(".dirigente").slideUp("slow");
+
+								$("#ALU_CursosFormacionSindicalAnteriormente").removeAttr("checked");
+								$("#cur1").find("input").remove();
+								$("#cur2").find("input").remove();
+								$("#ALU_InstitucionCursoFormacionSindical-error").remove();
+								$("#ALU_AnioCursoFormacionSindical-error").remove();
+								$(".curso").slideUp("slow");
+
+								$("#ALU_CargoDirectivoEnOrganizacion").removeAttr("checked");
+								$("#car1").find("input").remove();
+								$("#car2").find("input").remove();
+								$("#ALU_FechaInicioCargoDirectivo-error").remove();
+								$("#ALU_NombreCargoDirectivo-error").remove();
+								$(".cargo").slideUp("slow");
 								Toast.fire({
 								  icon: 'success',
 								  title: 'Beneficiario agregado exitosamente.'
@@ -1412,7 +1410,7 @@
 				data: {ALU_Rut:$("#ALU_Rut").val().replace(/\./g, '').replace("-","")},
 				dataType: "json",
 				success: function(json) {					
-					benproyectosTable.ajax.reload();					
+					benproyectosTable.ajax.reload(null, false);					
 					if((json.data.length==0)){
 						//No existe
 						swalWithBootstrapButtons.fire({
@@ -1430,7 +1428,7 @@
 								dataType: "json",
 								success: function(data) {
 									if(data.state=='200'){
-										benproyectosTable.ajax.reload();
+										benproyectosTable.ajax.reload(null, false);
 										Toast.fire({
 											icon: 'success',
 											title: 'Proyecto agregado exitosamente.'
@@ -1457,7 +1455,8 @@
 				}
 			})			
 		})
-		$("#beneficiariostab4").on("click",".delpryben",function(){			
+
+		$("#beneficiariostab4").on("click",".delpryben",function(){
 			swalWithBootstrapButtons.fire({
 				title: '¿Estas seguro?',
 				text: "Al eliminar esta asociación se eliminarán todos los estados que tenga creados el beneficiario.",
@@ -1476,7 +1475,7 @@
 						dataType: "json",
 						success: function(data) {
 							if(data.state=='200'){
-								benproyectosTable.ajax.reload();
+								benproyectosTable.ajax.reload(null, false);
 								Toast.fire({
 									icon: 'success',
 									title: 'Proyecto eliminado exitosamente.'

@@ -632,6 +632,8 @@
 				$("#direccion").show("slow");
 
 				$("#porminonline").show("slow");
+				$("#PRY_PorcentajeMinOnline").attr("readonly","readonly");
+				$("#PRY_PorcentajeMinOnline").val(100);
 				$("#porminpres").hide("slow");
 				
 			}
@@ -645,6 +647,8 @@
 				$("#direccion").show("slow");
 
 				$("#porminonline").hide("slow");
+				$("#PRY_PorcentajeMinPresencial").attr("readonly","readonly");
+				$("#PRY_PorcentajeMinPresencial").val(100);
 				$("#porminpres").show("slow");
 			}
 			if(MET_Id==3) {
@@ -659,6 +663,8 @@
 
 				$("#porminonline").show("slow");
 				$("#porminpres").show("slow");
+				$("#PRY_PorcentajeMinOnline").removeAttr("readonly");
+				$("#PRY_PorcentajeMinPresencial").removeAttr("readonly");
 			}						
 		}
 
@@ -672,8 +678,7 @@
 			e.preventDefault();
 			e.stopPropagation();			
 			var PRY_PorcentajeMinPresencial = parseInt($("#PRY_PorcentajeMinPresencial").val());
-			$("#PRY_PorcentajeMinOnline").val(100-PRY_PorcentajeMinPresencial);
-			console.log(100-PRY_PorcentajeMinPresencial)
+			$("#PRY_PorcentajeMinOnline").val(100-PRY_PorcentajeMinPresencial);			
 		})
 
 		$("#MET_Id").on("change", function(e){
