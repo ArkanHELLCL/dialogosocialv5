@@ -5,7 +5,7 @@
 	//Produccion
 	//$conn = sqlsrv_connect( 'KENOBI-SRV', array( "Database"=>"DialogoSocial","CharacterSet" => "UTF-8","Encrypt" => 0));
 
-	$ver = 'Sistema Diálogo Social v5.3.2023';
+	$ver = 'Sistema Diálogo Social v5.5.2025';
 
 	if (isset($_SERVER['HTTP_ORIGIN'])) {
         header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
