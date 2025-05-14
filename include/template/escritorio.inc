@@ -110,10 +110,10 @@ HostName = "https://" & Request.ServerVariables("SERVER_NAME")
 <!-- Text Editor -->
 
 <!--Custom Site Style-->
-<link href="<%=HostName%>/css/escritorio.css?v38.0" rel="stylesheet">
+<link href="<%=HostName%>/css/escritorio.css?v38.1" rel="stylesheet">
 <link href="<%=HostName%>/css/breadcrumb.css?v3.1" rel="stylesheet">
 <link href="<%=HostName%>/css/descargas.css?v2.2" rel="stylesheet">
 <link href="<%=HostName%>/css/perfil.css?v3.1" rel="stylesheet">
 <link href="<%=HostName%>/css/transitions.css?v1.0" rel="stylesheet">
-<script type="text/javascript" src="<%=HostName%>/js/escritorio.js?v35.7"></script>
+<script type="text/javascript" src="<%=HostName%>/js/escritorio.js?v35.8"></script>
 <!--Custom Site Style-->
