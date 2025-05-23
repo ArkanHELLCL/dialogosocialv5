@@ -850,7 +850,7 @@
 										swalWithBootstrapButtons.fire({
 										icon: 'error',
 										title: 'Oops...',
-										text: 'El alumno ya cursó este proyecto en el 2023',								  
+										text: 'El alumno ya cursó este proyecto en años anteriores',								  
 										}).then((result) => {									
 										});		
 									}

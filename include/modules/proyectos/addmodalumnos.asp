@@ -221,7 +221,7 @@
 	if not rs.eof then
 		result=rs("Result")
 		if(result=4) then
-			response.write("4\\Alumno ya ejecutó éste programa en el 2023")	
+			response.write("4\\Alumno ya ejecutó éste programa en años anteriores")	
 		else
 			if(result=3) then
 				response.write("3\\Usuario no autorizado")	

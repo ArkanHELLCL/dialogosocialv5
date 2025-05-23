@@ -125,7 +125,7 @@
 							<br/>
 							<button class="btn btn-primary animated waves-effect" type="submit"><i class="fas fa-paper-plane"></i> Solicitar</button>				
 							<div class="card-footer text-muted text-center mt-4">			  
-								<p class="text-muted" id="copyright3">Sistema Diálogo Social v5.3 2023<br/>Subsecretaría del Trabajo</p>
+								<p class="text-muted" id="copyright3">Sistema Diálogo Social v5.5 2025<br/>Subsecretaría del Trabajo</p>
 								<div class="bicolor bottom ">
 									<span class="azul"></span>
 									<span class="rojo"></span>
@@ -175,7 +175,7 @@
 							<br/>
 							<button class="btn btn-primary animated waves-effect" type="submit"><i class="fas fa-exchange-alt"></i> Cambiar</button>				
 							<div class="card-footer text-muted text-center mt-4">			  
-								<p class="text-muted" id="copyright3">Sistema Diálogo Social v5.0 2020<br/>Subsecretaría del Trabajo</p>
+								<p class="text-muted" id="copyright3">Sistema Diálogo Social v5.5 2025<br/>Subsecretaría del Trabajo</p>
 								<div class="bicolor bottom ">
 									<span class="azul"></span>
 									<span class="rojo"></span>
