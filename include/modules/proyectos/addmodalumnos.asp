@@ -227,7 +227,7 @@
 				response.write("3\\Usuario no autorizado")	
 			else
 				if(result=1) then
-					response.write("3\\Alumno ya se encuentra matriculado en otro proyecto")	
+					response.write("1\\Alumno ya se encuentra matriculado en otro proyecto")	
 				else
 					response.write("200\\")
 				end if
