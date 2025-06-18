@@ -220,16 +220,20 @@
 	
 	if not rs.eof then
 		result=rs("Result")
-		if(result=4) then
-			response.write("4\\Alumno ya ejecutó éste programa en años anteriores")	
+		if(result=5) then
+			response.write("5\\Error al tratar de grabar los datos del alumno. Favor intente nuevamente : " & ErrMsg)
 		else
-			if(result=3) then
-				response.write("3\\Usuario no autorizado")	
+			if(result=4) then
+				response.write("4\\Alumno ya ejecutó éste programa en años anteriores")	
 			else
-				if(result=1) then
-					response.write("1\\Alumno ya se encuentra matriculado en otro proyecto")	
+				if(result=3) then
+					response.write("3\\Usuario no autorizado")	
 				else
-					response.write("200\\")
+					if(result=1) then
+						response.write("1\\Alumno ya se encuentra matriculado en otro proyecto")	
+					else
+						response.write("200\\")
+					end if
 				end if
 			end if
 		end if
