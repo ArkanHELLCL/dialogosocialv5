@@ -43,7 +43,7 @@
 	on error resume next	
 	cnn.open session("DSN_DialogoSocialv5")
 	if cnn.Errors.Count > 0 then 
-	   ErrMsg = cnn.Errors(0).description	   
+	   ErrMsg = cnn.Errors(0).description
 	   cnn.close%>
 	   {"state": 503, "message": "Error Conexión : <%=ErrMsg%>","data" : "<%=datos%>"}<%
 	   response.End() 			   
@@ -53,7 +53,8 @@
 	
 	set rs = cnn.Execute(sql)
 	on error resume next
-	if cnn.Errors.Count > 0 then%>
+	if cnn.Errors.Count > 0 then
+		ErrMsg = cnn.Errors(0).description%>
 	   {"state": 503, "message": "Error Conexión : <%=ErrMsg%>","data": "<%=sql%>"}<%
 		rs.close
 		cnn.close
